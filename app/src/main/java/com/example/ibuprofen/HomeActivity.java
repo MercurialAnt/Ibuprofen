@@ -14,6 +14,8 @@ import com.parse.ParseUser;
 
 public class HomeActivity extends AppCompatActivity {
 
+    final String TAG = "SignUp";
+
     // Instance variables of the views
     private EditText username_et;
     private EditText password_et;
@@ -26,9 +28,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
 
-    if (ParseUser.getCurrentUser() != null) {
-        to_landing_page();
-    }
+        if (ParseUser.getCurrentUser() != null) {
+            to_landing_page();
+        }
 
         username_et = findViewById(R.id.username_et);
         password_et = findViewById(R.id.password_et);
@@ -48,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
