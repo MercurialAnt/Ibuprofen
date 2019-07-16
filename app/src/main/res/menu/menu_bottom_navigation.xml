@@ -3,18 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_home"
-        android:icon="@drawable/instagram_home_outline_24"
+        android:id="@+id/action_feed"
+        android:icon="@drawable/feed"
         android:title="Home"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:labelVisibilityMode="unlabeled"/>
     <item
-        android:id="@+id/action_compose"
-        android:icon="@drawable/instagram_new_post_outline_24"
+        android:id="@+id/action_event"
+        android:icon="@drawable/event"
         android:title="Compose"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:labelVisibilityMode="unlabeled"/>
     <item
         android:id="@+id/action_profile"
-        android:icon="@drawable/instagram_user_outline_24"
+        android:icon="@drawable/profile"
         android:title="Profile"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:labelVisibilityMode="unlabeled"/>
+    <item
+        android:id="@+id/action_friends"
+        android:icon="@drawable/friends"
+        android:title="Profile"
+        app:showAsAction="always"
+        app:labelVisibilityMode="unlabeled"/>
 </menu>
