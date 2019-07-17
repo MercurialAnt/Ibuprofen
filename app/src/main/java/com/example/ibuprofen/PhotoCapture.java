@@ -11,6 +11,9 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,29 +31,28 @@ public class PhotoCapture extends Fragment {
 
     public static final int CAPTURE_IMAGE_REQUEST_CODE = 100;
     public static final int PICK_PHOTO_CODE = 200;
-    public String photoFileName;
+    public String photoFileName = "photo.jpg";
     private File photoFile;
     Context context;
 
-
-    public PhotoCapture() {
-        this.context = getContext();
-    }
 
 
     public void onLaunchCamera(View view) {
         // Creating an intent to launch camera
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
+        context = getContext();
         checkFile();
 
         // If there is a valid file start the activity
-        if (photoFile != null && takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+        if (photoFile != null) {
             Uri photoURI = FileProvider.getUriForFile(context,
                     "com.example.android.fileprovider",
                     photoFile);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            startActivityForResult(takePictureIntent, CAPTURE_IMAGE_REQUEST_CODE);
+
+            if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, CAPTURE_IMAGE_REQUEST_CODE);
+            }
         }
     }
 
@@ -58,7 +60,7 @@ public class PhotoCapture extends Fragment {
         // Create intent for picking a photo from the gallery
         Intent pickPictureIntent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
+        context = getContext();
         checkFile();
 
         if (photoFile != null && pickPictureIntent.resolveActivity(context.getPackageManager()) != null) {
@@ -67,14 +69,31 @@ public class PhotoCapture extends Fragment {
         }
     }
 
+    public File getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(File file) {
+        photoFile = file;
+    }
+
+    public ParseFile getParseFile() throws ParseException {
+        final ParseFile image = new ParseFile(getPhotoFile());
+        if (image.isDirty()) {
+            image.save();
+        }
+        return image;
+    }
+
     public void checkFile() {
         // Create file to store image
         photoFile = null;
         try {
             photoFile = createImageFile();
-        } catch (IOException ex) {
-            Log.e(TAG, "Error creating the file for the image");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//        photoFile = getPhotoFileUri(photoFileName);
     }
 
 
@@ -94,6 +113,16 @@ public class PhotoCapture extends Fragment {
         return image;
     }
 
+    public File getPhotoFileUri(String fileName) {
+        File mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs())
+            Log.d(TAG, "failed to create directory");
+
+        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
+
+        return file;
+    }
+
     public String getRealPathFromURI(Uri contentUri) {
         Cursor cursor = null;
         try {
@@ -109,44 +138,7 @@ public class PhotoCapture extends Fragment {
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == CAPTURE_IMAGE_REQUEST_CODE) {
-//            if (resultCode == RESULT_OK) {
-//                // by this point we have the camera photo on disk
-//                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-//                // Load the taken image into a preview
-//                Bitmap bMapScaled = Bitmap.createScaledBitmap(takenImage, 150, 100, true);
-//
-//                ivPostImage.setImageBitmap(bMapScaled);
-//                ivPostImage.setVisibility(View.VISIBLE);
-//            } else { // Result was a failure
-//                Toast.makeText(context, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//        if (requestCode == PICK_PHOTO_CODE) {
-//            if (resultCode == RESULT_OK && data != null) {
-//                Uri photoUri = data.getData();
-//
-//                // Do something with the photo based on Uri≈
-//
-//                Bitmap takenImage = null;
-//                try {
-//                    takenImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), photoUri);
-//                    photoFile = new File(getRealPathFromURI(context, photoUri));
-//
-//                    // Load the taken image into a preview
-//                    Bitmap bMapScaled = Bitmap.createScaledBitmap(takenImage, 150, 100, true);
-//                    ivPostImage.setImageBitmap(bMapScaled);
-//                    ivPostImage.setVisibility(View.VISIBLE);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//            }
-//        }
-//    }
+
 
 
 }
