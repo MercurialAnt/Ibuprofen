@@ -23,7 +23,7 @@ public class YelpAPI {
 
 
     // To use it do client.call(request).enque(new Callback)
-    public Request getRestruants() {
+    public Request getRestaurants() {
 
         // -TODO add location from phone and then talk about how to deal with the options
         HttpUrl url = HttpUrl
