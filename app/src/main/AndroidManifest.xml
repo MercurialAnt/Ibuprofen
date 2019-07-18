@@ -28,6 +28,7 @@
             </meta-data>
         </provider>
         <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".DetailsActivity"></activity>
         <activity android:name=".SelectionActivity"></activity>
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".HomeActivity">
