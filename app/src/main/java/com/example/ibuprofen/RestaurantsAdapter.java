@@ -20,6 +20,7 @@ import com.example.ibuprofen.Toolbar.ProfileFragment;
 import com.example.ibuprofen.model.Restaurant;
 import com.parse.ParseFile;
 
+import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -45,7 +46,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Restaurant restaurant = restaurants.get(position);
-        viewHolder.bind(restaurant);
+        try {
+            viewHolder.bind(restaurant);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -77,19 +82,19 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     if (position != RecyclerView.NO_POSITION) {
                         Restaurant restaurant = restaurants.get(position);
                         Intent intent = new Intent(context, DetailsActivity.class);
-                        intent.putExtra("Detialed", Parcels.wrap(restaurant));
+                        intent.putExtra("Detailed", Parcels.wrap(restaurant));
                         context.startActivity(intent);
                     }
                 }
             });
         }
 
-        public void bind(Restaurant restaurant) {
+        public void bind(Restaurant restaurant) throws JSONException {
             if (restaurant.getImage() != null) {
                 Glide.with(context).load(restaurant.getImage()).into(ivImage);
             }
             tvName.setText(restaurant.getName());
-//            tvCuisine.setText(restaurant.getCategories());
+            tvCuisine.setText(restaurant.getCategories());
 //            tvDistance.setText(restaurant.getDistance());
             rbRating.setRating(restaurant.getRating());
             rbPrice.setRating(restaurant.getPrice());

@@ -1,5 +1,6 @@
 package com.example.ibuprofen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -32,20 +33,19 @@ public class DetailsActivity extends AppCompatActivity {
         tvName = findViewById(R.id.tvName);
         ivImage = findViewById(R.id.ivImage);
         tvHours = findViewById(R.id.tvHours);
-        //tvDescription = findViewById(R.id.tvDescription);
+        tvDescription = findViewById(R.id.tvDescription);
         rbRating = findViewById(R.id.rbRating);
         tvCuisine = findViewById(R.id.tvCuisine);
         rbPrice = findViewById(R.id.rbPrice);
         rbHealth = findViewById(R.id.rbHealth);
         tvDistance = findViewById(R.id.tvDistance);
-        restaurant = (Restaurant) Parcels.unwrap(getIntent().getParcelableExtra("Detailed"));
+        restaurant = Parcels.unwrap(getIntent().getParcelableExtra("Detailed"));
 
-//        ParseFile image = restaurant.getImage();
-//        if (image != null) {
-//            Glide.with(context).load(image.getUrl()).into(ivImage);
+//        if (restaurant.getImage() != null) {
+//            Glide.with(this).load(restaurant.getImage()).into(ivImage);
 //        }
         tvName.setText(restaurant.getName());
-//        tvCuisine.setText(restaurant.getCategories());
+        tvCuisine.setText(restaurant.getCategories());
 //        tvDistance.setText(restaurant.getDistance());
 //        tvHours.setText(restaurant.getHours());
         rbRating.setRating(restaurant.getRating());

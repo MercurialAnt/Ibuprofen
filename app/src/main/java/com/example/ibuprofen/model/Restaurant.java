@@ -1,9 +1,12 @@
 package com.example.ibuprofen.model;
 
+import android.os.health.SystemHealthManager;
+
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
@@ -16,20 +19,60 @@ public class Restaurant {
     public int rbRating;
     public String rbPrice;
     public String ivImage;
+    public String categories;
 
     //deserialize the JSON
     public static Restaurant fromJSON(JSONObject jsonObject) throws JSONException {
         Restaurant restaurant = new Restaurant();
+        JSONArray tvCuisine;
 
         //extract values from JSON
-        //ToDo- check to see if
-        restaurant.tvName = jsonObject.getString("name");
-        restaurant.id = jsonObject.getString("id");
-        restaurant.rbRating = jsonObject.getInt("rating");
-        restaurant.rbPrice = jsonObject.getString("price");
-        restaurant.ivImage = jsonObject.getString("image_url");
+        //name
+        if (jsonObject.has("name")) {
+            restaurant.tvName = jsonObject.getString("name");
+        } else
+            restaurant.tvName = "";
+
+        //id
+        if (jsonObject.has("id")) {
+            restaurant.id = jsonObject.getString("id");
+        } else
+            restaurant.id = "";
+
+        //rating
+        if (jsonObject.has("rating")) {
+            restaurant.rbRating = jsonObject.getInt("rating");
+        } else
+            restaurant.rbRating = 0;
+
+        //price
+        if (jsonObject.has("price")) {
+            restaurant.rbPrice = jsonObject.getString("price");
+        } else
+            restaurant.rbPrice = "";
+
+        //image
+        if (jsonObject.has("image_url")) {
+            restaurant.ivImage = jsonObject.getString("image_url");
+        } else
+            restaurant.ivImage = "";
+
+        //categories
+        if (jsonObject.has("categories")) {
+            tvCuisine = jsonObject.getJSONArray("categories");
+            for (int i = 0; i < tvCuisine.length(); i++) {
+                JSONObject as = tvCuisine.getJSONObject(i);
+                if (i == tvCuisine.length() - 1)
+                    restaurant.categories += (as.get("title") + "");
+                else
+                    restaurant.categories += (as.get("title") + ", ");
+            }
+        } else
+            restaurant.categories = "";
+
         return restaurant;
     }
+
 
     // getter methods for columns
     public String getName() {
@@ -40,10 +83,10 @@ public class Restaurant {
         return ivImage;
     }
 
-//    public String getCategories() {
-//
-//    }
-//
+    public String getCategories() {
+        return categories;
+    }
+
 //    public ParseGeoPoint getLocation() {
 //
 //    }
@@ -51,15 +94,12 @@ public class Restaurant {
 //    public Number getHealthRating() {
 //
 //    }
-//
+
     public int getRating() {
         return rbRating;
     }
 
     public int getPrice() {
-        if (rbPrice != null)
-            return rbPrice.length();
-        else
-            return 0;
+        return rbPrice.length();
     }
 }
