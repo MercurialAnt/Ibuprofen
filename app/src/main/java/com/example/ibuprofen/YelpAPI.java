@@ -2,6 +2,8 @@ package com.example.ibuprofen;
 
 import android.content.Context;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
@@ -25,7 +27,7 @@ public class YelpAPI {
     // To use it do client.call(request).enque(new Callback)
     public Request getRestaurants() {
 
-        // -TODO add location from phone and then talk about how to deal with the options
+        // TODO add location from phone and then talk about how to deal with the options
         HttpUrl url = HttpUrl
                 .parse(base_url + "/businesses/search")
                 .newBuilder()
@@ -37,6 +39,5 @@ public class YelpAPI {
                 .addHeader(auth_key_header, auth_value_header)
                 .build();
     }
-
 }
 

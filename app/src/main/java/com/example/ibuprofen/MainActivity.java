@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.example.ibuprofen.Toolbar.EventFragment;
 import com.example.ibuprofen.Toolbar.FeedFragment;
+import com.example.ibuprofen.Toolbar.FriendsFragment;
 import com.example.ibuprofen.Toolbar.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_friends:
                     default:
-                        fragment = new ProfileFragment();
+                        fragment = new FriendsFragment();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();

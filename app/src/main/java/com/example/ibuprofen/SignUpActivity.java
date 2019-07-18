@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
         create_btn = findViewById(R.id.create_btn);
 
         final ParseUser newUser = new ParseUser();
-
 
         create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
