@@ -1,24 +1,40 @@
 package com.example.ibuprofen.Toolbar;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.RestaurantsAdapter;
+import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Restaurant;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+
 public class FeedFragment extends Fragment {
+    private YelpAPI client;
     private RecyclerView rvRestaurants;
     protected RestaurantsAdapter adapter;
     protected List<Restaurant> mRestaurants;
@@ -43,7 +59,7 @@ public class FeedFragment extends Fragment {
         rvRestaurants.setAdapter(adapter);
         //set layout manager on recycler view
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
-        //loadTopPosts();
+        populateFeed();
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
@@ -62,5 +78,37 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+    }
+
+    private void populateFeed () {
+        YelpAPI test = new YelpAPI(getContext());
+        OkHttpClient client = OkSingleton.getInstance();
+        client.newCall(test.getRestaurants()).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("Feed", "Did not work");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject obj = new JSONObject(response.body().string());
+                        JSONArray array = obj.getJSONArray("businesses");
+                        for (int i = 0; i < array.length(); i++) {
+                            Restaurant restaurant = Restaurant.fromJSON(array.getJSONObject(i));
+                            mRestaurants.add(restaurant);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

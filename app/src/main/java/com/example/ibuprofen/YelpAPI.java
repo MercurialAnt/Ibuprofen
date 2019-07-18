@@ -2,8 +2,17 @@ package com.example.ibuprofen;
 
 import android.content.Context;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 public class YelpAPI {
     private static final String API_KEY = "2j_lGyWbgvroFWV_ok2MKy9na46ybGYQMhsdocpcQSBkWqDLKGwZbDXwN08cRDQnwdV6KQt84sOegMs0MTdOpTwPFHmi7B17nvlGK3t0U8dIzowV5j3yR3ug9KguXXYx";
@@ -23,13 +32,14 @@ public class YelpAPI {
 
 
     // To use it do client.call(request).enque(new Callback)
-    public Request getRestruants() {
+    public Request getRestaurants() {
 
         // -TODO add location from phone and then talk about how to deal with the options
         HttpUrl url = HttpUrl
                 .parse(base_url + "/businesses/search")
                 .newBuilder()
-                .addQueryParameter("location","New York City")
+                .addQueryParameter("location","Seattle")
+                .addQueryParameter("limit", "30")
                 .build();
         return new Request.Builder()
                 .get()
@@ -37,6 +47,4 @@ public class YelpAPI {
                 .addHeader(auth_key_header, auth_value_header)
                 .build();
     }
-
 }
-

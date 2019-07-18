@@ -20,6 +20,8 @@ import com.example.ibuprofen.Toolbar.ProfileFragment;
 import com.example.ibuprofen.model.Restaurant;
 import com.parse.ParseFile;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
@@ -68,14 +70,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             rbPrice = itemView.findViewById(R.id.rbPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
 
-            ivImage.setOnClickListener(new View.OnClickListener() {
+            tvName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Restaurant restaurant = restaurants.get(position);
                         Intent intent = new Intent(context, DetailsActivity.class);
-                        intent.putExtra("Detailed", (restaurant));
+                        intent.putExtra("Detialed", Parcels.wrap(restaurant));
                         context.startActivity(intent);
                     }
                 }
@@ -83,15 +85,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         }
 
         public void bind(Restaurant restaurant) {
-//            ParseFile image = restaurant.getImage();
-//            if (image != null) {
-//                Glide.with(context).load(image.getUrl()).into(ivImage);
-//            }
-//            tvName.setText(restaurant.getName());
+            if (restaurant.getImage() != null) {
+                Glide.with(context).load(restaurant.getImage()).into(ivImage);
+            }
+            tvName.setText(restaurant.getName());
 //            tvCuisine.setText(restaurant.getCategories());
 //            tvDistance.setText(restaurant.getDistance());
-//            rbRating.setRating(restaurant.getRating());
-//            rbPrice.setRating(restaurant.getPrice());
+            rbRating.setRating(restaurant.getRating());
+            rbPrice.setRating(restaurant.getPrice());
         }
     }
 
