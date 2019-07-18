@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/flContainer"
+        android:id="@+id/flSignupContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_above="@id/bottom_navigation"
