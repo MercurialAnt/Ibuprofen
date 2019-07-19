@@ -1,10 +1,14 @@
 package com.example.ibuprofen.Toolbar;
 
-import android.os.Build;
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +37,15 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
+import static com.parse.Parse.getApplicationContext;
+
 public class FeedFragment extends Fragment {
     private YelpAPI client;
     private RecyclerView rvRestaurants;
     protected RestaurantsAdapter adapter;
     protected List<Restaurant> mRestaurants;
     private SwipeRefreshLayout swipeContainer;
+
 
     //onCreateView to inflate the view
     @Nullable
@@ -59,7 +66,9 @@ public class FeedFragment extends Fragment {
         rvRestaurants.setAdapter(adapter);
         //set layout manager on recycler view
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
-        populateFeed();
+        Location gpsLocation = getLocationByProvider(LocationManager.GPS_PROVIDER);
+        populateFeed(gpsLocation);
+
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
@@ -80,14 +89,15 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
-    private void populateFeed () {
+    private void populateFeed(Location gpsLocation) {
         YelpAPI test = new YelpAPI(getContext());
         OkHttpClient client = OkSingleton.getInstance();
-        client.newCall(test.getRestaurants()).enqueue(new Callback() {
+        client.newCall(test.getRestaurants(gpsLocation)).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Feed", "Did not work");
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -111,4 +121,31 @@ public class FeedFragment extends Fragment {
             }
         });
     }
+
+    private Location getLocationByProvider(String provider) {
+        Location location = null;
+
+        LocationManager locationManager = (LocationManager) getApplicationContext()
+                .getSystemService(Context.LOCATION_SERVICE);
+        try {
+            if (locationManager.isProviderEnabled(provider)) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return location;
+                }
+                location = locationManager.getLastKnownLocation(provider);
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return location;
+    }
+
+
 }
