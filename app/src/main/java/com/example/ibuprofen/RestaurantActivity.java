@@ -17,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,6 +88,11 @@ public class RestaurantActivity extends AppCompatActivity {
 
                 // query acceptable restaurants
                 queryOptions();
+
+                // intent to go to next fragment once restaurants are queried
+                Intent i = new Intent(v.getContext(), ChooseActivity.class);
+                i.putExtra("event", event);
+                startActivity(i);
             }
         });
     }
