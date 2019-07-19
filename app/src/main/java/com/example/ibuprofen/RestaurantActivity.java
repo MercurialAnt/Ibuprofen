@@ -88,11 +88,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
                 // query acceptable restaurants
                 queryOptions();
-
-                // intent to go to next fragment once restaurants are queried
-                Intent i = new Intent(v.getContext(), ChooseActivity.class);
-                i.putExtra("event", event);
-                startActivity(i);
             }
         });
     }

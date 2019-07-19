@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
@@ -11,7 +13,6 @@ import com.example.ibuprofen.model.Restaurant;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ChooseActivity extends AppCompatActivity {
 
     private RecyclerView rvChoose;
+    private Button btnDone;
     protected ChooseAdapter adapter;
     protected List<Restaurant> mChoices;
     Event event;
@@ -32,6 +34,7 @@ public class ChooseActivity extends AppCompatActivity {
         mChoices = new ArrayList<>();
         event = getIntent().getParcelableExtra("event");
         rvChoose = findViewById(R.id.rvChoose);
+        btnDone = findViewById(R.id.btnDone);
         adapter = new ChooseAdapter(this, mChoices, rvChoose);
         rvChoose.setAdapter(adapter);
         rvChoose.setLayoutManager(new LinearLayoutManager(this));
@@ -41,6 +44,11 @@ public class ChooseActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     private void populateChoices() throws JSONException {
