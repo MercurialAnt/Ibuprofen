@@ -1,11 +1,5 @@
 package com.example.ibuprofen.model;
 
-import android.os.health.SystemHealthManager;
-
-import com.parse.ParseClassName;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,10 +10,13 @@ public class Restaurant {
     //list out attributes
     public String tvName;
     public String id;
+    public int count;
     public int rbRating;
     public String rbPrice;
     public String ivImage;
     public String categories;
+    public double distance;
+
 
     //deserialize the JSON
     public static Restaurant fromJSON(JSONObject jsonObject) throws JSONException {
@@ -58,6 +55,7 @@ public class Restaurant {
             restaurant.ivImage = "";
 
         //categories
+        restaurant.categories = "";
         if (jsonObject.has("categories")) {
             tvCuisine = jsonObject.getJSONArray("categories");
             for (int i = 0; i < tvCuisine.length(); i++) {
@@ -67,8 +65,19 @@ public class Restaurant {
                 else
                     restaurant.categories += (as.get("title") + ", ");
             }
-        } else
-            restaurant.categories = "";
+        }
+
+        if (jsonObject.has("count")) {
+            restaurant.count = jsonObject.getInt("count");
+        }
+
+        if (jsonObject.has("distance")) {
+            double meters = jsonObject.getDouble("distance");
+            // convert the meters to miles
+            double conversion = 1609.344;
+            restaurant.distance = meters / conversion;
+        }
+
 
         return restaurant;
     }
@@ -101,5 +110,17 @@ public class Restaurant {
 
     public int getPrice() {
         return rbPrice.length();
+    }
+
+    public int getCount() {
+        return this.count;
+    }
+
+    public double getDistance() {
+        return  this.distance;
+    }
+
+    public void incrementCount() {
+        this.count++;
     }
 }

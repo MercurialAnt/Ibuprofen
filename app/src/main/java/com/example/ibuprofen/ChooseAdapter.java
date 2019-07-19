@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ibuprofen.model.Restaurant;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.parceler.Parcels;
 
@@ -24,10 +25,12 @@ import java.util.List;
 public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> {
     private Context context;
     private List<Restaurant> choices;
+    private RecyclerView rvChoices;
 
-    public ChooseAdapter(Context context, List<Restaurant> restaurants) {
+    public ChooseAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices) {
         this.context = context;
         this.choices = choices;
+        this.rvChoices = rvChoices;
     }
 
     @NonNull
@@ -62,11 +65,10 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         private TextView tvDistance;
         private Button btnYes;
         private Button btnNo;
-        private RecyclerView rvChoose;
-        int count = 0;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvName = itemView.findViewById(R.id.tvName);
             ivImage = itemView.findViewById(R.id.ivImage);
             rbRating = itemView.findViewById(R.id.rbRating);
@@ -75,31 +77,28 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvDistance = itemView.findViewById(R.id.tvDistance);
             btnYes = itemView.findViewById(R.id.btnYes);
             btnNo = itemView.findViewById(R.id.btnNo);
-            rvChoose = itemView.findViewById(R.id.rvChoose);
 
             btnYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    count += 1;
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Restaurant choice = choices.get(position);
-                        //choice.count;
+                        choice.incrementCount();
+                        nextChoice(position + 1);
                     }
-                    nextChoice(rvChoose, count);
                 }
             });
 
             btnNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    count += 1;
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Restaurant choice = choices.get(position);
-                        //choice.count;
+                        choice.incrementCount();
+                        nextChoice(position + 1);
                     }
-                    nextChoice(rvChoose, count);
                 }
             });
         }
@@ -110,9 +109,12 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             }
             tvName.setText(restaurant.getName());
             tvCuisine.setText(restaurant.getCategories());
-//            tvDistance.setText(restaurant.getDistance());
+            tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating(restaurant.getRating());
             rbPrice.setRating(restaurant.getPrice());
+        }
+        public void nextChoice(int count) {
+            rvChoices.scrollToPosition(count);
         }
     }
 
@@ -127,7 +129,5 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void nextChoice(RecyclerView rvChoose, int count) {
-        rvChoose.scrollToPosition(count + 1);
-    }
+
 }

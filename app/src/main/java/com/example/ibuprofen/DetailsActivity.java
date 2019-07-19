@@ -46,7 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
 //        }
         tvName.setText(restaurant.getName());
         tvCuisine.setText(restaurant.getCategories());
-//        tvDistance.setText(restaurant.getDistance());
+        tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
 //        tvHours.setText(restaurant.getHours());
         rbRating.setRating(restaurant.getRating());
         rbPrice.setRating(restaurant.getPrice());

@@ -1,10 +1,14 @@
 package com.example.ibuprofen.Toolbar;
 
-import android.os.Build;
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +37,15 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
+import static com.parse.Parse.getApplicationContext;
+
 public class FeedFragment extends Fragment {
     private YelpAPI client;
     private RecyclerView rvRestaurants;
     protected RestaurantsAdapter adapter;
     protected List<Restaurant> mRestaurants;
     private SwipeRefreshLayout swipeContainer;
+
 
     //onCreateView to inflate the view
     @Nullable
@@ -61,6 +68,7 @@ public class FeedFragment extends Fragment {
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
         populateFeed();
 
+
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -80,14 +88,16 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
-    private void populateFeed () {
+    private void populateFeed() {
         YelpAPI test = new YelpAPI(getContext());
+        Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
         OkHttpClient client = OkSingleton.getInstance();
-        client.newCall(test.getRestaurants()).enqueue(new Callback() {
+        client.newCall(test.getRestaurants(gpsLocation)).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Feed", "Did not work");
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -95,7 +105,9 @@ public class FeedFragment extends Fragment {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("businesses");
                         for (int i = 0; i < array.length(); i++) {
-                            Restaurant restaurant = Restaurant.fromJSON(array.getJSONObject(i));
+                            JSONObject store = array.getJSONObject(i);
+                            store.accumulate("count", new Integer(0));
+                            Restaurant restaurant = Restaurant.fromJSON(store);
                             mRestaurants.add(restaurant);
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -111,4 +123,5 @@ public class FeedFragment extends Fragment {
             }
         });
     }
+
 }
