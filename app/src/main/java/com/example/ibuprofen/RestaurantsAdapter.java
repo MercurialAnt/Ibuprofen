@@ -1,13 +1,9 @@
 package com.example.ibuprofen;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.ibuprofen.Toolbar.ProfileFragment;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseFile;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
@@ -95,7 +89,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             }
             tvName.setText(restaurant.getName());
             tvCuisine.setText(restaurant.getCategories());
-//            tvDistance.setText(restaurant.getDistance());
+            tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating(restaurant.getRating());
             rbPrice.setRating(restaurant.getPrice());
         }

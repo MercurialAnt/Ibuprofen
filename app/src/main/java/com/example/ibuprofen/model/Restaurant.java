@@ -15,6 +15,7 @@ public class Restaurant {
     public String rbPrice;
     public String ivImage;
     public String categories;
+    public double distance;
 
 
     //deserialize the JSON
@@ -70,6 +71,13 @@ public class Restaurant {
             restaurant.count = jsonObject.getInt("count");
         }
 
+        if (jsonObject.has("distance")) {
+            double meters = jsonObject.getDouble("distance");
+            // convert the meters to miles
+            double conversion = 1609.344;
+            restaurant.distance = meters / conversion;
+        }
+
 
         return restaurant;
     }
@@ -106,5 +114,13 @@ public class Restaurant {
 
     public int getCount() {
         return this.count;
+    }
+
+    public double getDistance() {
+        return  this.distance;
+    }
+
+    public void incrementCount() {
+        this.count++;
     }
 }
