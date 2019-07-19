@@ -105,7 +105,9 @@ public class FeedFragment extends Fragment {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("businesses");
                         for (int i = 0; i < array.length(); i++) {
-                            Restaurant restaurant = Restaurant.fromJSON(array.getJSONObject(i));
+                            JSONObject store = array.getJSONObject(i);
+                            store.accumulate("count", new Integer(0));
+                            Restaurant restaurant = Restaurant.fromJSON(store);
                             mRestaurants.add(restaurant);
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override

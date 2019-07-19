@@ -1,11 +1,5 @@
 package com.example.ibuprofen.model;
 
-import android.os.health.SystemHealthManager;
-
-import com.parse.ParseClassName;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,12 +8,14 @@ import org.parceler.Parcel;
 @Parcel
 public class Restaurant {
     //list out attributes
-    public String tvName;
-    public String id;
-    public int rbRating;
+    private String tvName;
+    private String id;
+    private int count;
+    private int rbRating;
     public String rbPrice;
     public String ivImage;
     public String categories;
+
 
     //deserialize the JSON
     public static Restaurant fromJSON(JSONObject jsonObject) throws JSONException {
@@ -58,6 +54,7 @@ public class Restaurant {
             restaurant.ivImage = "";
 
         //categories
+        restaurant.categories = "";
         if (jsonObject.has("categories")) {
             tvCuisine = jsonObject.getJSONArray("categories");
             for (int i = 0; i < tvCuisine.length(); i++) {
@@ -67,8 +64,12 @@ public class Restaurant {
                 else
                     restaurant.categories += (as.get("title") + ", ");
             }
-        } else
-            restaurant.categories = "";
+        }
+
+        if (jsonObject.has("count")) {
+            restaurant.count = jsonObject.getInt("count");
+        }
+
 
         return restaurant;
     }
@@ -101,5 +102,9 @@ public class Restaurant {
 
     public int getPrice() {
         return rbPrice.length();
+    }
+
+    public int getCount() {
+        return this.count;
     }
 }
