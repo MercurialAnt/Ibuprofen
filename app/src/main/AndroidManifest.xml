@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+
     <application
         android:name=".ParseApp"
         android:allowBackup="true"
@@ -33,10 +34,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-
+        <activity android:name=".ChooseActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".SelectionActivity" />
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>

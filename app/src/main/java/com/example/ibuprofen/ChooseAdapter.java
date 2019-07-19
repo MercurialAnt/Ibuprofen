@@ -1,12 +1,12 @@
 package com.example.ibuprofen;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,33 +15,33 @@ import com.bumptech.glide.Glide;
 import com.example.ibuprofen.model.Restaurant;
 
 import org.json.JSONException;
-import org.parceler.Parcels;
 
 import java.util.List;
 
-public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
-
+public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> {
     private Context context;
-    private List<Restaurant> restaurants;
+    private List<Restaurant> choices;
+    private RecyclerView rvChoices;
 
-    public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
+    public ChooseAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices) {
         this.context = context;
-        this.restaurants = restaurants;
+        this.choices = choices;
+        this.rvChoices = rvChoices;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ChooseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view;
-        view = LayoutInflater.from(context).inflate(R.layout.item_restaurant, parent, false);
-        return new ViewHolder(view);
+        view = LayoutInflater.from(context).inflate(R.layout.item_choose, parent, false);
+        return new ChooseAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Restaurant restaurant = restaurants.get(position);
+    public void onBindViewHolder(@NonNull ChooseAdapter.ViewHolder viewHolder, int position) {
+        Restaurant choice = choices.get(position);
         try {
-            viewHolder.bind(restaurant);
+            viewHolder.bind(choice);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -49,35 +49,51 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     @Override
     public int getItemCount() {
-        return restaurants.size();
+        return choices.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName;
-        public ImageView ivImage;
-        public RatingBar rbRating;
-        public TextView tvCuisine;
+        private TextView tvName;
+        private ImageView ivImage;
+        private RatingBar rbRating;
+        private TextView tvCuisine;
         public RatingBar rbPrice;
-        public TextView tvDistance;
+        private TextView tvDistance;
+        private Button btnYes;
+        private Button btnNo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvName = itemView.findViewById(R.id.tvName);
             ivImage = itemView.findViewById(R.id.ivImage);
             rbRating = itemView.findViewById(R.id.rbRating);
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
             rbPrice = itemView.findViewById(R.id.rbPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
+            btnYes = itemView.findViewById(R.id.btnYes);
+            btnNo = itemView.findViewById(R.id.btnNo);
 
-            tvName.setOnClickListener(new View.OnClickListener() {
+            btnYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Restaurant restaurant = restaurants.get(position);
-                        Intent intent = new Intent(context, DetailsActivity.class);
-                        intent.putExtra("Detailed", Parcels.wrap(restaurant));
-                        context.startActivity(intent);
+                        Restaurant choice = choices.get(position);
+                        choice.incrementCount();
+                        nextChoice(position + 1);
+                    }
+                }
+            });
+
+            btnNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Restaurant choice = choices.get(position);
+                        choice.incrementCount();
+                        nextChoice(position + 1);
                     }
                 }
             });
@@ -93,16 +109,21 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             rbRating.setRating(restaurant.getRating());
             rbPrice.setRating(restaurant.getPrice());
         }
+        public void nextChoice(int count) {
+            rvChoices.scrollToPosition(count);
+        }
     }
 
     public void clear() {
-        restaurants.clear();
+        choices.clear();
         notifyDataSetChanged();
     }
 
     // Add a list of items -- change to type used
     public void addAll(List<Restaurant> list) {
-        restaurants.addAll(list);
+        choices.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }

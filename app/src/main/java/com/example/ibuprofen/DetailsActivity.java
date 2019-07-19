@@ -1,15 +1,12 @@
 package com.example.ibuprofen;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
@@ -46,7 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
 //        }
         tvName.setText(restaurant.getName());
         tvCuisine.setText(restaurant.getCategories());
-//        tvDistance.setText(restaurant.getDistance());
+        tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
 //        tvHours.setText(restaurant.getHours());
         rbRating.setRating(restaurant.getRating());
         rbPrice.setRating(restaurant.getPrice());

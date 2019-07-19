@@ -1,10 +1,16 @@
 package com.example.ibuprofen;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 
 import okhttp3.HttpUrl;
 import okhttp3.Request;
+
+import static com.parse.Parse.getApplicationContext;
 
 public class YelpAPI {
     private static final String API_KEY = "2j_lGyWbgvroFWV_ok2MKy9na46ybGYQMhsdocpcQSBkWqDLKGwZbDXwN08cRDQnwdV6KQt84sOegMs0MTdOpTwPFHmi7B17nvlGK3t0U8dIzowV5j3yR3ug9KguXXYx";
@@ -50,5 +56,46 @@ public class YelpAPI {
                 .url(url)
                 .addHeader(auth_key_header, auth_value_header)
                 .build();
+    }
+
+    public Request getDistanceFilteredRestaurants(int radius, Location gpsLocation) {
+        HttpUrl url = HttpUrl
+                .parse(base_url + "/businesses/search")
+                .newBuilder()
+                .addQueryParameter("latitude",gpsLocation.getLatitude() + "")
+                .addQueryParameter("longitude", gpsLocation.getLongitude() + "")
+                .addQueryParameter("limit", "10")
+                .addQueryParameter("radius", radius + "")
+                .build();
+        return new Request.Builder()
+                .get()
+                .url(url)
+                .addHeader(auth_key_header, auth_value_header)
+                .build();
+    }
+
+    public Location getLocationByProvider(String provider) {
+        Location location = null;
+
+        LocationManager locationManager = (LocationManager) getApplicationContext()
+                .getSystemService(Context.LOCATION_SERVICE);
+        try {
+            if (locationManager.isProviderEnabled(provider)) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return location;
+                }
+                location = locationManager.getLastKnownLocation(provider);
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return location;
     }
 }

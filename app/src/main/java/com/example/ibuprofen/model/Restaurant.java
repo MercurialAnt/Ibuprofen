@@ -8,10 +8,10 @@ import org.parceler.Parcel;
 @Parcel
 public class Restaurant {
     //list out attributes
-    private String tvName;
-    private String id;
-    private int count;
-    private int rbRating;
+    public String tvName;
+    public String id;
+    public int count;
+    public int rbRating;
     public String rbPrice;
     public String ivImage;
     public String categories;
