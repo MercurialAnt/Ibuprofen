@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,6 +118,8 @@ public class RestaurantActivity extends AppCompatActivity {
                         }
                         options = array.toString();
                         event.setOptions(options);
+                        // save event
+                        saveEvent();
                         Log.d("RESTACTIVITY", options);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -122,6 +128,21 @@ public class RestaurantActivity extends AppCompatActivity {
                 else {
                     Log.d("RESTACTIVITY", "fail");
                 }
+            }
+        });
+    }
+
+    public void saveEvent() {
+        event.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("RESTACTIVITY", "save failure");
+                    e.printStackTrace();
+                    return;
+                }
+                Log.d("RESTACTIVITY", "success!");
+                Toast.makeText(getApplicationContext(), "success!", Toast.LENGTH_LONG).show();
             }
         });
     }
