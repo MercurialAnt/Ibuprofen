@@ -64,7 +64,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 queryOptions();
 
                 // intent to go to next fragment once restaurants are queried
-                Intent i = new Intent(v.getContext(), SelectionActivity.class);
+                Intent i = new Intent(v.getContext(), ChooseActivity.class);
                 // todo--pass list of restaurants (once you have Parcelable restaurant model)
 //                i.putParcelableArrayListExtra(options);
                 startActivity(i);
