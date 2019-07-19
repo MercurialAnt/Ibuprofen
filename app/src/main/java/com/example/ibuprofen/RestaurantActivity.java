@@ -1,36 +1,52 @@
 package com.example.ibuprofen;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
+import com.parse.ParseUser;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 public class RestaurantActivity extends AppCompatActivity {
 
     // instance vars
     EditText distance; // in miles
     Button submit_btn;
-    // cuisines
-    CheckBox chinese_cb;
-    CheckBox french_cb;
-    CheckBox american_cb;
+
+    // new event
+    Event event;
 
     // information to send
-    Double dist = 5.0; // initially set to 5
-    boolean chinese;
-    boolean french;
-    boolean american;
+    int dist = 5 * 1609; // initially set to 5 miles
+
+    // cuisines
+//    CheckBox chinese_cb;
+//    CheckBox french_cb;
+//    CheckBox american_cb;
+//    boolean chinese;
+//    boolean french;
+//    boolean american;
 
     // list of restaurants that fit the criteria
-    List<Restaurant> options;
+    String options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,40 +55,75 @@ public class RestaurantActivity extends AppCompatActivity {
 
         // initialize vars
         distance = findViewById(R.id.distance_et);
-        chinese_cb = findViewById(R.id.chinese_cb);
-        french_cb = findViewById(R.id.french_cb);
-        american_cb = findViewById(R.id.american_cb);
         submit_btn = findViewById(R.id.submit_btn);
-        options = new ArrayList<>();
+        options = "";
+//        chinese_cb = findViewById(R.id.chinese_cb);
+//        french_cb = findViewById(R.id.french_cb);
+//        american_cb = findViewById(R.id.american_cb);
+
 
         // set on click listener for submit
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // todo--parse user's selection information and base options in next activity on these selections
                 // gets distance information
                 String enteredDistance = distance.getText().toString();
                 if (!enteredDistance.equals("")) {
-                    dist = Double.parseDouble(enteredDistance);
+                    dist = Integer.parseInt(enteredDistance) * 1609; // convert to miles
                 }
-                // gets selected cuisine information
-                chinese = chinese_cb.isSelected();
-                french = french_cb.isSelected();
-                american = american_cb.isSelected();
+// gets selected cuisine information
+//                chinese = chinese_cb.isSelected();
+//                french = french_cb.isSelected();
+//                american = american_cb.isSelected();
 
-                // todo--query acceptable restaurant (once you have completed API/getter methods);
+                // create a new event
+                event = new Event();
+
+                // set creator for event
+                event.setCreator(ParseUser.getCurrentUser());
+
+                // query acceptable restaurants
                 queryOptions();
 
                 // intent to go to next fragment once restaurants are queried
-                Intent i = new Intent(v.getContext(), SelectionActivity.class);
-                // todo--pass list of restaurants (once you have Parcelable restaurant model)
-//                i.putParcelableArrayListExtra(options);
+                Intent i = new Intent(v.getContext(), ChooseActivity.class);
+                i.putExtra("event", event);
                 startActivity(i);
             }
         });
     }
-// todo--once api is updated with getter methods
+    // gets options within radius and updates them in database
     public void queryOptions() {
+        YelpAPI test = new YelpAPI(this);
+        Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
+        OkHttpClient client = OkSingleton.getInstance();
+        client.newCall(test.getDistanceFilteredRestaurants(dist, gpsLocation)).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("Feed", "Did not work");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject obj = new JSONObject(response.body().string());
+                        JSONArray array = obj.getJSONArray("businesses");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject store = array.getJSONObject(i);
+                            store.accumulate("count", new Integer(0));
+                        }
+                        options = array.toString();
+                        event.setOptions(options);
+                        Log.d("RESTACTIVITY", options);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    Log.d("RESTACTIVITY", "fail");
+                }
+            }
+        });
     }
 
 }
