@@ -1,15 +1,12 @@
 package com.example.ibuprofen;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 

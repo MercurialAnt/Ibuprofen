@@ -33,9 +33,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".DetailsActivity"></activity>
-        <activity android:name=".ChooseActivity"></activity>
+        <activity android:name=".ChooseActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".DetailsActivity" />
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>

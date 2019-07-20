@@ -1,5 +1,6 @@
 package com.example.ibuprofen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,8 +48,29 @@ public class ChooseActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent goToResultsIntent = new Intent(ChooseActivity.this, ResultsActivity.class);
+                String newJson = change_counts(event);
+                goToResultsIntent.putExtra("votedOn", newJson);
+                startActivity(goToResultsIntent);
             }
         });
+    }
+
+    public String change_counts(Event currentEvent) {
+        String newJson = null;
+        String options = currentEvent.getOptions();
+        try {
+            JSONArray places = new JSONArray(options);
+            for (int i = 0; i < places.length(); i++) {
+                JSONObject place = places.getJSONObject(i);
+                place.put("count", mChoices.get(i).count);
+            }
+            newJson = places.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return newJson;
     }
 
     private void populateChoices() throws JSONException {
