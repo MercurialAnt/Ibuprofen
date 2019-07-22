@@ -31,11 +31,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class SetProfilePicFragment extends PhotoCapture {
 
-    private Button create_btn;
-    private ImageView profile_iv;
-    private ImageView add_iv;
-    private ImageView camera_iv;
-    private ImageView gallery_iv;
+    private Button btnCreate;
+    private ImageView ivProfile;
+    private ImageView ivAdd;
+    private ImageView ivCamera;
+    private ImageView ivGallery;
     private byte[] array;
 
     // inflate the layout
@@ -49,16 +49,16 @@ public class SetProfilePicFragment extends PhotoCapture {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
-        create_btn = view.findViewById(R.id.btnCreate);
-        profile_iv = view.findViewById(R.id.ivProfile);
-        add_iv = view.findViewById(R.id.ivAdd);
-        camera_iv = view.findViewById(R.id.ivCamera);
-        gallery_iv = view.findViewById(R.id.ivGallery);
+        btnCreate = view.findViewById(R.id.btnCreate);
+        ivProfile = view.findViewById(R.id.ivProfile);
+        ivAdd = view.findViewById(R.id.ivAdd);
+        ivCamera = view.findViewById(R.id.ivCamera);
+        ivGallery = view.findViewById(R.id.ivGallery);
 
 
         final ParseUser newUser = new ParseUser();
 
-        create_btn.setOnClickListener(new View.OnClickListener() {
+        btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = getArguments();
@@ -88,15 +88,15 @@ public class SetProfilePicFragment extends PhotoCapture {
             }
         });
 
-        add_iv.setOnClickListener(new View.OnClickListener() {
+        ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                camera_iv.setVisibility(View.VISIBLE);
-                gallery_iv.setVisibility(View.VISIBLE);
+                ivCamera.setVisibility(View.VISIBLE);
+                ivGallery.setVisibility(View.VISIBLE);
             }
         });
 
-        camera_iv.setOnClickListener(new View.OnClickListener() {
+        ivCamera.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
 
@@ -104,7 +104,7 @@ public class SetProfilePicFragment extends PhotoCapture {
              }
         });
 
-        gallery_iv.setOnClickListener(new View.OnClickListener() {
+        ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //onPickPhoto(view);
@@ -145,7 +145,7 @@ public class SetProfilePicFragment extends PhotoCapture {
                         .asBitmap()
                         .load(bMapScaled)
                         .apply(RequestOptions.circleCropTransform())
-                        .into(profile_iv);
+                        .into(ivProfile);
 
             }
         }
@@ -172,14 +172,11 @@ public class SetProfilePicFragment extends PhotoCapture {
                             .asBitmap()
                             .load(bMapScaled)
                             .apply(RequestOptions.circleCropTransform())
-                            .into(profile_iv);
+                            .into(ivProfile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }
     }
-
 }

@@ -70,7 +70,6 @@ public class ChooseActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return newJson;
     }
 
@@ -81,6 +80,5 @@ public class ChooseActivity extends AppCompatActivity {
             mChoices.add(restaurant);
             adapter.notifyDataSetChanged();
         }
-
     }
 }

@@ -20,10 +20,10 @@ import com.parse.ParseUser;
 public class SetNameFragment extends Fragment {
 
 
-    private Button next_btn;
-    private EditText username_et;
-    private EditText password_et_1;
-    private EditText password_et_2;
+    private Button btnNext;
+    private EditText etUsername;
+    private EditText etPassword1;
+    private EditText etPassword2;
 
 
     // inflate the layout
@@ -37,18 +37,18 @@ public class SetNameFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        username_et = view.findViewById(R.id.etUsername);
-        password_et_1 = view.findViewById(R.id.etPassword1);
-        password_et_2 = view.findViewById(R.id.etPassword2);
-        next_btn = view.findViewById(R.id.btnNext);
+        etUsername = view.findViewById(R.id.etUsername);
+        etPassword1 = view.findViewById(R.id.etPassword1);
+        etPassword2 = view.findViewById(R.id.etPassword2);
+        btnNext = view.findViewById(R.id.btnNext);
 
-        next_btn.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String username = username_et.getText().toString();
-                String password_1 = password_et_1.getText().toString();
-                String password_2 = password_et_2.getText().toString();
+                String username = etUsername.getText().toString();
+                String password_1 = etPassword1.getText().toString();
+                String password_2 = etPassword2.getText().toString();
 
                 if (samePassword(password_1, password_2) && checkUniqueUser(username)) {
                     Fragment nextFragment = new SetContactFragment();
@@ -64,11 +64,6 @@ public class SetNameFragment extends Fragment {
 
                     transaction.commit();
                 }
-
-
-
-
-
             }
         });
     }

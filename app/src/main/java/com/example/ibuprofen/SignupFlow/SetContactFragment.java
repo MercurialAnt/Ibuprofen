@@ -16,8 +16,8 @@ import com.example.ibuprofen.R;
 
 public class SetContactFragment extends Fragment {
 
-    private Button next_btn;
-    private EditText email_et;
+    private Button btnNext;
+    private EditText etEmail;
 
 
     // inflate the layout
@@ -31,19 +31,19 @@ public class SetContactFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        email_et = view.findViewById(R.id.etEmail);
-        next_btn = view.findViewById(R.id.btnNext);
+        etEmail = view.findViewById(R.id.etEmail);
+        btnNext = view.findViewById(R.id.btnNext);
 
-        next_btn.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (email_et.getText().toString().length() > 0) {
+                if (etEmail.getText().toString().length() > 0) {
                     Fragment nextFragment = new SetProfilePicFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                     Bundle bundle = getArguments();
-                    bundle.putString("email", email_et.getText().toString());
+                    bundle.putString("email", etEmail.getText().toString());
 
                     nextFragment.setArguments(bundle);
                     transaction.replace(R.id.flSignupContainer, nextFragment);

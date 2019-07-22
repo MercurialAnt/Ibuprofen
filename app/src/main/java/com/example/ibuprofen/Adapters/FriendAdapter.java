@@ -48,19 +48,19 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // instance vars
-        ImageView profile_iv;
-        TextView username_tv;
-        TextView name_tv;
-        Button add_btn;
+        ImageView ivProfile;
+        TextView tvUsername;
+        TextView tvName;
+        Button btnAdd;
 
         public ViewHolder(@NonNull View view) {
             super(view);
 
             // initialize vars using findById
-            profile_iv = view.findViewById(R.id.ivProfile);
-            username_tv = view.findViewById(R.id.tvUsername);
-            name_tv = view.findViewById(R.id.tvName);
-            add_btn = view.findViewById(R.id.btnAdd);
+            ivProfile = view.findViewById(R.id.ivProfile);
+            tvUsername = view.findViewById(R.id.tvUsername);
+            tvName = view.findViewById(R.id.tvName);
+            btnAdd = view.findViewById(R.id.btnAdd);
 
             //todo set onclick listener for add button (but only in fragment)
 
@@ -79,11 +79,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             Glide.with(context)
                     .load(profileUrl)
                     .apply(RequestOptions.circleCropTransform())
-                    .into(profile_iv);
+                    .into(ivProfile);
             // username
-            username_tv.setText(user.getString("username"));
+            tvUsername.setText(user.getString("username"));
             // name
-            name_tv.setText(user.getString("name"));
+            tvName.setText(user.getString("name"));
         }
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class FriendsFragment extends Fragment {
     // instance vars
-    RecyclerView users_rv;
+    RecyclerView rvUsers;
     FriendAdapter adapter;
     List<ParseUser> users;
 
@@ -33,15 +33,15 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // initialize vars
-        users_rv = view.findViewById(R.id.rvUsers);
+        rvUsers = view.findViewById(R.id.rvUsers);
         users = new ArrayList<>();
 
         //create adapter
         adapter = new FriendAdapter(getContext(), users);
         //set the adapter on the recycler view
-        users_rv.setAdapter(adapter);
+        rvUsers.setAdapter(adapter);
         //set layout manager on recycler view
-        users_rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
 //        queryUsers();
     }
 
