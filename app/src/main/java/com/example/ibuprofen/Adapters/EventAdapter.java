@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,11 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.parse.CountCallback;
-import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -72,8 +71,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             // set username
             username_tv.setText(user.getUsername());
 
-            // todo--find restaurant and set picture and name
-
+            // set image (either restaurant of choice or profile picture of organizer)
 
             // find number of event attendees (list all of them in details page)
             ParseRelation<ParseUser> members = event.getMembers();

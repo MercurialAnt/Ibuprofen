@@ -96,10 +96,6 @@ public class Restaurant {
         return categories;
     }
 
-//    public ParseGeoPoint getLocation() {
-//
-//    }
-//
 //    public Number getHealthRating() {
 //
 //    }

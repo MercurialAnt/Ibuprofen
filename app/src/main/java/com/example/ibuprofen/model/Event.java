@@ -29,15 +29,6 @@ public class Event extends ParseObject {
         put(KEY_RESTAURANT, id);
     }
 
-    // todo--use yelp api to make a getRestaurantName method and a getImageUrl method
-//    public String getRestaurantName() {
-//
-//    }
-
-//    public String getImageUrl() {
-//        return null;
-//    }
-
     public ParseRelation<ParseUser> getMembers() {
         return getRelation(KEY_USERS);
     }
