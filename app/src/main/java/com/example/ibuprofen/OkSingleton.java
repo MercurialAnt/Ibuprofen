@@ -13,7 +13,7 @@ public class OkSingleton extends OkHttpClient {
         private static final OkSingleton instance = new OkSingleton();
     }
 
-    // Using the initialization on demand holder pattern to lazy load the cliet.
+    // Using the initialization on demand holder pattern to lazy load the client.
     public static OkSingleton getInstance() {
         return LazyHolder.instance;
     }

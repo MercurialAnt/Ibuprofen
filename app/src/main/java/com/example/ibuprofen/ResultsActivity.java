@@ -60,10 +60,5 @@ public class ResultsActivity extends AppCompatActivity {
                finish();
            }
        });
-
-
-
-
     }
-
 }
