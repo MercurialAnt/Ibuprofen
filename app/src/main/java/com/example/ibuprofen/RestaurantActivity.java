@@ -133,7 +133,7 @@ public class RestaurantActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return;
                 }
-                // intent to go to next fragment once restaurants are queried
+                // intent to go to next activity once restaurants are queried
                 Intent i = new Intent(RestaurantActivity.this, ChooseActivity.class);
                 i.putExtra("event", event);
                 startActivity(i);

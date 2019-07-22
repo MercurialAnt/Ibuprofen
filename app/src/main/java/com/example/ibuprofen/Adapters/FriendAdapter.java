@@ -62,13 +62,18 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             tvName = view.findViewById(R.id.tvName);
             btnAdd = view.findViewById(R.id.btnAdd);
 
-            //todo set onclick listener for add button (but only in fragment)
+            //set onclick listener for add button (but only in fragment)
 
         }
 
         public void bind(ParseUser user) {
+            // fix this
+            // makes add button disappear if the user being shown is the current user
+            if (user.equals(ParseUser.getCurrentUser())) {
+                btnAdd.setVisibility(View.GONE);
+            }
             // set information
-            // profile image
+            // profile image (replace anonymous.png later)
             String profileUrl;
             if (user.getParseFile("profilePic") != null) {
                 profileUrl = user.getParseFile("profilePic").getUrl();
