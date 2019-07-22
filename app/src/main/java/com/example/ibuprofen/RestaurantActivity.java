@@ -30,7 +30,7 @@ import okhttp3.Response;
 public class RestaurantActivity extends AppCompatActivity {
 
     // instance vars
-    EditText distance; // in miles
+    EditText etDistance; // in miles
     Button btnSubmit;
 
     // new event
@@ -56,7 +56,7 @@ public class RestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant);
 
         // initialize vars
-        distance = findViewById(R.id.etDistance);
+        etDistance = findViewById(R.id.etDistance);
         btnSubmit = findViewById(R.id.btnSubmit);
         options = "";
 //        chinese_cb = findViewById(R.id.chinese_cb);
@@ -69,7 +69,7 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // gets distance information
-                String enteredDistance = distance.getText().toString();
+                String enteredDistance = etDistance.getText().toString();
                 if (!enteredDistance.equals("")) {
                     dist = Integer.parseInt(enteredDistance) * 1609; // convert to miles
                 }
