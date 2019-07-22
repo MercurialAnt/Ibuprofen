@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.ibuprofen.EventAdapter;
+import com.example.ibuprofen.Adapters.EventAdapter;
 import com.example.ibuprofen.HomeActivity;
 import com.example.ibuprofen.R;
 
@@ -103,17 +103,8 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
-
-        // todo--be able to upload new image
-//        ivProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
     }
 
-//    // todo--fix query for events/figure out how relations works
     private void queryUserEvents() {
         ParseQuery<Event> postQuery = new ParseQuery<>(Event.class);
         postQuery.include(Event.KEY_USERS);

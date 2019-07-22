@@ -39,8 +39,5 @@ public class EventFragment extends Fragment {
                 startActivity(i);
             }
         });
-
-        // todo--create option to make your own list
-
     }
 }

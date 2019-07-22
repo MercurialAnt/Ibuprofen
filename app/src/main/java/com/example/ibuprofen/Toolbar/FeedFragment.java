@@ -1,14 +1,10 @@
 package com.example.ibuprofen.Toolbar;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.RestaurantsAdapter;
+import com.example.ibuprofen.Adapters.RestaurantsAdapter;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Restaurant;
 
@@ -36,8 +32,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-
-import static com.parse.Parse.getApplicationContext;
 
 public class FeedFragment extends Fragment {
     private YelpAPI client;

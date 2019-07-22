@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Restaurant;
 
 import java.util.List;

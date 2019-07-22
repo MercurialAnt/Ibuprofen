@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ibuprofen.DetailsActivity;
+import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Restaurant;
 
 import org.json.JSONException;
