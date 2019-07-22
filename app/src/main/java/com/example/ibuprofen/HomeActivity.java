@@ -38,10 +38,10 @@ public class HomeActivity extends AppCompatActivity {
             to_landing_page();
         }
 
-        username_et = findViewById(R.id.username_et);
-        password_et = findViewById(R.id.password_et);
-        login_btn = findViewById(R.id.login_btn);
-        signup_btn = findViewById(R.id.signup_btn);
+        username_et = findViewById(R.id.etUsername);
+        password_et = findViewById(R.id.etPassword);
+        login_btn = findViewById(R.id.btnLogin);
+        signup_btn = findViewById(R.id.btnSignup);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override

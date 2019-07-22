@@ -26,8 +26,8 @@ public class EventFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // initialize vars
-        restaurant_iv = view.findViewById(R.id.restaurant_iv);
-        createYourOwn_iv = view.findViewById(R.id.createYourOwn_iv);
+        restaurant_iv = view.findViewById(R.id.ivRestaurant);
+        createYourOwn_iv = view.findViewById(R.id.ivCreateYourOwn);
 
         // set onclick listener for restaurant button
         restaurant_iv.setOnClickListener(new View.OnClickListener() {

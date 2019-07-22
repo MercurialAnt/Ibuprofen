@@ -32,8 +32,8 @@ public class ResultsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        result_rv = findViewById(R.id.results_rv);
-        done_btn = findViewById(R.id.done_btn);
+        result_rv = findViewById(R.id.rvResults);
+        done_btn = findViewById(R.id.btnDone);
 
         restaurants = new ArrayList<>();
         Intent intent = getIntent();

@@ -57,10 +57,10 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             super(view);
 
             // initialize vars using findById
-            profile_iv = view.findViewById(R.id.profile_iv);
-            username_tv = view.findViewById(R.id.username_tv);
-            name_tv = view.findViewById(R.id.name_tv);
-            add_btn = view.findViewById(R.id.add_btn);
+            profile_iv = view.findViewById(R.id.ivProfile);
+            username_tv = view.findViewById(R.id.tvUsername);
+            name_tv = view.findViewById(R.id.tvName);
+            add_btn = view.findViewById(R.id.btnAdd);
 
             //todo set onclick listener for add button (but only in fragment)
 

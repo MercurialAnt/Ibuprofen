@@ -33,7 +33,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // initialize vars
-        users_rv = view.findViewById(R.id.users_rv);
+        users_rv = view.findViewById(R.id.rvUsers);
         users = new ArrayList<>();
 
         //create adapter

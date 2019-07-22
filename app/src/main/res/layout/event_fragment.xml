@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/restaurant_iv"
+        android:id="@+id/ivRestaurant"
         android:layout_width="303dp"
         android:layout_height="370dp"
         android:layout_marginStart="106dp"
@@ -17,11 +17,11 @@
         android:layout_marginRight="106dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelect"
         app:srcCompat="@drawable/restauranticon" />
 
     <ImageView
-        android:id="@+id/createYourOwn_iv"
+        android:id="@+id/ivCreateYourOwn"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="106dp"
@@ -33,11 +33,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movies_iv"
+        app:layout_constraintTop_toBottomOf="@+id/ivMovies"
         app:srcCompat="@drawable/plusoptions" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvSelect"
         android:layout_width="218dp"
         android:layout_height="36dp"
         android:layout_marginStart="96dp"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/movies_iv"
+        android:id="@+id/ivMovies"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="105dp"
@@ -63,7 +63,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurant_iv"
+        app:layout_constraintTop_toBottomOf="@+id/ivRestaurant"
         app:srcCompat="@drawable/movieselection" />
 
 </android.support.constraint.ConstraintLayout>

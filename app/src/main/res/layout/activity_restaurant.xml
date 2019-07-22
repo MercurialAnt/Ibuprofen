@@ -7,7 +7,7 @@
     tools:context=".RestaurantActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="165dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/submit_btn"
+        android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="41dp"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvDistanceFilt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
@@ -43,21 +43,21 @@
         android:text="Max distance:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvCuisineFilt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Cuisine:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/distance_et" />
+        app:layout_constraintStart_toStartOf="@+id/tvDistanceFilt"
+        app:layout_constraintTop_toBottomOf="@+id/etDistance" />
 
     <CheckBox
-        android:id="@+id/chinese_cb"
+        android:id="@+id/cbChinese"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -65,11 +65,11 @@
         android:text="Chinese"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="@+id/textView6" />
+        app:layout_constraintStart_toEndOf="@+id/tvCuisineFilt"
+        app:layout_constraintTop_toTopOf="@+id/tvCuisineFilt" />
 
     <CheckBox
-        android:id="@+id/french_cb"
+        android:id="@+id/cbFrench"
         style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,22 +77,22 @@
         android:text="French"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/chinese_cb"
-        app:layout_constraintTop_toBottomOf="@+id/chinese_cb" />
+        app:layout_constraintStart_toStartOf="@+id/cbChinese"
+        app:layout_constraintTop_toBottomOf="@+id/cbChinese" />
 
     <CheckBox
-        android:id="@+id/american_cb"
+        android:id="@+id/cbAmerican"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="American"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/french_cb"
-        app:layout_constraintTop_toBottomOf="@+id/french_cb" />
+        app:layout_constraintStart_toStartOf="@+id/cbFrench"
+        app:layout_constraintTop_toBottomOf="@+id/cbFrench" />
 
     <EditText
-        android:id="@+id/distance_et"
+        android:id="@+id/etDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -100,8 +100,8 @@
         android:ems="10"
         android:hint="Enter distance in miles"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDistanceFilt"
+        app:layout_constraintStart_toEndOf="@+id/tvDistanceFilt"
+        app:layout_constraintTop_toTopOf="@+id/tvDistanceFilt" />
 
 </android.support.constraint.ConstraintLayout>

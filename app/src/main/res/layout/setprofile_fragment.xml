@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/profile_iv"
+        android:id="@+id/ivProfile"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
@@ -20,7 +20,7 @@
         app:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <Button
-        android:id="@+id/create_btn"
+        android:id="@+id/btnCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,10 +33,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/tvProfile" />
 
     <TextView
-        android:id="@+id/profile_tv"
+        android:id="@+id/tvProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,42 +50,42 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/ivCamera" />
 
     <ImageView
-        android:id="@+id/add_iv"
+        android:id="@+id/ivAdd"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_iv"
-        app:layout_constraintEnd_toEndOf="@+id/profile_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+        app:layout_constraintEnd_toEndOf="@+id/ivProfile"
         app:srcCompat="@drawable/event" />
 
     <ImageView
-        android:id="@+id/camera_iv"
+        android:id="@+id/ivCamera"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/gallery_iv"
+        app:layout_constraintEnd_toStartOf="@+id/ivGallery"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_iv"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfile"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageView
-        android:id="@+id/gallery_iv"
+        android:id="@+id/ivGallery"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/camera_iv"
-        app:layout_constraintTop_toBottomOf="@+id/profile_iv"
+        app:layout_constraintStart_toEndOf="@+id/ivCamera"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfile"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <ProgressBar
-        android:id="@+id/create_pb"
+        android:id="@+id/pbCreate"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

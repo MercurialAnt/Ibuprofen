@@ -31,8 +31,8 @@ public class SetContactFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        email_et = view.findViewById(R.id.email_et);
-        next_btn = view.findViewById(R.id.next_btn);
+        email_et = view.findViewById(R.id.etEmail);
+        next_btn = view.findViewById(R.id.btnNext);
 
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override

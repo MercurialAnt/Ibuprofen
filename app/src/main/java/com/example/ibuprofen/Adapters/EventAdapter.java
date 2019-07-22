@@ -60,10 +60,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             super(view);
 
             // initialize vars using findById
-            restaurant_iv = view.findViewById(R.id.restaurant_iv);
-            username_tv = view.findViewById(R.id.username_tv);
-            restaurantName_tv = view.findViewById(R.id.restaurantName_tv);
-            friendNumber_tv = view.findViewById(R.id.friendNumber_tv);
+            restaurant_iv = view.findViewById(R.id.ivRestaurant);
+            username_tv = view.findViewById(R.id.tvUsername);
+            restaurantName_tv = view.findViewById(R.id.tvRestaurantName);
+            friendNumber_tv = view.findViewById(R.id.tvFriendNumber);
 
         }
 

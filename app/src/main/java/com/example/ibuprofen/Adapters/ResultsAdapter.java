@@ -47,8 +47,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
            super(itemView);
-            count_tv = itemView.findViewById(R.id.count_tv);
-            name_tv = itemView.findViewById(R.id.name_tv);
+            count_tv = itemView.findViewById(R.id.tvCount);
+            name_tv = itemView.findViewById(R.id.tvName);
 
         }
 

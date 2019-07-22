@@ -49,11 +49,11 @@ public class SetProfilePicFragment extends PhotoCapture {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
-        create_btn = view.findViewById(R.id.create_btn);
-        profile_iv = view.findViewById(R.id.profile_iv);
-        add_iv = view.findViewById(R.id.add_iv);
-        camera_iv = view.findViewById(R.id.camera_iv);
-        gallery_iv = view.findViewById(R.id.gallery_iv);
+        create_btn = view.findViewById(R.id.btnCreate);
+        profile_iv = view.findViewById(R.id.ivProfile);
+        add_iv = view.findViewById(R.id.ivAdd);
+        camera_iv = view.findViewById(R.id.ivCamera);
+        gallery_iv = view.findViewById(R.id.ivGallery);
 
 
         final ParseUser newUser = new ParseUser();

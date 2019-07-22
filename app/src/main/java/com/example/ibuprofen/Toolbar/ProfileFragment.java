@@ -56,10 +56,10 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // initialize vars
-        tvUsername = view.findViewById(R.id.username_tv);
-        tvName = view.findViewById(R.id.name_tv);
-        rvFeed = view.findViewById(R.id.pastEvents_rv);
-        ivProfile = view.findViewById(R.id.profile_iv);
+        tvUsername = view.findViewById(R.id.tvUsername);
+        tvName = view.findViewById(R.id.tvName);
+        rvFeed = view.findViewById(R.id.rvPastEvents);
+        ivProfile = view.findViewById(R.id.ivProfile);
         eventsList = new ArrayList<>();
 
         // set current user and set username, name, and image
@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
         }
 
         // set on click listener for sign out button
-        btnSignout = view.findViewById(R.id.signout_btn);
+        btnSignout = view.findViewById(R.id.btnSignout);
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -30,8 +30,8 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        name_et = view.findViewById(R.id.name_et);
-        next_btn = view.findViewById(R.id.next_btn);
+        name_et = view.findViewById(R.id.etName);
+        next_btn = view.findViewById(R.id.btnNext);
 
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override

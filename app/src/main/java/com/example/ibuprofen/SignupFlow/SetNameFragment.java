@@ -37,10 +37,10 @@ public class SetNameFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        username_et = view.findViewById(R.id.username_et);
-        password_et_1 = view.findViewById(R.id.password_et_1);
-        password_et_2 = view.findViewById(R.id.password_et_2);
-        next_btn = view.findViewById(R.id.next_btn);
+        username_et = view.findViewById(R.id.etUsername);
+        password_et_1 = view.findViewById(R.id.etPassword1);
+        password_et_2 = view.findViewById(R.id.etPassword2);
+        next_btn = view.findViewById(R.id.btnNext);
 
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override

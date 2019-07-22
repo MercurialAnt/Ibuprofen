@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/restaurant_iv"
+        android:id="@+id/ivRestaurant"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -17,7 +17,7 @@
         app:srcCompat="@android:color/black" />
 
     <TextView
-        android:id="@+id/username_tv"
+        android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
@@ -25,21 +25,21 @@
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_iv"
+        app:layout_constraintStart_toEndOf="@+id/ivRestaurant"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvWentTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="went to..."
-        app:layout_constraintStart_toEndOf="@+id/username_tv"
-        app:layout_constraintTop_toTopOf="@+id/username_tv" />
+        app:layout_constraintStart_toEndOf="@+id/tvUsername"
+        app:layout_constraintTop_toTopOf="@+id/tvUsername" />
 
     <TextView
-        android:id="@+id/restaurantName_tv"
+        android:id="@+id/tvRestaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
@@ -47,39 +47,39 @@
         android:layout_marginTop="9dp"
         android:text="restaurant_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_iv"
-        app:layout_constraintTop_toBottomOf="@+id/username_tv" />
+        app:layout_constraintStart_toEndOf="@+id/ivRestaurant"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvWith"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="18dp"
         android:text="with..."
-        app:layout_constraintStart_toEndOf="@+id/restaurantName_tv"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toEndOf="@+id/tvRestaurantName"
+        app:layout_constraintTop_toBottomOf="@+id/tvWentTo" />
 
     <TextView
-        android:id="@+id/friendNumber_tv"
+        android:id="@+id/tvFriendNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
         android:layout_marginTop="15dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_iv"
-        app:layout_constraintTop_toBottomOf="@+id/restaurantName_tv" />
+        app:layout_constraintStart_toEndOf="@+id/ivRestaurant"
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tvFriends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
         android:layout_marginTop="15dp"
         android:text="friends"
-        app:layout_constraintStart_toEndOf="@+id/friendNumber_tv"
-        app:layout_constraintTop_toBottomOf="@+id/restaurantName_tv" />
+        app:layout_constraintStart_toEndOf="@+id/tvFriendNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
 </android.support.constraint.ConstraintLayout>
