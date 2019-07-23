@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ibuprofen.model.Event;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -39,14 +41,6 @@ public class RestaurantActivity extends AppCompatActivity {
     // information to send
     int dist = 5 * 1609; // initially set to 5 miles
 
-    // cuisines
-//    CheckBox chinese_cb;
-//    CheckBox french_cb;
-//    CheckBox american_cb;
-//    boolean chinese;
-//    boolean french;
-//    boolean american;
-
     // list of restaurants that fit the criteria
     String options;
 
@@ -59,9 +53,6 @@ public class RestaurantActivity extends AppCompatActivity {
         distance = findViewById(R.id.etDistance);
         btnSubmit = findViewById(R.id.btnSubmit);
         options = "";
-//        chinese_cb = findViewById(R.id.chinese_cb);
-//        french_cb = findViewById(R.id.french_cb);
-//        american_cb = findViewById(R.id.american_cb);
 
 
         // set on click listener for submit
@@ -73,16 +64,15 @@ public class RestaurantActivity extends AppCompatActivity {
                 if (!enteredDistance.equals("")) {
                     dist = Integer.parseInt(enteredDistance) * 1609; // convert to miles
                 }
-// gets selected cuisine information
-//                chinese = chinese_cb.isSelected();
-//                french = french_cb.isSelected();
-//                american = american_cb.isSelected();
 
                 // create a new event
                 event = new Event();
 
                 // set creator for event
                 event.setCreator(ParseUser.getCurrentUser());
+
+                // add creator to attendee list
+                event.getMembers().add(ParseUser.getCurrentUser());
 
                 // query acceptable restaurants
                 queryOptions();
@@ -134,7 +124,7 @@ public class RestaurantActivity extends AppCompatActivity {
                     return;
                 }
                 // intent to go to next activity once restaurants are queried
-                Intent i = new Intent(RestaurantActivity.this, ChooseActivity.class);
+                Intent i = new Intent(RestaurantActivity.this, AddMembersActivity.class);
                 i.putExtra("event", event);
                 startActivity(i);
                 Log.d("RESTACTIVITY", "success!");

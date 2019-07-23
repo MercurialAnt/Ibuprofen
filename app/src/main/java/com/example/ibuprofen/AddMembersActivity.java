@@ -8,12 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.ibuprofen.Adapters.FriendAdapter;
+import com.example.ibuprofen.model.Event;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ public class AddMembersActivity extends AppCompatActivity {
     FriendAdapter adapter;
     List<ParseUser> users;
     Button btnNext;
+    Event event; // to pass onto choose activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +38,10 @@ public class AddMembersActivity extends AppCompatActivity {
         rvUsers = findViewById(R.id.rvUsers);
         btnNext = findViewById(R.id.btnNext);
         users = new ArrayList<>();
+        event = getIntent().getParcelableExtra("event");
 
         //create adapter
-        adapter = new FriendAdapter(this, users);
+        adapter = new FriendAdapter(this, users, event, true);
         //set the adapter on the recycler view
         rvUsers.setAdapter(adapter);
         //set layout manager on recycler view
@@ -48,9 +53,14 @@ public class AddMembersActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // intent to move on to chooseActivity
-                Intent i = new Intent(AddMembersActivity.this, ChooseActivity.class);
-                startActivity(i);
+                if (adapter.saved) {
+                    Intent i = new Intent(AddMembersActivity.this, ChooseActivity.class);
+                    i.putExtra("event", event);
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Loading, please try again in a second.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
