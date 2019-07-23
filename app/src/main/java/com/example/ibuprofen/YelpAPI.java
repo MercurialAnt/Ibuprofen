@@ -34,8 +34,6 @@ public class YelpAPI {
 
     // To use it do client.call(request).enque(new Callback)
     public Request getRestaurants(Location gpsLocation) {
-
-        // -TODO add location from phone and then talk about how to deal with the options
         HttpUrl url;
         if (gpsLocation != null) {
             url = HttpUrl
@@ -61,6 +59,12 @@ public class YelpAPI {
                 .build();
     }
 
+    public Request getReview(String restId) {
+        HttpUrl url = HttpUrl
+                .parse(base_url + "/businesses/" + restId + "/reviews");
+        return getAuthRequest(url);
+    }
+
     public Request getDistanceFilteredRestaurants(int radius, Location gpsLocation, List<String> choosen, List<Integer> price) {
         HttpUrl.Builder builder =  HttpUrl
                 .parse(base_url + "/businesses/search")
@@ -73,13 +77,17 @@ public class YelpAPI {
         addCategories(choosen, builder);
         addMoneySign(price, builder);
 
-        HttpUrl url = builder.build();
+        return getAuthRequest(builder.build());
+    }
+
+    public Request getAuthRequest(HttpUrl url) {
         return new Request.Builder()
                 .get()
                 .url(url)
                 .addHeader(auth_key_header, auth_value_header)
                 .build();
     }
+
 
     public void addCategories(List<String> choices, HttpUrl.Builder builder) {
         if (choices.isEmpty())
