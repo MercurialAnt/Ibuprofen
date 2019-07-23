@@ -95,10 +95,6 @@ public class RestaurantActivity extends AppCompatActivity {
                 if (!enteredDistance.equals("")) {
                     dist = (int) (Integer.parseInt(enteredDistance) * meterToMile); // convert to miles
                 }
-// gets selected cuisine information
-//                chinese = chinese_cb.isSelected();
-//                french = french_cb.isSelected();
-//                american = american_cb.isSelected();
 
                 // create a new event
                 event = new Event();
