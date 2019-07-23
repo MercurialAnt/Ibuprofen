@@ -39,6 +39,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         this.addMembers = addMembers;
         if (addMembers) {
             this.members = event.getMembers();
+            this.saved = true;
         }
     }
 

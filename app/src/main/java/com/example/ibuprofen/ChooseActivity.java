@@ -52,6 +52,7 @@ public class ChooseActivity extends AppCompatActivity {
                 Intent goToResultsIntent = new Intent(ChooseActivity.this, ResultsActivity.class);
                 String newJson = change_counts(event);
                 goToResultsIntent.putExtra("votedOn", newJson);
+                goToResultsIntent.putExtra("event", event);
                 startActivity(goToResultsIntent);
             }
         });
