@@ -34,7 +34,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class FeedFragment extends Fragment {
-    private YelpAPI client;
     private RecyclerView rvRestaurants;
     protected RestaurantsAdapter adapter;
     protected List<Restaurant> mRestaurants;
