@@ -16,6 +16,7 @@ public class Event extends ParseObject {
     public static final String KEY_USERS = "attendees";
     public static final String KEY_OPTIONS = "options";
     public static final String KEY_CREATOR = "creator";
+    public static final String KEY_VOTED = "hasVoted";
 
     public Event() {
 
@@ -51,5 +52,9 @@ public class Event extends ParseObject {
 
     public void setCreator(ParseUser user) {
         put(KEY_CREATOR, user);
+    }
+
+    public ParseRelation<ParseObject> getVoters() {
+        return getRelation(KEY_VOTED);
     }
 }
