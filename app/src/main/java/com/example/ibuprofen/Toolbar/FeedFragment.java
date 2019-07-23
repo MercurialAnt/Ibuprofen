@@ -1,5 +1,7 @@
 package com.example.ibuprofen.Toolbar;
 
+import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -14,9 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ibuprofen.Adapters.RestaurantsAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.Adapters.RestaurantsAdapter;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Restaurant;
 
@@ -39,7 +41,16 @@ public class FeedFragment extends Fragment {
     protected RestaurantsAdapter adapter;
     protected List<Restaurant> mRestaurants;
     private SwipeRefreshLayout swipeContainer;
+    protected Activity mActivity;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            mActivity = (Activity) context;
+        }
+    }
 
     //onCreateView to inflate the view
     @Nullable
@@ -93,7 +104,7 @@ public class FeedFragment extends Fragment {
                             store.accumulate("count", new Integer(0));
                             Restaurant restaurant = Restaurant.fromJSON(store);
                             mRestaurants.add(restaurant);
-                            getActivity().runOnUiThread(new Runnable() {
+                            mActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     adapter.notifyDataSetChanged();
