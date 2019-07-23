@@ -3,18 +3,26 @@ package com.example.ibuprofen.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.R;
+import com.example.ibuprofen.model.Event;
+import com.parse.CountCallback;
+import com.parse.ParseException;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // adapter to show user's past events
@@ -22,10 +30,19 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     private Context context;
     private List<ParseUser> users;
+    Event event; // to access attendees list and edit it
+    boolean addMembers; // true if this is the AddMembersActivity, false if its the friendFragment
+    public ParseRelation<ParseUser> members;
+    public boolean saved; // keeps track of whether or not something is currently saving
 
-    public FriendAdapter(Context context, List<ParseUser> users) {
+    public FriendAdapter(Context context, List<ParseUser> users, Event event, boolean addMembers) {
         this.context = context;
         this.users = users;
+        this.event = event;
+        this.addMembers = addMembers;
+        if (addMembers) {
+            this.members = event.getMembers();
+        }
     }
 
     @NonNull
@@ -48,42 +65,69 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // instance vars
-        ImageView profile_iv;
-        TextView username_tv;
-        TextView name_tv;
-        Button add_btn;
+        ImageView ivProfile;
+        TextView tvUsername;
+        TextView tvName;
+        Button btnAdd;
 
         public ViewHolder(@NonNull View view) {
             super(view);
 
             // initialize vars using findById
-            profile_iv = view.findViewById(R.id.ivProfile);
-            username_tv = view.findViewById(R.id.tvUsername);
-            name_tv = view.findViewById(R.id.tvName);
-            add_btn = view.findViewById(R.id.btnAdd);
+            ivProfile = view.findViewById(R.id.ivProfile);
+            tvUsername = view.findViewById(R.id.tvUsername);
+            tvName = view.findViewById(R.id.tvName);
+            btnAdd = view.findViewById(R.id.btnAdd);
 
-            //todo set onclick listener for add button (but only in fragment)
 
+            // sets on click listener for add button if in the AddMembers page
+            if (addMembers) {
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // sets saved to false
+                        saved = false;
+                        // adds added user to attendees in event
+                        // find number of event attendees (list all of them in details page)
+                        members.add(users.get(getAdapterPosition()));
+                        event.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                saved = true;
+                            }
+                        });
+
+                        Log.d("FRIENDADD",users.get(getAdapterPosition()).getUsername());
+                    }
+                });
+            }
+            else {
+                // makes add button go away if this is not the addMembersActivity
+                btnAdd.setVisibility(View.GONE);
+            }
         }
 
         public void bind(ParseUser user) {
+            // makes add button disappear if the user being shown is the current user
+            if (user.hasSameId(ParseUser.getCurrentUser())) {
+                btnAdd.setVisibility(View.GONE);
+            }
+
             // set information
             // profile image
             String profileUrl;
             if (user.getParseFile("profilePic") != null) {
                 profileUrl = user.getParseFile("profilePic").getUrl();
+                Glide.with(context)
+                        .load(profileUrl)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(ivProfile);
             }
-            else {
-                profileUrl = "@drawable/anonymous.png";
-            }
-            Glide.with(context)
-                    .load(profileUrl)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profile_iv);
+
             // username
-            username_tv.setText(user.getString("username"));
+            tvUsername.setText(user.getString("username"));
             // name
-            name_tv.setText(user.getString("name"));
+            tvName.setText(user.getString("name"));
         }
     }
 }

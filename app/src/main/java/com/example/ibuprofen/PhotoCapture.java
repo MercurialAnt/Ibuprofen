@@ -35,8 +35,6 @@ public class PhotoCapture extends Fragment {
     private File photoFile;
     Context context;
 
-
-
     public void onLaunchCamera(View view) {
         // Creating an intent to launch camera
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

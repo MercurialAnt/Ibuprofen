@@ -51,25 +51,25 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // instance vars
-        ImageView restaurant_iv;
-        TextView username_tv;
-        TextView restaurantName_tv;
-        TextView friendNumber_tv;
+        ImageView ivRestaurant;
+        TextView tvUsername;
+        TextView tvRestaurantName;
+        TextView tvFriendNumber;
 
         public ViewHolder(@NonNull View view) {
             super(view);
 
             // initialize vars using findById
-            restaurant_iv = view.findViewById(R.id.ivRestaurant);
-            username_tv = view.findViewById(R.id.tvUsername);
-            restaurantName_tv = view.findViewById(R.id.tvRestaurantName);
-            friendNumber_tv = view.findViewById(R.id.tvFriendNumber);
+            ivRestaurant = view.findViewById(R.id.ivRestaurant);
+            tvUsername = view.findViewById(R.id.tvUsername);
+            tvRestaurantName = view.findViewById(R.id.tvRestaurantName);
+            tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
 
         }
 
         public void bind(Event event) {
             // set username
-            username_tv.setText(user.getUsername());
+            tvUsername.setText(user.getUsername());
 
             // set image (either restaurant of choice or profile picture of organizer)
 
@@ -79,7 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                 @Override
                 public void done(int count, ParseException e) {
                     int num = count - 1;
-                    friendNumber_tv.setText("" + num);
+                    tvFriendNumber.setText("" + num);
                 }
             });
         }

@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         //set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_feed);
-
     }
 }

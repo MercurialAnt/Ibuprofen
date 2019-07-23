@@ -16,8 +16,8 @@ import com.example.ibuprofen.R;
 
 public class WelcomeFragment extends Fragment {
 
-    private EditText name_et;
-    private Button next_btn;
+    private EditText etName;
+    private Button btnNext;
 
     // inflate the layout
     @Nullable
@@ -30,18 +30,18 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        name_et = view.findViewById(R.id.etName);
-        next_btn = view.findViewById(R.id.btnNext);
+        etName = view.findViewById(R.id.etName);
+        btnNext = view.findViewById(R.id.btnNext);
 
-        next_btn.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (name_et.getText().toString().length() > 0) {
+                if (etName.getText().toString().length() > 0) {
                     Fragment nextFragment = new SetNameFragment();
                     FragmentTransaction  transaction = getFragmentManager().beginTransaction();
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("name", name_et.getText().toString());
+                    bundle.putString("name", etName.getText().toString());
                     nextFragment.setArguments(bundle);
                     transaction.replace(R.id.flSignupContainer, nextFragment);
                     transaction.addToBackStack(null);

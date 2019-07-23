@@ -13,8 +13,8 @@ import com.example.ibuprofen.RestaurantActivity;
 
 public class EventFragment extends Fragment {
     // instance vars
-    ImageView restaurant_iv;
-    ImageView createYourOwn_iv;
+    ImageView ivRestaurant;
+    ImageView ivCreateYourOwn;
 
     //onCreateView to inflate the view
     @Nullable
@@ -26,11 +26,11 @@ public class EventFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // initialize vars
-        restaurant_iv = view.findViewById(R.id.ivRestaurant);
-        createYourOwn_iv = view.findViewById(R.id.ivCreateYourOwn);
+        ivRestaurant = view.findViewById(R.id.ivRestaurant);
+        ivCreateYourOwn = view.findViewById(R.id.ivCreateYourOwn);
 
         // set onclick listener for restaurant button
-        restaurant_iv.setOnClickListener(new View.OnClickListener() {
+        ivRestaurant.setOnClickListener(new View.OnClickListener() {
 
             // onClick bring it to restaurants filter fragment
             @Override

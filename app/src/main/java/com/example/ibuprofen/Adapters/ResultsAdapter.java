@@ -42,19 +42,18 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView count_tv;
-        private TextView name_tv;
+        private TextView tvCount;
+        private TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
            super(itemView);
-            count_tv = itemView.findViewById(R.id.tvCount);
-            name_tv = itemView.findViewById(R.id.tvName);
-
+            tvCount = itemView.findViewById(R.id.tvCount);
+            tvName = itemView.findViewById(R.id.tvName);
         }
 
         public void bind(Restaurant restaurant) {
-            count_tv.setText(String.format("%d", restaurant.getCount()));
-            name_tv.setText(restaurant.getName());
+            tvCount.setText(String.format("%d", restaurant.getCount()));
+            tvName.setText(restaurant.getName());
         }
     }
 }

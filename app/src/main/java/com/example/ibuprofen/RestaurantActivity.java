@@ -36,8 +36,8 @@ import okhttp3.Response;
 
 public class RestaurantActivity extends AppCompatActivity {
 
-    EditText distance;
-    Button submit_btn;
+    EditText etDistance;
+    Button btnSubmit;
     // The money sign buttons
     Button btnOne;
     Button btnTwo;
@@ -64,8 +64,8 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
 
-        distance = findViewById(R.id.etDistance);
-        submit_btn = findViewById(R.id.btnSubmit);
+        etDistance = findViewById(R.id.etDistance);
+        btnSubmit = findViewById(R.id.btnSubmit);
         btnOne = findViewById(R.id.btnOne);
         btnTwo = findViewById(R.id.btnTwo);
         btnThree = findViewById(R.id.btnThree);
@@ -87,21 +87,27 @@ public class RestaurantActivity extends AppCompatActivity {
         btnFour.setOnClickListener(new MoneyListen(4));
 
         // set on click listener for submit
-        submit_btn.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // gets distance information
-                String enteredDistance = distance.getText().toString();
+                String enteredDistance = etDistance.getText().toString();
                 if (!enteredDistance.equals("")) {
                     dist = (int) (Integer.parseInt(enteredDistance) * meterToMile); // convert to miles
                 }
-
+// gets selected cuisine information
+//                chinese = chinese_cb.isSelected();
+//                french = french_cb.isSelected();
+//                american = american_cb.isSelected();
 
                 // create a new event
                 event = new Event();
 
                 // set creator for event
                 event.setCreator(ParseUser.getCurrentUser());
+
+                // add creator to attendee list
+                event.getMembers().add(ParseUser.getCurrentUser());
 
                 // query acceptable restaurants
                 queryOptions();
@@ -152,8 +158,8 @@ public class RestaurantActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return;
                 }
-                // intent to go to next fragment once restaurants are queried
-                Intent i = new Intent(RestaurantActivity.this, ChooseActivity.class);
+                // intent to go to next activity once restaurants are queried
+                Intent i = new Intent(RestaurantActivity.this, AddMembersActivity.class);
                 i.putExtra("event", event);
                 startActivity(i);
                 Log.d("RESTACTIVITY", "success!");

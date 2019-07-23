@@ -12,7 +12,6 @@ public class ParseApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-
         // register Event class
         ParseObject.registerSubclass(Event.class);
 

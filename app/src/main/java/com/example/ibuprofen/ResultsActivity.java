@@ -22,8 +22,8 @@ public class ResultsActivity extends AppCompatActivity {
 
     List<Restaurant> restaurants;
     ResultsAdapter resultsAdapter;
-    RecyclerView result_rv;
-    Button done_btn;
+    RecyclerView tvResults;
+    Button btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,8 @@ public class ResultsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        result_rv = findViewById(R.id.rvResults);
-        done_btn = findViewById(R.id.btnDone);
+        tvResults = findViewById(R.id.rvResults);
+        btnDone = findViewById(R.id.btnDone);
 
         restaurants = new ArrayList<>();
         Intent intent = getIntent();
@@ -50,10 +50,10 @@ public class ResultsActivity extends AppCompatActivity {
 
         resultsAdapter = new ResultsAdapter(this, restaurants);
 
-        result_rv.setAdapter(resultsAdapter);
-        result_rv.setLayoutManager(new LinearLayoutManager(this));
+        tvResults.setAdapter(resultsAdapter);
+        tvResults.setLayoutManager(new LinearLayoutManager(this));
 
-       done_btn.setOnClickListener(new View.OnClickListener() {
+       btnDone.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent finishedIntent = new Intent(ResultsActivity.this, MainActivity.class);

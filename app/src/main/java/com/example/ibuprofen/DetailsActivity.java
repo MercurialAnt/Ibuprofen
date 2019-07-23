@@ -2,13 +2,22 @@ package com.example.ibuprofen;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.ibuprofen.Adapters.ChooseAdapter;
+import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
 
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
     Restaurant restaurant;
@@ -38,9 +47,9 @@ public class DetailsActivity extends AppCompatActivity {
         tvDistance = findViewById(R.id.tvDistance);
         restaurant = Parcels.unwrap(getIntent().getParcelableExtra("Detailed"));
 
-//        if (restaurant.getImage() != null) {
-//            Glide.with(this).load(restaurant.getImage()).into(ivImage);
-//        }
+        if (restaurant.getImage() != null) {
+            Glide.with(this).load(restaurant.getImage()).into(ivImage);
+        }
         tvName.setText(restaurant.getName());
         tvCuisine.setText(restaurant.getCategories());
         tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
