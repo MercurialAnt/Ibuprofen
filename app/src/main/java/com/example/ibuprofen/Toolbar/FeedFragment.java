@@ -52,30 +52,20 @@ public class FeedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
 
-        //create data source
         mRestaurants = new ArrayList<>();
-        //create adapter
         adapter = new RestaurantsAdapter(getContext(), mRestaurants);
-        //set the adapter on the recycler view
         rvRestaurants.setAdapter(adapter);
-        //set layout manager on recycler view
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
         populateFeed();
 
-
-        // Lookup the swipe container view
+        //swipe refresh
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                //fetchTimelineAsync(0);
+                populateFeed();
             }
         });
-        // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -114,8 +104,8 @@ public class FeedFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
+                swipeContainer.setRefreshing(false);
             }
         });
     }
-
 }
