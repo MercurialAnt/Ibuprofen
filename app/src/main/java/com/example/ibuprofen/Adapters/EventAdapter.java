@@ -34,7 +34,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     @NonNull
     @Override
     public EventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_event, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,8 +52,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     class ViewHolder extends RecyclerView.ViewHolder {
         // instance vars
         ImageView ivRestaurant;
-        TextView tvCreator;
-        TextView tvEventName;
+        TextView tvUserName;
+        TextView tvRestaurant;
         TextView tvFriendNumber;
 
         public ViewHolder(@NonNull View view) {
@@ -61,14 +61,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
             // initialize vars using findById
             ivRestaurant = view.findViewById(R.id.ivRestaurant);
-            tvCreator = view.findViewById(R.id.tvUsername);
-            tvEventName = view.findViewById(R.id.tvEventName);
+            tvUserName = view.findViewById(R.id.tvCreator);
+            tvRestaurant = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
+
         }
 
         public void bind(Event event) {
             // set username
-            tvCreator.setText(event.getCreator().getUsername());
+            tvUserName.setText(user.getUsername());
 
             // set image (either restaurant of choice or profile picture of organizer)
 

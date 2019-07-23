@@ -73,9 +73,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
             // initialize vars using findById
             ivProfile = view.findViewById(R.id.ivProfile);
-            tvUsername = view.findViewById(R.id.tvUsername);
-            tvName = view.findViewById(R.id.tvName);
-            btnAdd = view.findViewById(R.id.btnAdd);
+            tvUsername = view.findViewById(R.id.tvUser);
+            tvName = view.findViewById(R.id.tvN);
+            btnAdd = view.findViewById(R.id.btnAddd);
 
 
             // sets on click listener for add button if in the AddMembers page

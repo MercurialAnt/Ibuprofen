@@ -56,10 +56,10 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // initialize vars
-        tvUsername = view.findViewById(R.id.tvUsername);
+        tvUsername = view.findViewById(R.id.tvCreator);
         tvName = view.findViewById(R.id.tvName);
         rvFeed = view.findViewById(R.id.rvPastEvents);
-        ivProfile = view.findViewById(R.id.ivProfile);
+        ivProfile = view.findViewById(R.id.ivProfileImage);
         eventsList = new ArrayList<>();
 
         // set current user and set username, name, and image
