@@ -16,6 +16,7 @@ public class Event extends ParseObject {
     public static final String KEY_USERS = "attendees";
     public static final String KEY_OPTIONS = "options";
     public static final String KEY_CREATOR = "creator";
+    public static final String KEY_VOTED = "hasVoted";
 
     public Event() {
 
@@ -52,4 +53,9 @@ public class Event extends ParseObject {
     public void setCreator(ParseUser user) {
         put(KEY_CREATOR, user);
     }
+
+    //Todo 1) query for user OR 2) turn into JSONArray
+//    public boolean hasVoted(ParseUser user) {
+//        if (this.getRelation(KEY_VOTED).)
+//    }
 }

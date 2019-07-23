@@ -53,7 +53,7 @@ public class ResultsActivity extends AppCompatActivity {
         tvResults.setAdapter(resultsAdapter);
         tvResults.setLayoutManager(new LinearLayoutManager(this));
 
-       btnDone.setOnClickListener(new View.OnClickListener() {
+        btnDone.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent finishedIntent = new Intent(ResultsActivity.this, MainActivity.class);

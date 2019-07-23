@@ -52,8 +52,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     class ViewHolder extends RecyclerView.ViewHolder {
         // instance vars
         ImageView ivRestaurant;
-        TextView tvUsername;
-        TextView tvRestaurantName;
+        TextView tvCreator;
+        TextView tvEventName;
         TextView tvFriendNumber;
 
         public ViewHolder(@NonNull View view) {
@@ -61,15 +61,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
             // initialize vars using findById
             ivRestaurant = view.findViewById(R.id.ivRestaurant);
-            tvUsername = view.findViewById(R.id.tvUsername);
-            tvRestaurantName = view.findViewById(R.id.tvRestaurantName);
+            tvCreator = view.findViewById(R.id.tvUsername);
+            tvEventName = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
-
         }
 
         public void bind(Event event) {
             // set username
-            tvUsername.setText(user.getUsername());
+            tvCreator.setText(event.getCreator().getUsername());
 
             // set image (either restaurant of choice or profile picture of organizer)
 

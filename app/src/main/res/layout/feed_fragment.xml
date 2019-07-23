@@ -16,8 +16,17 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvRestaurants"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="609dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvPending" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvPending"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
