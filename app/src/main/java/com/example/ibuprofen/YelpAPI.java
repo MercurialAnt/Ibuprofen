@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+
+import java.util.List;
 
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -58,20 +61,48 @@ public class YelpAPI {
                 .build();
     }
 
-    public Request getDistanceFilteredRestaurants(int radius, Location gpsLocation) {
-        HttpUrl url = HttpUrl
+    public Request getDistanceFilteredRestaurants(int radius, Location gpsLocation, List<String> choosen, List<Integer> price) {
+        HttpUrl.Builder builder =  HttpUrl
                 .parse(base_url + "/businesses/search")
                 .newBuilder()
                 .addQueryParameter("latitude",gpsLocation.getLatitude() + "")
                 .addQueryParameter("longitude", gpsLocation.getLongitude() + "")
                 .addQueryParameter("limit", "10")
-                .addQueryParameter("radius", radius + "")
-                .build();
+                .addQueryParameter("radius", radius + "");
+
+        addCategories(choosen, builder);
+        addMoneySign(price, builder);
+
+        HttpUrl url = builder.build();
         return new Request.Builder()
                 .get()
                 .url(url)
                 .addHeader(auth_key_header, auth_value_header)
                 .build();
+    }
+
+    public void addCategories(List<String> choices, HttpUrl.Builder builder) {
+        if (choices.isEmpty())
+            return;
+
+        String categories = "";
+        for (String choice : choices) {
+            categories += choice + ",";
+        }
+        builder.addQueryParameter("categories", categories.substring(0, categories.length() - 1));
+    }
+
+    public void addMoneySign(List<Integer> price, HttpUrl.Builder builder) {
+        if (price.isEmpty())
+            return;
+        String money = "";
+        for (int sign : price) {
+            money += sign + ", ";
+        }
+        money = money.substring(0, money.length() - 2);
+        Log.d("ha", money);
+        builder.addQueryParameter("price", money);
+
     }
 
     public Location getLocationByProvider(String provider) {
