@@ -93,7 +93,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 // gets distance information
                 String enteredDistance = etDistance.getText().toString();
                 if (!enteredDistance.equals("")) {
-                    dist = (int) (Integer.parseInt(enteredDistance) * meterToMile); // convert to miles
+                    dist = (int) (Double.parseDouble(enteredDistance) * meterToMile); // convert to miles
                 }
 
                 // create a new event

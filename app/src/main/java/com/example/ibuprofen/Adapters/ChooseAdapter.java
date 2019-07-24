@@ -93,7 +93,6 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Restaurant choice = choices.get(position);
-                        choice.incrementCount();
                         nextChoice(position + 1);
                     }
                 }
@@ -125,6 +124,4 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         choices.addAll(list);
         notifyDataSetChanged();
     }
-
-
 }

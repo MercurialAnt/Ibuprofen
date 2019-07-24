@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,7 +18,7 @@
         app:srcCompat="@android:color/black" />
 
     <TextView
-        android:id="@+id/tvUsername"
+        android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,18 +30,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="@+id/tvUsername"
-        app:layout_constraintStart_toStartOf="@+id/tvUsername"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+        app:layout_constraintEnd_toEndOf="@+id/tvUser"
+        app:layout_constraintStart_toStartOf="@+id/tvUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvUser" />
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAddd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"

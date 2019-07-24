@@ -50,7 +50,7 @@ public class SetProfilePicFragment extends PhotoCapture {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
         btnCreate = view.findViewById(R.id.btnCreate);
-        ivProfile = view.findViewById(R.id.ivProfile);
+        ivProfile = view.findViewById(R.id.ivProfileImage);
         ivAdd = view.findViewById(R.id.ivAdd);
         ivCamera = view.findViewById(R.id.ivCamera);
         ivGallery = view.findViewById(R.id.ivGallery);
