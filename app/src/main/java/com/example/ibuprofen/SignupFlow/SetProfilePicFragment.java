@@ -22,6 +22,7 @@ import com.example.ibuprofen.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.io.File;
@@ -70,21 +71,19 @@ public class SetProfilePicFragment extends PhotoCapture {
                 // -TODO fix this becuase images are still being broken
                 if (getPhotoFile() != null) {
                     File file = getPhotoFile();
-                    ParseFile parseFile = new ParseFile(file);
-                    newUser.put("profilePic", parseFile);
-                }
-                newUser.signUpInBackground(new SignUpCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            final Intent intent = new Intent(getContext(), MainActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
-                            e.printStackTrace();
+                    final ParseFile parseFile = new ParseFile(file);
+                    parseFile.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            newUser.put("profilePic", parseFile);
+                            add_user(newUser);
                         }
-                    }
-                });
+                    });
+
+                } else {
+                    add_user(newUser);
+                }
+
             }
         });
 
@@ -100,14 +99,14 @@ public class SetProfilePicFragment extends PhotoCapture {
              @Override
              public void onClick(View v) {
 
-                 //onLaunchCamera(v);
+                 onLaunchCamera(v);
              }
         });
 
         ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onPickPhoto(view);
+                onPickPhoto(view);
             }
         });
     }
