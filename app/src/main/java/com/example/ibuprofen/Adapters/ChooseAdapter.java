@@ -23,11 +23,13 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
     private Context context;
     private List<Restaurant> choices;
     private RecyclerView rvChoices;
+    public int[] counters;
 
     public ChooseAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices) {
         this.context = context;
         this.choices = choices;
         this.rvChoices = rvChoices;
+        counters = new int[10]; // keeps track of votes
     }
 
     @NonNull
@@ -80,8 +82,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Restaurant choice = choices.get(position);
-                        choice.incrementCount();
+                        counters[position]++;
                         nextChoice(position + 1);
                     }
                 }
@@ -92,7 +93,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Restaurant choice = choices.get(position);
+                        counters[position] = 0;
                         nextChoice(position + 1);
                     }
                 }

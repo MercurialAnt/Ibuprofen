@@ -75,8 +75,12 @@ public class SetProfilePicFragment extends PhotoCapture {
                     parseFile.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            newUser.put("profilePic", parseFile);
-                            add_user(newUser);
+                            if (e == null) {
+                                newUser.put("profilePic", parseFile);
+                                add_user(newUser);
+                            } else {
+                                e.printStackTrace();
+                            }
                         }
                     });
 
@@ -86,6 +90,7 @@ public class SetProfilePicFragment extends PhotoCapture {
 
             }
         });
+
 
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +111,7 @@ public class SetProfilePicFragment extends PhotoCapture {
         ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onPickPhoto(view);
+                onPickPhoto(v);
             }
         });
     }
@@ -136,10 +141,6 @@ public class SetProfilePicFragment extends PhotoCapture {
                 // Load the taken image into a preview
                 Bitmap bMapScaled = Bitmap.createScaledBitmap(takenImage, 150, 100, true);
 
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                bMapScaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                array = stream.toByteArray();
-
                 Glide.with(getContext())
                         .asBitmap()
                         .load(bMapScaled)
@@ -156,16 +157,12 @@ public class SetProfilePicFragment extends PhotoCapture {
                 Bitmap takenImage = null;
                 try {
                     takenImage = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoUri);
-//                    photoFile = new File(getRealPathFromURI(photoUri));
                     File file = new File(getRealPathFromURI(photoUri));
                     setPhotoFile(file);
 
                     // Load the taken image into a preview
                     Bitmap bMapScaled = Bitmap.createScaledBitmap(takenImage, 150, 100, true);
 
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                    bMapScaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                    array = stream.toByteArray();
 
                     Glide.with(getContext())
                             .asBitmap()

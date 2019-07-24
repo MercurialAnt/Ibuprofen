@@ -35,6 +35,7 @@ public class EventFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), RestaurantActivity.class);
+                i.putExtra("bundle", getArguments());
                 startActivity(i);
             }
         });

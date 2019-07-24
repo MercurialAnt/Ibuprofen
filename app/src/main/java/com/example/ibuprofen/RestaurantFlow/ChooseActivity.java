@@ -34,8 +34,12 @@ public class ChooseActivity extends AppCompatActivity {
         // Only ever call `setContentView` once right at the top
         setContentView(R.layout.activity_choose);
 
+        // set up list
         mChoices = new ArrayList<>();
+
+        // initialize vars and adapter
         event = getIntent().getParcelableExtra("event");
+
         rvChoose = findViewById(R.id.rvChoose);
         btnDone = findViewById(R.id.btnDone);
         adapter = new ChooseAdapter(this, mChoices, rvChoose);
@@ -47,6 +51,7 @@ public class ChooseActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +71,9 @@ public class ChooseActivity extends AppCompatActivity {
             JSONArray places = new JSONArray(options);
             for (int i = 0; i < places.length(); i++) {
                 JSONObject place = places.getJSONObject(i);
-                place.put("count", mChoices.get(i).count);
+                // get current count
+                int curr = place.getInt("count");
+                place.put("count", curr + adapter.counters[i]);
             }
             newJson = places.toString();
         } catch (JSONException e) {
