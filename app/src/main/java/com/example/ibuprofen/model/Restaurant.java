@@ -115,8 +115,4 @@ public class Restaurant {
     public double getDistance() {
         return  this.distance;
     }
-
-    public void incrementCount() {
-        this.count++;
-    }
 }
