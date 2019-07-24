@@ -69,7 +69,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
         public void bind(Event event) {
             // set username
-            tvCreator.setText(event.getCreator().getUsername());
+            tvCreator.setText(user.getUsername());
 
             // set image (either restaurant of choice or profile picture of organizer)
 
