@@ -51,12 +51,12 @@ public class PendingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.feed_fragment, container, false);
+        return inflater.inflate(R.layout.pending_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rvPending = view.findViewById(R.id.rvRestaurants);
+        rvPending = view.findViewById(R.id.rvPending);
         mPending = new ArrayList<>();
         adapter = new EventAdapter(getContext(), mPending);
         rvPending.setAdapter(adapter);

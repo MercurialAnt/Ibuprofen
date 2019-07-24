@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,8 +61,9 @@ public class FeedFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rvRestaurants = view.findViewById(R.id.rvRestaurants);
+        insertNestedFragment();
 
+        rvRestaurants = view.findViewById(R.id.rvRestaurants);
         mRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), mRestaurants);
         rvRestaurants.setAdapter(adapter);
@@ -69,17 +71,23 @@ public class FeedFragment extends Fragment {
         populateFeed();
 
         //swipe refresh
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                populateFeed();
-            }
-        });
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+//        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                populateFeed();
+//            }
+//        });
+//        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+//                android.R.color.holo_green_light,
+//                android.R.color.holo_orange_light,
+//                android.R.color.holo_red_light);
+    }
+
+    private void insertNestedFragment() {
+        Fragment pendingFragment = new PendingFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.flPending, pendingFragment).commit();
     }
 
     private void populateFeed() {
@@ -114,7 +122,7 @@ public class FeedFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                swipeContainer.setRefreshing(false);
+                //swipeContainer.setRefreshing(false);
             }
         });
     }
