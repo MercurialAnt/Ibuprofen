@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -54,6 +55,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        insertNestedFragment();
 
         // initialize vars
         tvUsername = view.findViewById(R.id.tvCreator);
@@ -103,6 +105,12 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
+    }
+
+    private void insertNestedFragment() {
+        Fragment pendingFragment = new PendingFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.flPending, pendingFragment).commit();
     }
 
     private void queryUserEvents() {

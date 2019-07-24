@@ -70,7 +70,7 @@ public class FeedFragment extends Fragment {
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
         populateFeed();
 
-        //swipe refresh
+//        //swipe refresh
 //        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 //        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override

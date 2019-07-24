@@ -57,9 +57,4 @@ public class Event extends ParseObject {
     public ParseRelation<ParseObject> getVoters() {
         return getRelation(KEY_VOTED);
     }
-
-    //Todo 1) query for user OR 2) turn into JSONArray
-//    public boolean hasVoted(ParseUser user) {
-//        if (this.getRelation(KEY_VOTED).)
-//    }
 }
