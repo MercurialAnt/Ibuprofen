@@ -1,6 +1,8 @@
 package com.example.ibuprofen.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ibuprofen.ChooseActivity;
+import com.example.ibuprofen.DetailsActivity;
 import com.example.ibuprofen.R;
+import com.example.ibuprofen.ResultsActivity;
 import com.example.ibuprofen.model.Event;
 import com.parse.CountCallback;
 import com.parse.ParseException;
@@ -24,11 +29,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     private Context context;
     private List<Event> events;
     private ParseUser user;
+    public boolean pastEvent;
 
-    public EventAdapter(Context context, List<Event> events) {
+    public EventAdapter(Context context, List<Event> events, boolean pastEvent) {
         this.context = context;
         this.events = events;
         this.user = ParseUser.getCurrentUser();
+        this.pastEvent = pastEvent;
     }
 
     @NonNull
@@ -49,7 +56,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         return events.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // instance vars
         ImageView ivRestaurant;
         TextView tvCreator;
@@ -65,6 +72,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             tvRestaurant = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
 
+            view.setOnClickListener(this);
         }
 
         public void bind(Event event) {
@@ -82,6 +90,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                     tvFriendNumber.setText("" + num);
                 }
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+            int position = getAdapterPosition();
+            System.out.println(position);
+            Event event = events.get(position);
+            if (!pastEvent)
+                intent = new Intent(context, ChooseActivity.class);
+            else {
+                intent = new Intent(context, ResultsActivity.class);
+                intent.putExtra("votedOn", event.getOptions());
+            }
+            intent.putExtra("event", event);
+            context.startActivity(intent);
         }
     }
 }

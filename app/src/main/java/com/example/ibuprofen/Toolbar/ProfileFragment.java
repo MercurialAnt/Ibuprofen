@@ -71,7 +71,7 @@ public class ProfileFragment extends Fragment {
 
         // set up adapter
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new EventAdapter(getContext(), eventsList);
+        adapter = new EventAdapter(getContext(), eventsList, true);
         rvFeed.setAdapter(adapter);
 
         // get past events by user
