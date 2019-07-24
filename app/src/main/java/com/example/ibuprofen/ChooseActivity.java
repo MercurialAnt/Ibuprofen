@@ -63,7 +63,7 @@ public class ChooseActivity extends AppCompatActivity {
         });
     }
 
-    public String change_counts(Event currentEvent) {
+    public synchronized String change_counts(Event currentEvent) {
         String newJson = null;
         String options = currentEvent.getOptions();
         try {
