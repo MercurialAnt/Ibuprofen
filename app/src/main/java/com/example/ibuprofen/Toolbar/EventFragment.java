@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.RestaurantActivity;
+import com.example.ibuprofen.RestaurantFlow.RestaurantActivity;
 
 public class EventFragment extends Fragment {
     // instance vars

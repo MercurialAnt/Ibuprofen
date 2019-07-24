@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.RestaurantFlow;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
+import com.example.ibuprofen.OkSingleton;
+import com.example.ibuprofen.R;
+import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Category;
 import com.example.ibuprofen.model.Event;
 import com.parse.ParseException;
@@ -115,7 +118,7 @@ public class RestaurantActivity extends AppCompatActivity {
         YelpAPI test = new YelpAPI(this);
         Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
         OkHttpClient client = OkSingleton.getInstance();
-        client.newCall(test.getDistanceFilteredRestaurants(dist, gpsLocation, choosen, price)).enqueue(new Callback() {
+        client.newCall(test.getFilteredRestaurants(dist, 10, gpsLocation, choosen, price)).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Feed", "Did not work");

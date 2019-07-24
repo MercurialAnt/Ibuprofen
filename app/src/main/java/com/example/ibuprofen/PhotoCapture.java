@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.View;
 
 import com.parse.ParseException;
@@ -111,15 +110,6 @@ public class PhotoCapture extends Fragment {
         return image;
     }
 
-    public File getPhotoFileUri(String fileName) {
-        File mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs())
-            Log.d(TAG, "failed to create directory");
-
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        return file;
-    }
 
     public String getRealPathFromURI(Uri contentUri) {
         Cursor cursor = null;
