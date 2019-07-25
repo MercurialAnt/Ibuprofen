@@ -56,6 +56,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         TextView tvRestaurant;
         TextView tvFriendNumber;
 
+
         public ViewHolder(@NonNull View view) {
             super(view);
 
