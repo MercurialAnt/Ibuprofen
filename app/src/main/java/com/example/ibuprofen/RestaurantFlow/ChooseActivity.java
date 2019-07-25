@@ -12,6 +12,8 @@ import com.example.ibuprofen.Adapters.ChooseAdapter;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +59,11 @@ public class ChooseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToResultsIntent = new Intent(ChooseActivity.this, ResultsActivity.class);
                 String newJson = change_counts(event);
+
+                // saves event in background
+                event.saveInBackground();
+
+                // goes to next page
                 goToResultsIntent.putExtra("votedOn", newJson);
                 goToResultsIntent.putExtra("event", event);
                 startActivity(goToResultsIntent);
@@ -64,7 +71,7 @@ public class ChooseActivity extends AppCompatActivity {
         });
     }
 
-    public String change_counts(Event currentEvent) {
+    public synchronized String change_counts(Event currentEvent) {
         String newJson = null;
         String options = currentEvent.getOptions();
         try {

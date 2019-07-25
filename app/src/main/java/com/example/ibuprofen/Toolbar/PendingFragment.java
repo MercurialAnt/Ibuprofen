@@ -58,17 +58,18 @@ public class PendingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rvPending = view.findViewById(R.id.rvPending);
         mPending = new ArrayList<>();
-        adapter = new EventAdapter(getContext(), mPending);
+        adapter = new EventAdapter(getContext(), mPending, false);
         rvPending.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvPending.setLayoutManager(layoutManager);
-        queryUserEvents();
+        queryPendingEvents();
     }
 
-    private void queryUserEvents() {
+    private void queryPendingEvents() {
         ParseQuery<Event> postQuery = new ParseQuery<>(Event.class);
         postQuery.include(Event.KEY_USERS);
         postQuery.whereEqualTo("attendees", ParseUser.getCurrentUser());
+        postQuery.whereNotEqualTo("hasVoted", ParseUser.getCurrentUser());
         // since it's an expensive operation you want to do this in a background thread not in the
         // same thread as the UI
         postQuery.orderByDescending("createdAt");

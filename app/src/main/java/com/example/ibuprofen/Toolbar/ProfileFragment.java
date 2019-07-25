@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -64,6 +67,7 @@ public class ProfileFragment extends PhotoCapture {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        insertNestedFragment();
 
         // initialize vars
         tvUsername = view.findViewById(R.id.tvCreator);
@@ -83,7 +87,7 @@ public class ProfileFragment extends PhotoCapture {
 
         // set up adapter
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new EventAdapter(getContext(), eventsList);
+        adapter = new EventAdapter(getContext(), eventsList, true);
         rvFeed.setAdapter(adapter);
 
         // get past events by user
@@ -224,10 +228,17 @@ public class ProfileFragment extends PhotoCapture {
         }
     }
 
+    private void insertNestedFragment() {
+        Fragment pendingFragment = new PendingFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.flPending, pendingFragment).commit();
+    }
+
     private void queryUserEvents() {
         ParseQuery<Event> postQuery = new ParseQuery<>(Event.class);
         postQuery.include(Event.KEY_USERS);
         postQuery.whereEqualTo("attendees", ParseUser.getCurrentUser());
+        postQuery.whereEqualTo("hasVoted", ParseUser.getCurrentUser());
         // since it's an expensive operation you want to do this in a background thread not in the
         // same thread as the UI
         postQuery.orderByDescending("createdAt");
