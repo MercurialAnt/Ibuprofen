@@ -52,7 +52,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     @NonNull
     @Override
     public EventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
+        View view;
+        if (!pastEvent)
+            view = LayoutInflater.from(context).inflate(R.layout.item_pending_event, parent, false);
+        else
+            view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
         return new ViewHolder(view);
     }
 
