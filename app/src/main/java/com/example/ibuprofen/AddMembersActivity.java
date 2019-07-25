@@ -68,8 +68,7 @@ public class AddMembersActivity extends AppCompatActivity {
     private void queryUsers() {
         // get all users in the database
         ParseQuery query = ParseUser.getQuery();
-        // since it's an expensive operation you want to do this in a background thread not in the
-        // same thread as the UI
+        // expensive operation so done in a background thread not in same thread as the UI
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {

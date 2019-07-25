@@ -1,6 +1,5 @@
 package com.example.ibuprofen.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,26 +10,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.ibuprofen.ChooseActivity;
-import com.example.ibuprofen.DetailsActivity;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.ResultsActivity;
 import com.example.ibuprofen.model.Event;
-import com.example.ibuprofen.model.Restaurant;
 import com.parse.CountCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -52,11 +45,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     @NonNull
     @Override
     public EventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if (!pastEvent)
-            view = LayoutInflater.from(context).inflate(R.layout.item_pending_event, parent, false);
-        else
-            view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
         return new ViewHolder(view);
     }
 
@@ -79,8 +68,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         // instance vars
         ImageView ivRestaurant;
         TextView tvCreator;
-        TextView tvRestaurant;
+        TextView tvEventName;
         TextView tvFriendNumber;
+        Button btnAccept;
+        Button btnDecline;
 
 
         public ViewHolder(@NonNull View view) {
@@ -89,8 +80,44 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             // initialize vars using findById
             ivRestaurant = view.findViewById(R.id.ivRestaurant);
             tvCreator = view.findViewById(R.id.tvCreator);
-            tvRestaurant = view.findViewById(R.id.tvEventName);
+            tvEventName = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
+            btnAccept = view.findViewById(R.id.btnAccept);
+            btnDecline = view.findViewById(R.id.btnDecline);
+
+            if (pastEvent) {
+                btnAccept.setVisibility(View.GONE);
+                btnDecline.setVisibility(View.GONE);
+            }
+
+            // sets on click listener for add button if in the AddMembers page
+            btnAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // replaces buttons
+                    btnAccept.setVisibility(View.GONE);
+                    btnDecline.setVisibility(View.GONE);
+                    int position = getAdapterPosition();
+                    Event event = events.get(position);
+                    Intent intent = new Intent(context, ChooseActivity.class);
+                    intent.putExtra("event", event);
+                    context.startActivity(intent);
+                }
+            });
+
+            btnDecline.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        btnAccept.setVisibility(View.GONE);
+                        btnDecline.setVisibility(View.GONE);
+                        Event event = events.get(position);
+                        events.remove(event);
+                        event.removeMember(user);
+                    }
+                }
+            });
 
             view.setOnClickListener(this);
         }
@@ -98,6 +125,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         public void bind(Event event) throws ParseException {
             // set username
             tvCreator.setText(event.getCreator().fetchIfNeeded().getUsername());
+            tvEventName.setText(event.getEventName());
             // set image (either restaurant of choice or profile picture of organizer)
             ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
             creatorImage.getDataInBackground(new GetDataCallback() {
@@ -127,7 +155,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         public void onClick(View v) {
             Intent intent;
             int position = getAdapterPosition();
-            System.out.println(position);
             Event event = events.get(position);
             if (!pastEvent)
                 intent = new Intent(context, ChooseActivity.class);
