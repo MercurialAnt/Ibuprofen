@@ -16,7 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
 import com.example.ibuprofen.OkSingleton;
@@ -43,17 +44,18 @@ import okhttp3.Response;
 
 public class FilterFragment extends Fragment {
 
-    EditText etDistance;
+    SeekBar sbDistance;
     Button btnSubmit;
     Button btnOne;
     Button btnTwo;
     Button btnThree;
     Button btnFour;
+    TextView tvMiles;
     RecyclerView rvCuisine;
 
     Event event;
 
-    final double meterToMile = 1609.344;
+    final double meterToMile = 1609;
 
     // filter options that come with set defaults
     int dist = (int) (5 * meterToMile);
@@ -74,13 +76,14 @@ public class FilterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        etDistance = view.findViewById(R.id.etDistance);
+        sbDistance = view.findViewById(R.id.sbDistance);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnOne = view.findViewById(R.id.btnOne);
         btnTwo = view.findViewById(R.id.btnTwo);
         btnThree = view.findViewById(R.id.btnThree);
         btnFour = view.findViewById(R.id.btnFour);
         rvCuisine = view.findViewById(R.id.rvCuisine);
+        tvMiles = view.findViewById(R.id.tvMiles);
 
         options = "";
         price = new ArrayList<>();
@@ -88,6 +91,7 @@ public class FilterFragment extends Fragment {
         choosen = new ArrayList<>();
         fillCategoryList();
         categoriesAdapter = new CategoriesAdapter(getContext(), categories, choosen);
+
         rvCuisine.setAdapter(categoriesAdapter);
         rvCuisine.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -101,7 +105,7 @@ public class FilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // gets distance information
-                String enteredDistance = etDistance.getText().toString();
+                String enteredDistance = sbDistance.getProgress() + "";
                 if (!enteredDistance.equals("")) {
                     dist = (int) (Double.parseDouble(enteredDistance) * meterToMile); // convert to miles
                 }
@@ -115,10 +119,29 @@ public class FilterFragment extends Fragment {
                 // add creator to attendee list
                 event.getMembers().add(ParseUser.getCurrentUser());
 
+                event.setName(getArguments().getString("eventName"));
                 // query acceptable restaurants
                 queryOptions();
             }
         });
+
+        sbDistance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvMiles.setText(seekBar.getProgress() + " miles");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 
     // gets options within radius and updates them in database
@@ -178,7 +201,7 @@ public class FilterFragment extends Fragment {
         FragmentTransaction transaction = manager.beginTransaction();
 
         nextFragment.setArguments(bundle);
-        transaction.replace(R.id.flSignupContainer, nextFragment);
+        transaction.replace(R.id.flRestaurant, nextFragment);
         if (back)
             transaction.addToBackStack(null);
 
@@ -187,20 +210,21 @@ public class FilterFragment extends Fragment {
 
     public void fillCategoryList() {
         categories.add(new Category("Pizza", "pizza", "ic_pizza"));
-        categories.add(new Category("Chinese", "chinese", "ic_pizza"));
-        categories.add(new Category("Burgers", "burgers", "ic_pizza"));
-        categories.add(new Category("Seafood", "seafood", "ic_pizza"));
-        categories.add(new Category("Thai", "thai", "ic_pizza"));
-        categories.add(new Category("Italian", "italian", "ic_pizza"));
-        categories.add(new Category("Steakhouses", "steak", "ic_pizza"));
-        categories.add(new Category("Korean", "korean", "ic_pizza"));
-        categories.add(new Category("Japanese", "japanese", "ic_pizza"));
-        categories.add(new Category("Sandwiches", "sandwiches", "ic_pizza"));
-        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_pizza"));
-        categories.add(new Category("Vietnamese", "vietnamese", "ic_pizza"));
-        categories.add(new Category("Vegetarian", "vegetarian", "ic_pizza"));
-        categories.add(new Category("Sushi Bars", "sushi", "ic_pizza"));
-        categories.add(new Category("American", "tradamerican", "ic_pizza"));
+        categories.add(new Category("Chinese", "chinese", "ic_ramen"));
+        categories.add(new Category("Burgers", "burgers", "ic_burger"));
+        categories.add(new Category("Seafood", "seafood", "ic_shrimp"));
+        categories.add(new Category("Mexican", "mexican", "ic_taco"));
+        categories.add(new Category("Thai", "thai", "ic_ramen2"));
+        categories.add(new Category("Italian", "italian", "ic_spat"));
+        categories.add(new Category("Steakhouses", "steak", "ic_strak"));
+        categories.add(new Category("Korean", "korean", "ic_spat2"));
+        categories.add(new Category("Japanese", "japanese", "ic_fan"));
+        categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwhich"));
+        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_egg"));
+        categories.add(new Category("Vietnamese", "vietnamese", "ic_frying_pan"));
+        categories.add(new Category("Vegetarian", "vegetarian", "ic_leaf"));
+        categories.add(new Category("Sushi Bars", "sushi", "ic_sushi"));
+        categories.add(new Category("American", "tradamerican", "ic_bread"));
     }
 
     class MoneyListen implements View.OnClickListener {

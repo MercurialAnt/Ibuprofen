@@ -53,6 +53,10 @@ public class PhotoCapture extends Fragment {
         }
     }
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
     public void onPickPhoto(View view) {
         // Create intent for picking a photo from the gallery
         Intent pickPictureIntent = new Intent(Intent.ACTION_PICK,

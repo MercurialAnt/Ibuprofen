@@ -5,8 +5,6 @@ import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import org.parceler.Parcel;
-
 // keeps track of events that have occurred and users that participated
 @ParseClassName("Event")
 public class Event extends ParseObject {
@@ -17,6 +15,7 @@ public class Event extends ParseObject {
     public static final String KEY_OPTIONS = "options";
     public static final String KEY_CREATOR = "creator";
     public static final String KEY_VOTED = "hasVoted";
+    public static final String KEY_NAME = "name";
 
     public Event() {
 
@@ -56,5 +55,13 @@ public class Event extends ParseObject {
 
     public ParseRelation<ParseObject> getVoters() {
         return getRelation(KEY_VOTED);
+    }
+
+    public String getName() {
+        return getString(KEY_NAME);
+    }
+
+    public void setName(String name) {
+        put(KEY_NAME, name);
     }
 }

@@ -48,6 +48,12 @@ public class YelpAPI {
         return getAuthRequest(url);
     }
 
+    public Request getDetails(String restId) {
+        HttpUrl url = HttpUrl
+                .parse(base_url + "/businesses/" + restId);
+        return getAuthRequest(url);
+    }
+
     public Request getFilteredRestaurants(int radius, int limit, Location gpsLocation, List<String> choosen, List<Integer> price) {
         HttpUrl.Builder builder =  HttpUrl
                 .parse(base_url + "/businesses/search")

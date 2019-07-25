@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.RestaurantFlow.RestaurantActivity;
+import com.example.ibuprofen.RestaurantFlow.RestaurantManager;
 
 public class EventFragment extends Fragment {
     // instance vars
@@ -34,7 +35,7 @@ public class EventFragment extends Fragment {
             // onClick bring it to restaurants filter fragment
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), RestaurantActivity.class);
+                Intent i = new Intent(getContext(), RestaurantManager.class);
                 i.putExtra("bundle", getArguments());
                 startActivity(i);
             }

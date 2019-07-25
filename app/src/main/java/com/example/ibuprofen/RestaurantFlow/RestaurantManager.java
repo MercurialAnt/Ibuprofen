@@ -18,7 +18,20 @@ public class RestaurantManager extends AppCompatActivity {
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
-        Fragment nextFragment = new FilterFragment();
+
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        Fragment nextFragment;
+        String fragment = bundle.getString("fragment");
+
+        if (fragment.equals("ChooseFragment")) {
+            nextFragment = new ChooseFragment();
+        } else if(fragment.equals("ResultsFragment")) {
+            nextFragment = new ResultsFragment();
+        } else {
+            nextFragment = new FilterFragment();
+        }
+
+        nextFragment.setArguments(bundle);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.flRestaurant, nextFragment);

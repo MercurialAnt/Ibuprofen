@@ -37,7 +37,7 @@ public class SetProfilePicFragment extends PhotoCapture {
     private ImageView ivAdd;
     private ImageView ivCamera;
     private ImageView ivGallery;
-    private byte[] array;
+
 
     // inflate the layout
     @Nullable
@@ -68,9 +68,10 @@ public class SetProfilePicFragment extends PhotoCapture {
                 newUser.setEmail(bundle.getString("email"));
                 newUser.put("name", bundle.getString("name"));
 
-                // -TODO fix this becuase images are still being broken
+                File file;
+
                 if (getPhotoFile() != null) {
-                    File file = getPhotoFile();
+                    file = getPhotoFile();
                     final ParseFile parseFile = new ParseFile(file);
                     parseFile.saveInBackground(new SaveCallback() {
                         @Override
@@ -83,10 +84,13 @@ public class SetProfilePicFragment extends PhotoCapture {
                             }
                         }
                     });
-
                 } else {
                     add_user(newUser);
                 }
+
+
+
+
 
             }
         });
