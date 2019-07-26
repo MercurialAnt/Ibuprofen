@@ -7,27 +7,20 @@
     tools:context=".MainActivity"
     android:background="@drawable/gradient">
 
-    <ImageView
-        android:id="@+id/ivHome"
-        android:layout_width="252dp"
-        android:layout_height="91dp"
-        app:srcCompat="@drawable/ibuprofenword"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="73dp" />
-
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/clBackground"
         android:layout_width="392dp"
         android:layout_height="304dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="#44ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivHome"
-        android:background="#00ffffff">
+        app:layout_constraintTop_toBottomOf="@+id/tvIbuprofen">
 
         <EditText
             android:id="@+id/etUsername"
@@ -50,6 +43,7 @@
             android:maxLength="280"
             android:textColor="#ffff"
             app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/btnLogin"
             app:layout_constraintTop_toBottomOf="@+id/etUsername"></EditText>
 
@@ -58,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="@color/lightPurple"
             android:text="Log in"
@@ -80,6 +74,21 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/tvIbuprofen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="IBUPROFEN"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"/>
 
 
 </android.support.constraint.ConstraintLayout>

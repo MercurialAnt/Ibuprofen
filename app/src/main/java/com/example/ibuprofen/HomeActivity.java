@@ -37,8 +37,6 @@ public class HomeActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_LOCATION);
 
-
-
         if (ParseUser.getCurrentUser() != null) {
             to_landing_page();
         }
