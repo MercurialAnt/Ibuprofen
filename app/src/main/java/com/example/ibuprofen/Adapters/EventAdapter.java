@@ -125,7 +125,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         public void bind(Event event) throws ParseException {
             // set username
             tvCreator.setText(event.getCreator().fetchIfNeeded().getUsername());
-            tvEventName.setText(event.getEventName());
             // set image (either restaurant of choice or profile picture of organizer)
             ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
             creatorImage.getDataInBackground(new GetDataCallback() {
