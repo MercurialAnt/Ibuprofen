@@ -61,6 +61,7 @@ public class FeedFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // inserts PendingFragment
         insertNestedFragment();
 
         rvRestaurants = view.findViewById(R.id.rvRestaurants);

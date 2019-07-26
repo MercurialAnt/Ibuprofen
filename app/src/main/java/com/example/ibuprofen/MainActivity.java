@@ -1,5 +1,6 @@
 package com.example.ibuprofen;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
+        // hide support action bar
+        getSupportActionBar().hide();
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         //set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_feed);
     }

@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="pasterPink">#F08080</color>
+    <color name="orange">#c78f28</color>
+    <color name="purple">#794d7e</color>
+    <color name="lightRed">#FFD8D9</color>
+    <color name="paleOrange">#FCC777</color>
+    <color name="lightPurple">#BC7DB2</color>
+    <color name="blueGreen">#55C4C5</color>
 </resources>

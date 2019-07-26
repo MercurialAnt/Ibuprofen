@@ -3,18 +3,24 @@ package com.example.ibuprofen.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.ChooseActivity;
 import com.example.ibuprofen.DetailsActivity;
 import com.example.ibuprofen.R;
@@ -52,11 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     @NonNull
     @Override
     public EventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if (!pastEvent)
-            view = LayoutInflater.from(context).inflate(R.layout.item_pending_event, parent, false);
-        else
-            view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_events, parent, false);
         return new ViewHolder(view);
     }
 
@@ -81,6 +83,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         TextView tvCreator;
         TextView tvRestaurant;
         TextView tvFriendNumber;
+        CardView cvCard;
 
 
         public ViewHolder(@NonNull View view) {
@@ -91,21 +94,42 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             tvCreator = view.findViewById(R.id.tvCreator);
             tvRestaurant = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
+            cvCard = view.findViewById(R.id.cvCard);
 
             view.setOnClickListener(this);
         }
 
         public void bind(Event event) throws ParseException {
+            if (!pastEvent) {
+                cvCard.setCardBackgroundColor(Color.parseColor("#FFD8D9"));
+                cvCard.setRadius(40);
+                cvCard.setCardElevation(4);
+                cvCard.setMaxCardElevation(4);
+                if (events.size() > 1) {
+                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.WRAP_CONTENT, CardView.LayoutParams.MATCH_PARENT));
+//                    cvCard.setContentPadding(30, 30, 30, 0);
+                }
+            }
+
             // set username
             tvCreator.setText(event.getCreator().fetchIfNeeded().getUsername());
             // set image (either restaurant of choice or profile picture of organizer)
-            ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
+            final ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
             creatorImage.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
-                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        // ImageView
-                        ivRestaurant.setImageBitmap(bmp);
+                        if (!pastEvent) {
+                            Glide.with(context)
+                                    .load(creatorImage.getUrl())
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(ivRestaurant);
+                        }
+                        else {
+                            Glide.with(context).load(creatorImage.getUrl()).into(ivRestaurant);
+                        }
+//                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                        // ImageView
+//                        ivRestaurant.setImageBitmap(bmp);
                     } else {
                         Log.d("test", "Problem load image the data.");
                     }
