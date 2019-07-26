@@ -3,6 +3,7 @@ package com.example.ibuprofen.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public TextView tvCuisine;
         public RatingBar rbPrice;
         public TextView tvDistance;
+        public ConstraintLayout clRestaurant;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,8 +72,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
             rbPrice = itemView.findViewById(R.id.rbPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
+            clRestaurant = itemView.findViewById(R.id.clRestaurant);
 
-            tvName.setOnClickListener(new View.OnClickListener() {
+            clRestaurant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
