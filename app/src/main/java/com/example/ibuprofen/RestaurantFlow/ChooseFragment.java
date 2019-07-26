@@ -1,18 +1,20 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.RestaurantFlow;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.ibuprofen.Adapters.ChooseAdapter;
+import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +23,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChooseActivity extends AppCompatActivity {
+import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
+
+public class ChooseFragment extends Fragment {
 
     private RecyclerView rvChoose;
     private Button btnDone;
@@ -29,23 +33,25 @@ public class ChooseActivity extends AppCompatActivity {
     protected List<Restaurant> mChoices;
     Event event;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Only ever call `setContentView` once right at the top
-        setContentView(R.layout.activity_choose);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.choose_fragment, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // set up list
         mChoices = new ArrayList<>();
 
         // initialize vars and adapter
-        event = getIntent().getParcelableExtra("event");
+        event = getArguments().getParcelable("event");
 
-        rvChoose = findViewById(R.id.rvChoose);
-        btnDone = findViewById(R.id.btnDone);
-        adapter = new ChooseAdapter(this, mChoices, rvChoose);
+        rvChoose = view.findViewById(R.id.rvChoose);
+        btnDone = view.findViewById(R.id.btnDone);
+        adapter = new ChooseAdapter(getContext(), mChoices, rvChoose);
         rvChoose.setAdapter(adapter);
-        rvChoose.setLayoutManager(new LinearLayoutManager(this));
+        rvChoose.setLayoutManager(new LinearLayoutManager(getContext()));
 
         try {
             populateChoices();
@@ -56,18 +62,15 @@ public class ChooseActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToResultsIntent = new Intent(ChooseActivity.this, ResultsActivity.class);
+
+                Bundle bundle = new Bundle();
                 String newJson = change_counts(event);
-
-                // saves event in background
-                event.saveInBackground();
-
-                // goes to next page
-                goToResultsIntent.putExtra("votedOn", newJson);
-                goToResultsIntent.putExtra("event", event);
-                startActivity(goToResultsIntent);
+                bundle.putParcelable("event", event);
+                bundle.putString("votedOn", newJson);
+                fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), true);
             }
         });
+
     }
 
     public synchronized String change_counts(Event currentEvent) {

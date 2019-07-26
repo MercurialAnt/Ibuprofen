@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.RestaurantFlow;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ibuprofen.Adapters.FriendAdapter;
+import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,9 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddMembersActivity"></activity>
+        <activity android:name=".RestaurantFlow.RestaurantManager"></activity>
+        <activity android:name=".RestaurantFlow.AddMembersActivity" />
         <activity
-            android:name=".ResultsActivity"
+            android:name=".RestaurantFlow.ResultsActivity"
             android:label="@string/title_activity_results"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -35,10 +36,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ChooseActivity" />
+        <activity android:name=".RestaurantFlow.ChooseActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".RestaurantFlow.RestaurantActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -25,34 +25,23 @@ public class Restaurant {
 
         //extract values from JSON
         //name
-        if (jsonObject.has("name")) {
-            restaurant.tvName = jsonObject.getString("name");
-        } else
-            restaurant.tvName = "";
+        restaurant.tvName = jsonObject.optString("name", "");
 
         //id
-        if (jsonObject.has("id")) {
-            restaurant.id = jsonObject.getString("id");
-        } else
-            restaurant.id = "";
+        restaurant.id = jsonObject.optString("id", "");
+
 
         //rating
-        if (jsonObject.has("rating")) {
-            restaurant.rbRating = jsonObject.getInt("rating");
-        } else
-            restaurant.rbRating = 0;
+        restaurant.rbRating = jsonObject.optInt("rating", 0);
+
 
         //price
-        if (jsonObject.has("price")) {
-            restaurant.rbPrice = jsonObject.getString("price");
-        } else
-            restaurant.rbPrice = "";
+        restaurant.rbPrice = jsonObject.optString("price", "");
+
 
         //image
-        if (jsonObject.has("image_url")) {
-            restaurant.ivImage = jsonObject.getString("image_url");
-        } else
-            restaurant.ivImage = "";
+        restaurant.ivImage = jsonObject.optString("image_url", "");
+
 
         //categories
         restaurant.categories = "";
@@ -67,16 +56,11 @@ public class Restaurant {
             }
         }
 
-        if (jsonObject.has("count")) {
-            restaurant.count = jsonObject.getInt("count");
-        }
+        restaurant.count = jsonObject.optInt("count", 0);
 
-        if (jsonObject.has("distance")) {
-            double meters = jsonObject.getDouble("distance");
-            // convert the meters to miles
-            double conversion = 1609.344;
-            restaurant.distance = meters / conversion;
-        }
+
+        double conversion = 1609.344;
+        restaurant.distance = jsonObject.optDouble("distance", 0) / conversion;
 
 
         return restaurant;

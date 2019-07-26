@@ -45,6 +45,7 @@ public class SetContactFragment extends Fragment {
                     Bundle bundle = getArguments();
                     bundle.putString("email", etEmail.getText().toString());
 
+
                     nextFragment.setArguments(bundle);
                     transaction.replace(R.id.flSignupContainer, nextFragment);
                     transaction.addToBackStack(null);

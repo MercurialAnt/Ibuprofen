@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -62,6 +63,10 @@ public class PendingFragment extends Fragment {
         rvPending.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvPending.setLayoutManager(layoutManager);
+        // divider lines
+//        rvPending.addItemDecoration(new DividerItemDecoration(getContext(),
+//                DividerItemDecoration.HORIZONTAL));
+
         queryPendingEvents();
     }
 

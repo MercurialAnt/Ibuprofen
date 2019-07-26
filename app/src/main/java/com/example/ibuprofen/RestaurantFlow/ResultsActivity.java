@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.RestaurantFlow;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.ibuprofen.Adapters.ResultsAdapter;
+import com.example.ibuprofen.MainActivity;
+import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
 import com.parse.ParseUser;
