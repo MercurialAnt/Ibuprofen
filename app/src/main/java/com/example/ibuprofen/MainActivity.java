@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.example.ibuprofen.Toolbar.EventFragment;
+import com.example.ibuprofen.Toolbar.EventNameFragment;
 import com.example.ibuprofen.Toolbar.FeedFragment;
 import com.example.ibuprofen.Toolbar.FriendsFragment;
 import com.example.ibuprofen.Toolbar.ProfileFragment;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FeedFragment();
                         break;
                     case R.id.action_event:
-                        fragment = new EventFragment();
+                        fragment = new EventNameFragment();
                         break;
                     case R.id.action_profile:
                         fragment = new ProfileFragment();

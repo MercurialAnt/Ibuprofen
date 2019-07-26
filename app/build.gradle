@@ -63,4 +63,7 @@ dependencies {
 
     // for divider in recyclerview
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    // ViewPager
+    implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
 }

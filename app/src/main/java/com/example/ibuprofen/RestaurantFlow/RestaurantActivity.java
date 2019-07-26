@@ -1,4 +1,4 @@
-package com.example.ibuprofen;
+package com.example.ibuprofen.RestaurantFlow;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
+import com.example.ibuprofen.OkSingleton;
+import com.example.ibuprofen.R;
+import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Category;
 import com.example.ibuprofen.model.Event;
 import com.parse.ParseException;
@@ -38,7 +41,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
     EditText etDistance;
     Button btnSubmit;
-    // The money sign buttons
     Button btnOne;
     Button btnTwo;
     Button btnThree;
@@ -115,7 +117,7 @@ public class RestaurantActivity extends AppCompatActivity {
         YelpAPI test = new YelpAPI(this);
         Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
         OkHttpClient client = OkSingleton.getInstance();
-        client.newCall(test.getDistanceFilteredRestaurants(dist, gpsLocation, choosen, price)).enqueue(new Callback() {
+        client.newCall(test.getFilteredRestaurants(dist, 10, gpsLocation, choosen, price)).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Feed", "Did not work");
@@ -165,21 +167,22 @@ public class RestaurantActivity extends AppCompatActivity {
     }
 
     public void fillCategoryList() {
-        categories.add(new Category("Pizza", "pizza"));
-        categories.add(new Category("Chinese", "chinese"));
-        categories.add(new Category("Burgers", "burgers"));
-        categories.add(new Category("Seafood", "seafood"));
-        categories.add(new Category("Thai", "thai"));
-        categories.add(new Category("Italian", "italian"));
-        categories.add(new Category("Steakhouses", "steak"));
-        categories.add(new Category("Korean", "korean"));
-        categories.add(new Category("Japanese", "japanese"));
-        categories.add(new Category("Sandwiches", "sandwiches"));
-        categories.add(new Category("Breakfast", "breakfast_brunch"));
-        categories.add(new Category("Vietnamese", "vietnamese"));
-        categories.add(new Category("Vegetarian", "vegetarian"));
-        categories.add(new Category("Sushi Bars", "sushi"));
-        categories.add(new Category("American", "tradamerican"));
+        categories.add(new Category("Pizza", "pizza", "ic_pizza"));
+        categories.add(new Category("Chinese", "chinese", "ic_ramen"));
+        categories.add(new Category("Burgers", "burgers", "ic_burger"));
+        categories.add(new Category("Seafood", "seafood", "ic_shrimp"));
+        categories.add(new Category("Mexican", "mexican", "ic_taco"));
+        categories.add(new Category("Thai", "thai", "ic_ramen2"));
+        categories.add(new Category("Italian", "italian", "ic_spat"));
+        categories.add(new Category("Steakhouses", "steak", "ic_strak"));
+        categories.add(new Category("Korean", "korean", "ic_spat2"));
+        categories.add(new Category("Japanese", "japanese", "ic_fan"));
+        categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwhich"));
+        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_egg"));
+        categories.add(new Category("Vietnamese", "vietnamese", "ic_frying_pan"));
+        categories.add(new Category("Vegetarian", "vegetarian", "ic_leaf"));
+        categories.add(new Category("Sushi Bars", "sushi", "ic_sushi"));
+        categories.add(new Category("American", "tradamerican", "ic_bread"));
     }
 
     class MoneyListen implements View.OnClickListener {

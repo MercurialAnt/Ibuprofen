@@ -31,32 +31,15 @@ public class YelpAPI {
         this.context = context;
     }
 
-
-    // To use it do client.call(request).enque(new Callback)
     public Request getRestaurants(Location gpsLocation) {
-        HttpUrl url;
-        if (gpsLocation != null) {
-            url = HttpUrl
-                    .parse(base_url + "/businesses/search")
-                    .newBuilder()
-                    .addQueryParameter("latitude",gpsLocation.getLatitude() + "")
-                    .addQueryParameter("longitude", gpsLocation.getLongitude() + "")
-                    .addQueryParameter("limit", "30")
-                    .build();
-        }
-        else {
-            url = HttpUrl
-                    .parse(base_url + "/businesses/search")
-                    .newBuilder()
-                    .addQueryParameter("location","Seattle")
-                    .addQueryParameter("limit", "30")
-                    .build();
-        }
-        return new Request.Builder()
-                .get()
-                .url(url)
-                .addHeader(auth_key_header, auth_value_header)
-                .build();
+        HttpUrl.Builder builder = HttpUrl
+                .parse(base_url + "/businesses/search")
+                .newBuilder()
+                .addQueryParameter("limit", "30");
+        builder = gpsLocation != null
+                ? builder.addQueryParameter("latitude",gpsLocation.getLatitude() + "").addQueryParameter("longitude", gpsLocation.getLongitude() + "")
+                : builder.addQueryParameter("location", "Seattle");
+        return getAuthRequest(builder.build());
     }
 
     public Request getReview(String restId) {
@@ -65,13 +48,19 @@ public class YelpAPI {
         return getAuthRequest(url);
     }
 
-    public Request getDistanceFilteredRestaurants(int radius, Location gpsLocation, List<String> choosen, List<Integer> price) {
+    public Request getDetails(String restId) {
+        HttpUrl url = HttpUrl
+                .parse(base_url + "/businesses/" + restId);
+        return getAuthRequest(url);
+    }
+
+    public Request getFilteredRestaurants(int radius, int limit, Location gpsLocation, List<String> choosen, List<Integer> price) {
         HttpUrl.Builder builder =  HttpUrl
                 .parse(base_url + "/businesses/search")
                 .newBuilder()
                 .addQueryParameter("latitude",gpsLocation.getLatitude() + "")
                 .addQueryParameter("longitude", gpsLocation.getLongitude() + "")
-                .addQueryParameter("limit", "10")
+                .addQueryParameter("limit", limit + "")
                 .addQueryParameter("radius", radius + "");
 
         addCategories(choosen, builder);
@@ -108,7 +97,7 @@ public class YelpAPI {
             money += sign + ", ";
         }
         money = money.substring(0, money.length() - 2);
-        Log.d("ha", money);
+        Log.d("Price", money);
         builder.addQueryParameter("price", money);
 
     }

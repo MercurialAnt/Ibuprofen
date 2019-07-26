@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Category;
 
@@ -28,6 +29,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         this.choosen = choosen;
     }
 
+
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -38,7 +42,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         viewHolder.bind(icons.get(position));
-
     }
     @Override
     public int getItemCount() {
@@ -49,6 +52,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
         private ImageView ivIcon;
         private TextView tvFoodType;
+
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -70,6 +74,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         public void bind(Category icon) {
             tvFoodType.setText(icon.getName());
             tvFoodType.setHint(icon.getApi_name());
+            Glide.with(context).load(getImage(icon.getIconImg())).into(ivIcon);
         }
+    }
+
+    public int getImage(String imageName) {
+
+        int drawableResourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        return drawableResourceId;
     }
 }
