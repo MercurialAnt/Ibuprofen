@@ -1,6 +1,5 @@
 package com.example.ibuprofen.RestaurantFlow;
 
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -229,6 +228,7 @@ public class FilterFragment extends Fragment {
 
     class MoneyListen implements View.OnClickListener {
 
+        boolean toggle = true;
         int level;
         public MoneyListen(int priceLevel) {
             this.level = priceLevel;
@@ -236,7 +236,13 @@ public class FilterFragment extends Fragment {
         @Override
         public void onClick(View v) {
             price.add(level);
-            v.setBackgroundColor(Color.parseColor("#F08080"));
+            if (toggle) {
+                v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                toggle = false;
+            } else {
+                v.setBackgroundColor(getResources().getColor(R.color.grey));
+                toggle = true;
+            }
         }
     }
 }

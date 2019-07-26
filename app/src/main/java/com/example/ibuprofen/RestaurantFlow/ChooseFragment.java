@@ -1,17 +1,20 @@
 package com.example.ibuprofen.RestaurantFlow;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.ibuprofen.Adapters.ChooseAdapter;
+import com.example.ibuprofen.Controllers.SwipeController;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
@@ -31,6 +34,7 @@ public class ChooseFragment extends Fragment {
     private Button btnDone;
     protected ChooseAdapter adapter;
     protected List<Restaurant> mChoices;
+    private Context context;
     Event event;
 
     @Nullable
@@ -41,17 +45,29 @@ public class ChooseFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        context = getContext();
+
         // set up list
         mChoices = new ArrayList<>();
+
 
         // initialize vars and adapter
         event = getArguments().getParcelable("event");
 
         rvChoose = view.findViewById(R.id.rvChoose);
         btnDone = view.findViewById(R.id.btnDone);
-        adapter = new ChooseAdapter(getContext(), mChoices, rvChoose);
+        adapter = new ChooseAdapter(context, mChoices, rvChoose, getActivity());
         rvChoose.setAdapter(adapter);
-        rvChoose.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvChoose.setLayoutManager(new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+
+        SwipeController swipeController = new SwipeController(adapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(rvChoose);
 
         try {
             populateChoices();
@@ -62,7 +78,6 @@ public class ChooseFragment extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Bundle bundle = new Bundle();
                 String newJson = change_counts(event);
                 bundle.putParcelable("event", event);
@@ -99,4 +114,6 @@ public class ChooseFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
+
+
 }

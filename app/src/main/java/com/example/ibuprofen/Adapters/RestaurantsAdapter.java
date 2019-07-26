@@ -16,7 +16,6 @@ import com.example.ibuprofen.DetailsActivity;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Restaurant;
 
-import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -42,11 +41,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Restaurant restaurant = restaurants.get(position);
-        try {
-            viewHolder.bind(restaurant);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        viewHolder.bind(restaurant);
     }
 
     @Override
@@ -85,7 +80,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             });
         }
 
-        public void bind(Restaurant restaurant) throws JSONException {
+        public void bind(Restaurant restaurant) {
             if (restaurant.getImage() != null) {
                 Glide.with(context).load(restaurant.getImage()).into(ivImage);
             }
