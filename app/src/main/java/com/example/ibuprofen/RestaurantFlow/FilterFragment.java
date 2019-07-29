@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
 import com.example.ibuprofen.OkSingleton;
@@ -45,10 +47,10 @@ public class FilterFragment extends Fragment {
 
     SeekBar sbDistance;
     Button btnSubmit;
-    Button btnOne;
-    Button btnTwo;
-    Button btnThree;
-    Button btnFour;
+    ToggleButton btnOne;
+    ToggleButton btnTwo;
+    ToggleButton btnThree;
+    ToggleButton btnFour;
     TextView tvMiles;
     RecyclerView rvCuisine;
 
@@ -58,7 +60,7 @@ public class FilterFragment extends Fragment {
 
     // filter options that come with set defaults
     int dist = (int) (5 * meterToMile);
-    List<Integer> price;
+    ArrayList<Integer> price;
     List<Category> categories;
     List<String> choosen;
     CategoriesAdapter categoriesAdapter;
@@ -94,10 +96,11 @@ public class FilterFragment extends Fragment {
         rvCuisine.setAdapter(categoriesAdapter);
         rvCuisine.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        btnOne.setOnClickListener(new MoneyListen(1));
-        btnTwo.setOnClickListener(new MoneyListen(2));
-        btnThree.setOnClickListener(new MoneyListen(3));
-        btnFour.setOnClickListener(new MoneyListen(4));
+        btnOne.setOnCheckedChangeListener(new MoneyListen(1));
+        btnTwo.setOnCheckedChangeListener(new MoneyListen(2));
+        btnThree.setOnCheckedChangeListener(new MoneyListen(3));
+        btnFour.setOnCheckedChangeListener(new MoneyListen(4));
+
 
         // set on click listener for submit
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -226,23 +229,21 @@ public class FilterFragment extends Fragment {
         categories.add(new Category("American", "tradamerican", "ic_bread"));
     }
 
-    class MoneyListen implements View.OnClickListener {
+    class MoneyListen implements CompoundButton.OnCheckedChangeListener {
 
-        boolean toggle = true;
         int level;
         public MoneyListen(int priceLevel) {
             this.level = priceLevel;
         }
+
         @Override
-        public void onClick(View v) {
-            price.add(level);
-            if (toggle) {
-                v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                toggle = false;
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                price.add(level);
             } else {
-                v.setBackgroundColor(getResources().getColor(R.color.grey));
-                toggle = true;
+                price.remove(new Integer(level));
             }
         }
+
     }
 }

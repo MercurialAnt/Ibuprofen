@@ -42,7 +42,7 @@ public class ChooseActivity extends AppCompatActivity {
 
         rvChoose = findViewById(R.id.rvChoose);
         btnDone = findViewById(R.id.btnDone);
-        adapter = new ChooseAdapter(this, mChoices, rvChoose, ChooseActivity.this);
+        adapter = new ChooseAdapter(this, mChoices, rvChoose);
         rvChoose.setAdapter(adapter);
         rvChoose.setLayoutManager(new LinearLayoutManager(this));
 

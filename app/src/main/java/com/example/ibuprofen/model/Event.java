@@ -37,6 +37,10 @@ public class Event extends ParseObject {
         put(KEY_USERS,members);
     }
 
+    public void removeMember(ParseUser user) {
+        getMembers().remove(user);
+    }
+
     public void setOptions(String opt) {
         put(KEY_OPTIONS,opt);
     }

@@ -1,5 +1,6 @@
 package com.example.ibuprofen.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,12 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.R;
+import com.example.ibuprofen.RestaurantFlow.ChooseActivity;
 import com.example.ibuprofen.RestaurantFlow.RestaurantManager;
 import com.example.ibuprofen.model.Event;
 import com.parse.CountCallback;
@@ -26,8 +29,11 @@ import com.parse.ParseFile;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.List;
 
 // adapter to show user's past events
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
@@ -73,6 +79,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         TextView tvRestaurant;
         TextView tvFriendNumber;
         CardView cvCard;
+        Button btnAccept;
+        Button btnDecline;
 
 
         public ViewHolder(@NonNull View view) {
@@ -84,6 +92,43 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             tvRestaurant = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
             cvCard = view.findViewById(R.id.cvCard);
+            btnAccept = view.findViewById(R.id.btnAccept);
+            btnDecline = view.findViewById(R.id.btnDecline);
+
+            if (pastEvent) {
+                btnAccept.setVisibility(View.GONE);
+                btnDecline.setVisibility(View.GONE);
+            }
+
+            // sets on click listener for add button if in the AddMembers page
+            btnAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // replaces buttons
+                    btnAccept.setVisibility(View.GONE);
+                    btnDecline.setVisibility(View.GONE);
+                    int position = getAdapterPosition();
+                    Event event = events.get(position);
+                    Intent intent = new Intent(context, ChooseActivity.class);
+                    intent.putExtra("event", event);
+                    context.startActivity(intent);
+                }
+            });
+
+            btnDecline.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        cvCard.setVisibility(View.GONE);
+                        Event event = events.get(position);
+                        events.remove(event);
+                        notifyItemRemoved(position);
+                        event.removeMember(user);
+                        event.saveInBackground();
+                    }
+                }
+            });
 
             view.setOnClickListener(this);
         }
@@ -116,9 +161,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                         else {
                             Glide.with(context).load(creatorImage.getUrl()).into(ivRestaurant);
                         }
-//                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                        // ImageView
-//                        ivRestaurant.setImageBitmap(bmp);
                     } else {
                         Log.d("test", "Problem load image the data.");
                     }

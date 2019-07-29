@@ -19,8 +19,6 @@ public class HomeActivity extends AppCompatActivity {
     final String TAG = "SignUp";
     final static int REQUEST_LOCATION = 10;
     // Instance variables of the views
-    private EditText etUsername;
-    private EditText etPassword;
     private Button btnLogin;
     private Button btnSignup;
 
@@ -37,24 +35,18 @@ public class HomeActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_LOCATION);
 
-
-
         if (ParseUser.getCurrentUser() != null) {
             to_landing_page();
         }
 
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
-
-                login(username, password);
+                Intent intent = new Intent(HomeActivity.this, LogOnActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -73,20 +65,4 @@ public class HomeActivity extends AppCompatActivity {
         finish();
     }
 
-    private void login(String username, String password) {
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e == null) {
-                    Log.d("Login Activity", "Login successful");
-                    final Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Log.e("Login Activity", "Login error");
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 }

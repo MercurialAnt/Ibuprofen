@@ -11,4 +11,15 @@
     <color name="lightPurple">#BC7DB2</color>
     <color name="blueGreen">#55C4C5</color>
     <color name="grey">#989898</color>
+    <color name="darkTeal">#299895</color>
+    <color name="teal">#42CCC8</color>
+    <color name="blue">#4E9FD1</color>
+    <color name="darkBlue">#4977AD</color>
+    <color name="newPurple">#5E5392</color>
+    <color name="plum">#57426B</color>
+    <color name="brightPink">#FF007F</color>
+    <color name="yes_button">#6dd988</color>
+    <color name="no_button">#f51354</color>
+    <color name="yes_button_border">#4c975d</color>
+    <color name="no_button_border">#b1113e</color>
 </resources>
