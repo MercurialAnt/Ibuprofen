@@ -16,7 +16,7 @@ import okhttp3.Request;
 import static com.parse.Parse.getApplicationContext;
 
 public class YelpAPI {
-    private static final String API_KEY = "2j_lGyWbgvroFWV_ok2MKy9na46ybGYQMhsdocpcQSBkWqDLKGwZbDXwN08cRDQnwdV6KQt84sOegMs0MTdOpTwPFHmi7B17nvlGK3t0U8dIzowV5j3yR3ug9KguXXYx";
+    private static final String API_KEY = "EE9jyEqL-mfsN9GgQ98zTUsfwCCo8dEMd3oO6Rc5an_uMq3ilJRNYiaarDzJWd5rBvdF25BLcEeyOPLpBxlzzyrIhd2f8-d3q-nk0lTHu16b7KVqzC61LWhYcTQuXXYx";
     private static final String CLIENT_ID = "Syqog6jHymMjfL2jLkaMgw";
     private final String base_url = "https://api.yelp.com/v3";
     private final String auth_key_header = "Authorization";

@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.DetailsActivity;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Restaurant;
@@ -90,7 +91,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         public void bind(Restaurant restaurant) throws JSONException {
             if (restaurant.getImage() != null) {
-                Glide.with(context).load(restaurant.getImage()).into(ivImage);
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions.placeholder(R.drawable.image_placeholder);
+                requestOptions.error(R.drawable.image_placeholder);
+                Glide.with(context)
+                        .setDefaultRequestOptions(requestOptions)
+                        .load(restaurant.getImage())
+                        .into(ivImage);
             }
             tvName.setText(restaurant.getName());
             tvCuisine.setText(restaurant.getCategories());

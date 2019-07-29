@@ -46,6 +46,7 @@ public class PendingFragment extends Fragment {
     private RecyclerView rvPending;
     protected EventAdapter adapter;
     protected List<Event> mPending;
+    private SwipeRefreshLayout scPending;
 
 
     //onCreateView to inflate the view
@@ -68,6 +69,7 @@ public class PendingFragment extends Fragment {
 //                DividerItemDecoration.HORIZONTAL));
 
         queryPendingEvents();
+
     }
 
     private void queryPendingEvents() {
