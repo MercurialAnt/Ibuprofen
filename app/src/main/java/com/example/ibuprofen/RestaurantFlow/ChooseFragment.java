@@ -21,6 +21,7 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
+import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -111,6 +112,22 @@ public class ChooseFragment extends Fragment {
                 // get current count
                 int curr = place.getInt("count");
                 place.put("count", curr + adapter.counters[i]);
+
+                //update people who voted for this restaurant
+                ParseUser user = ParseUser.getCurrentUser();
+                JSONObject person = new JSONObject();
+                person.put("name", user.getUsername());
+                person.put("image", user.get("profilePic"));
+
+                if (place.has("people")) {
+                    JSONArray people = place.getJSONArray("people");
+                    people.put(person);
+                    place.put("people", people);
+                } else {
+                    JSONArray people = new JSONArray();
+                    people.put(person);
+                    place.put("people", people);
+                }
             }
             newJson = places.toString();
         } catch (JSONException e) {
