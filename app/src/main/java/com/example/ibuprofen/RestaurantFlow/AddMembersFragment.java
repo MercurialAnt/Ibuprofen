@@ -18,10 +18,13 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
@@ -92,5 +95,14 @@ public class AddMembersFragment extends Fragment {
                 Log.d("AddMembersActivity", "number of users: " + users.size());
             }
         });
+        // get all friends of the current user todo--finalize this
+//        ParseUser current = ParseUser.getCurrentUser();
+//        ParseQuery<ParseObject> postQuery = current.getRelation("friends").getQuery();
+//        postQuery.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> objects, ParseException e) {
+//                users.addAll((Collection<? extends ParseUser>) objects);
+//            }
+//        });
     }
 }

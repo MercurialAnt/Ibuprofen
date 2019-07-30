@@ -12,6 +12,7 @@
     <color name="blueGreen">#55C4C5</color>
     <color name="grey">#989898</color>
     <color name="darkTeal">#299895</color>
+    <color name="darkTealTrans">#A3299895</color>
     <color name="teal">#42CCC8</color>
     <color name="blue">#4E9FD1</color>
     <color name="darkBlue">#4977AD</color>
@@ -25,4 +26,6 @@
     <color name="no_button">#f51354</color>
     <color name="yes_button_border">#4c975d</color>
     <color name="no_button_border">#b1113e</color>
+    <color name="white">#ffffff</color>
+    <color name="white_trans">#22FFFFFF</color>
 </resources>

@@ -2,4 +2,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dots">8dp</dimen>
     <dimen name="rounded_button">8dp</dimen>
+    <dimen name="card">32dp</dimen>
 </resources>

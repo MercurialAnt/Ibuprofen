@@ -1,7 +1,6 @@
 package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -109,8 +108,6 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             rbRating.setRating(restaurant.getRating());
             rbPrice.setRating(restaurant.getPrice());
 
-
-
         }
 
         public void addReviews(String list) {
@@ -126,16 +123,12 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             }
         }
 
-
-
         @Override
         public void onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY);
         }
 
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(0);
         }
     }
     public void nextChoice(int count) {

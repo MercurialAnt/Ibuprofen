@@ -35,6 +35,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     public ParseRelation<ParseUser> members;
     public boolean saved; // keeps track of whether or not something is currently saving
     ArrayList<String> addedToEvent; // arrayList of usernames of users that have been added to current event
+    ParseUser current;
 
     public FriendAdapter(Context context, List<ParseUser> users, Event event, boolean addNewMembersFragment) {
         this.context = context;
@@ -46,6 +47,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             this.saved = true;
             this.addedToEvent = new ArrayList<>();
         }
+        this.current = ParseUser.getCurrentUser();
     }
 
     @NonNull
@@ -190,7 +192,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             ParseQuery<ParseObject> postQuery = current.getRelation("friends").getQuery();
             postQuery.whereEqualTo("username", friend.getUsername());
             int results = postQuery.find().size();
-            Log.d("results", results + friend.getUsername());
 
             // returns true if friends
             if (results != 0) {
