@@ -21,7 +21,10 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -92,17 +95,13 @@ public class ChooseFragment extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                String newJson = change_counts(event);
-                bundle.putParcelable("event", event);
-                bundle.putString("votedOn", newJson);
-                fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), true);
+                change_counts(event);
             }
         });
 
     }
 
-    public synchronized String change_counts(Event currentEvent) {
+    public synchronized void change_counts(Event currentEvent) {
         String newJson = null;
         String options = currentEvent.getOptions();
         try {
@@ -111,29 +110,43 @@ public class ChooseFragment extends Fragment {
                 JSONObject place = places.getJSONObject(i);
                 // get current count
                 int curr = place.getInt("count");
-                place.put("count", curr + adapter.counters[i]);
+                int my_vote = adapter.counters[i];
+                place.put("count", curr + my_vote);
 
-                //update people who voted for this restaurant
-                ParseUser user = ParseUser.getCurrentUser();
-                JSONObject person = new JSONObject();
-                person.put("name", user.getUsername());
-                person.put("image", user.get("profilePic"));
+                if (my_vote == 1) {
+                    //update people who voted for this restaurant
+                    ParseUser user = ParseUser.getCurrentUser();
+                    JSONObject person = new JSONObject();
+                    person.put("name", user.getUsername());
+                    person.put("image", ((ParseFile)user.get("profilePic")).getUrl());
 
-                if (place.has("people")) {
-                    JSONArray people = place.getJSONArray("people");
-                    people.put(person);
-                    place.put("people", people);
-                } else {
-                    JSONArray people = new JSONArray();
-                    people.put(person);
-                    place.put("people", people);
+                    if (place.has("people")) {
+                        JSONArray people = place.getJSONArray("people");
+                        people.put(person);
+                        place.put("people", people);
+                    } else {
+                        JSONArray people = new JSONArray();
+                        people.put(person);
+                        place.put("people", people);
+                    }
                 }
+
             }
             newJson = places.toString();
+            currentEvent.setOptions(newJson);
+            final String finalNewJson = newJson;
+            currentEvent.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("event", event);
+                    bundle.putString("votedOn", finalNewJson);
+                    fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), true);
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return newJson;
     }
 
     private void populateChoices() throws JSONException {

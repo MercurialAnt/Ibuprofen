@@ -1,6 +1,5 @@
 package com.example.ibuprofen.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,10 +27,6 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -193,7 +188,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             else {
                 bundle.putString("fragment", "ResultsFragment");
                 bundle.putString("votedOn", event.getOptions());
-//                intent.putExtra("votedOn", event.getOptions());
             }
             bundle.putParcelable("event", event);
 //            intent.putExtra("event", event);

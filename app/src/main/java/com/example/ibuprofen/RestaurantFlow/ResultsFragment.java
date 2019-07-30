@@ -45,7 +45,6 @@ public class ResultsFragment extends Fragment {
         Bundle bundle = getArguments();
         event = bundle.getParcelable("event");
         String jsonResults = bundle.getString("votedOn");
-        event.setOptions(jsonResults);
         event.getVoters().add(ParseUser.getCurrentUser());
         event.saveInBackground();
 

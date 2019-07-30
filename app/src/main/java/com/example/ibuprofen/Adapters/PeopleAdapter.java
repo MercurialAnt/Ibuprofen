@@ -1,0 +1,71 @@
+package com.example.ibuprofen.Adapters;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.ibuprofen.R;
+
+import java.util.List;
+
+public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
+
+    List<Pair<String, String>> people;
+    Context context;
+
+    public PeopleAdapter(Context context, List<Pair<String, String>> people) {
+        this.context = context;
+        this.people = people;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_person, viewGroup, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Pair<String, String> pair = people.get(position);
+        viewHolder.bind(pair);
+    }
+
+    public void clear() {
+        people.clear();
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemCount() {
+        return people.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView ivProfile;
+        private TextView tvName;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            ivProfile = itemView.findViewById(R.id.ivProfile);
+            tvName = itemView.findViewById(R.id.tvName);
+        }
+
+        public void bind(Pair<String, String> pair) {
+            tvName.setText(pair.first);
+            Glide.with(context)
+                    .load(pair.second)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(ivProfile);
+        }
+    }
+}

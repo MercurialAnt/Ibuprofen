@@ -17,6 +17,7 @@ public class Restaurant {
     public String categories;
     public double distance;
     public String reviews;
+    public String people;
 
 
     //deserialize the JSON
@@ -45,6 +46,12 @@ public class Restaurant {
 
         //reviews
         restaurant.reviews = jsonObject.optString("reviews", "");
+
+        //people
+        JSONArray voters = jsonObject.optJSONArray("people");
+        if (voters != null) {
+            restaurant.people = voters.toString();
+        }
 
 
         //categories
@@ -88,6 +95,10 @@ public class Restaurant {
         return reviews;
     }
 
+    public String getPeople() {
+        return people;
+    }
+
     public int getRating() {
         return rbRating;
     }
@@ -103,6 +114,5 @@ public class Restaurant {
     public double getDistance() {
         return  this.distance;
     }
-
 
 }
