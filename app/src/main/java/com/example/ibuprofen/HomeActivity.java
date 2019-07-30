@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -20,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     final static int REQUEST_LOCATION = 10;
     // Instance variables of the views
     private Button btnLogin;
-    private Button btnSignup;
+    private TextView tvSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         btnLogin = findViewById(R.id.btnLogin);
-        btnSignup = findViewById(R.id.btnSignup);
+        tvSignup = findViewById(R.id.tvSignup);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);

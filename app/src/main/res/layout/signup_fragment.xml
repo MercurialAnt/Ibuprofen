@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient">
+    android:background="@drawable/gradienttwo"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clContent"
@@ -125,5 +126,5 @@
         android:layout_marginTop="52dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icontemp" />
+        app:srcCompat="@drawable/ic_logo" />
 </android.support.constraint.ConstraintLayout>

@@ -31,7 +31,7 @@ public class WelcomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.welcome_fragment, container, false);
+        return inflater.inflate(R.layout.signup_fragment, container, false);
     }
 
     // instantiate views
@@ -105,7 +105,7 @@ public class WelcomeFragment extends Fragment {
             return false;
         }
         if (password1.length() <= 0) {
-            Toast.makeText(getContext(), "The password mustn't be empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "The password is empty", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

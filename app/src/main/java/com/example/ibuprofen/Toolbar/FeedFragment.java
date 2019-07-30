@@ -40,7 +40,7 @@ public class FeedFragment extends Fragment {
     private RecyclerView rvRestaurants;
     protected RestaurantsAdapter adapter;
     protected List<Restaurant> mRestaurants;
-    private SwipeRefreshLayout swipeContainer;
+    private SwipeRefreshLayout scFeed;
     protected Activity mActivity;
 
     @Override
@@ -69,20 +69,21 @@ public class FeedFragment extends Fragment {
         adapter = new RestaurantsAdapter(getContext(), mRestaurants);
         rvRestaurants.setAdapter(adapter);
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter.notifyDataSetChanged();
         populateFeed();
 
-//        //swipe refresh
-//        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                populateFeed();
-//            }
-//        });
-//        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-//                android.R.color.holo_green_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_red_light);
+        //swipe refresh
+        scFeed = (SwipeRefreshLayout) view.findViewById(R.id.scFeed);
+        scFeed.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                populateFeed();
+            }
+        });
+        scFeed.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     private void insertNestedFragment() {
@@ -123,7 +124,7 @@ public class FeedFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                //swipeContainer.setRefreshing(false);
+                scFeed.setRefreshing(false);
             }
         });
     }

@@ -5,35 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/gradient">
+    android:background="@drawable/gradienttwo">
 
-    <Button
-        android:id="@+id/btnSignup"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tvSignupPrompt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginLeft="161dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginRight="162dp"
-        android:background="#ff007f"
-        android:text="Sign up"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Don't have an account?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIbuprofen" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/teal"
+        android:layout_marginStart="162dp"
+        android:layout_marginLeft="162dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:background="@color/brightPink"
         android:text="Log in"
         android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="@+id/btnSignup"
-        app:layout_constraintStart_toStartOf="@+id/btnSignup"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIbuprofen" />
 
     <TextView
         android:id="@+id/tvIbuprofen"
@@ -61,7 +63,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icontemp" />
+        app:srcCompat="@drawable/ic_logo" />
+
+    <TextView
+        android:id="@+id/tvSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="SIGN UP"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/teal"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSignupPrompt"
+        app:layout_constraintStart_toEndOf="@+id/tvSignupPrompt"
+        app:layout_constraintTop_toTopOf="@+id/tvSignupPrompt" />
 
 
 </android.support.constraint.ConstraintLayout>
