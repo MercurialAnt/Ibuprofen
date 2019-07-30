@@ -12,8 +12,6 @@ import com.example.ibuprofen.Adapters.ChooseAdapter;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;

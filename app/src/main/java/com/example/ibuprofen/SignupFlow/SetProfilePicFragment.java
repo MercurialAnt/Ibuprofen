@@ -87,11 +87,6 @@ public class SetProfilePicFragment extends PhotoCapture {
                 } else {
                     add_user(newUser);
                 }
-
-
-
-
-
             }
         });
 

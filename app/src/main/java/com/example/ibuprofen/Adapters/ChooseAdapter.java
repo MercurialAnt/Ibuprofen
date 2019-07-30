@@ -1,12 +1,14 @@
 package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,12 +16,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Restaurant;
+import com.example.ibuprofen.model.Review;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> {
+public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private Context context;
     private List<Restaurant> choices;
     private RecyclerView rvChoices;
@@ -43,11 +48,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChooseAdapter.ViewHolder viewHolder, int position) {
         Restaurant choice = choices.get(position);
-        try {
-            viewHolder.bind(choice);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        viewHolder.bind(choice);
     }
 
     @Override
@@ -55,15 +56,28 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         return choices.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        return;
+    }
+
+    @Override
+    public void onItemDismiss(int position, int direction) {
+            counters[position] = direction == ItemTouchHelper.END ? 1 : 0;
+        if (position <= counters.length)
+            nextChoice(position + 1);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder{
         private TextView tvName;
         private ImageView ivImage;
         private RatingBar rbRating;
         private TextView tvCuisine;
         public RatingBar rbPrice;
         private TextView tvDistance;
-        private Button btnYes;
-        private Button btnNo;
+        private RecyclerView rvReviews;
+        private List<Review> reviews;
+        private ReviewAdapter reviewAdapter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,33 +88,18 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
             rbPrice = itemView.findViewById(R.id.rbPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
-            btnYes = itemView.findViewById(R.id.btnYes);
-            btnNo = itemView.findViewById(R.id.btnNo);
 
-            btnYes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        counters[position]++;
-                        nextChoice(position + 1);
-                    }
-                }
-            });
-
-            btnNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        counters[position] = 0;
-                        nextChoice(position + 1);
-                    }
-                }
-            });
+            reviews = new ArrayList<>();
+            rvReviews = itemView.findViewById(R.id.rvReviews);
+            reviewAdapter = new ReviewAdapter(context, reviews);
+            rvReviews.setAdapter(reviewAdapter);
+            rvReviews.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         }
 
-        public void bind(Restaurant restaurant) throws JSONException {
+        public void bind(Restaurant restaurant) {
+            reviewAdapter.clear();
+            addReviews(restaurant.reviews);
+
             if (restaurant.getImage() != null) {
                 Glide.with(context).load(restaurant.getImage()).into(ivImage);
             }
@@ -109,10 +108,38 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating(restaurant.getRating());
             rbPrice.setRating(restaurant.getPrice());
+
+
+
         }
-        public void nextChoice(int count) {
-            rvChoices.scrollToPosition(count);
+
+        public void addReviews(String list) {
+            try {
+                JSONArray array = new JSONArray(list);
+                for (int i = 0; i < array.length(); i++) {
+                    reviews.add(Review.fromJson(array.getJSONObject(i)));
+                }
+                reviewAdapter.notifyDataSetChanged();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
+
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
+        }
+    }
+    public void nextChoice(int count) {
+        rvChoices.scrollToPosition(count);
     }
 
     public void clear() {
@@ -125,4 +152,6 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         choices.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }
