@@ -51,10 +51,10 @@
         android:text="SIGN OUT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/lightRed"/>
+        android:background="@drawable/standard_button"/>
 
     <FrameLayout
-        android:id="@+id/flPending"
+        android:id="@+id/flReviews"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -116,5 +116,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flPending" />
+        app:layout_constraintTop_toBottomOf="@+id/flReviews" />
 </android.support.constraint.ConstraintLayout>

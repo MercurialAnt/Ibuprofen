@@ -231,7 +231,7 @@ public class ProfileFragment extends PhotoCapture {
     private void insertNestedFragment() {
         Fragment pendingFragment = new PendingFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.flPending, pendingFragment).commit();
+        transaction.replace(R.id.flReviews, pendingFragment).commit();
     }
 
     private void queryUserEvents() {

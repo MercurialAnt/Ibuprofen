@@ -50,6 +50,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/brightPink"
         android:text="ADD"
+        android:background="@drawable/standard_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FAFAFA"
         app:layout_constraintEnd_toEndOf="parent"
