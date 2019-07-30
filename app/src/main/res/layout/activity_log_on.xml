@@ -5,20 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LogOnActivity"
-    android:background="@drawable/gradient">
-
-    <Button
-        android:id="@+id/btnSignup"
-        android:layout_width="90dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:background="@color/teal"
-        android:text="Sign up"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSignupPrompt"
-        app:layout_constraintStart_toEndOf="@+id/tvSignupPrompt"
-        app:layout_constraintTop_toTopOf="@+id/tvSignupPrompt" />
+    android:background="@drawable/gradienttwo">
 
     <TextView
         android:id="@+id/tvSignupPrompt"
@@ -32,6 +19,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="#ffffff"/>
+
+    <TextView
+        android:id="@+id/tvSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="SIGN UP"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/teal"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSignupPrompt"
+        app:layout_constraintStart_toEndOf="@+id/tvSignupPrompt"
+        app:layout_constraintTop_toTopOf="@+id/tvSignupPrompt" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -58,7 +59,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icontemp" />
+        app:srcCompat="@drawable/ic_logo" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"

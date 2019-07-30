@@ -66,4 +66,6 @@ dependencies {
 
     // ViewPager
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+
+    android.defaultConfig.vectorDrawables.useSupportLibrary = true
 }

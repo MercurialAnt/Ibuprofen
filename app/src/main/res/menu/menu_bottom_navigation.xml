@@ -15,15 +15,15 @@
         app:showAsAction="always"
         app:labelVisibilityMode="unlabeled"/>
     <item
-        android:id="@+id/action_profile"
-        android:icon="@drawable/profile"
-        android:title="Profile"
-        app:showAsAction="always"
-        app:labelVisibilityMode="unlabeled"/>
-    <item
         android:id="@+id/action_friends"
         android:icon="@drawable/friends"
         android:title="Add Friends"
+        app:showAsAction="always"
+        app:labelVisibilityMode="unlabeled"/>
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"
         app:showAsAction="always"
         app:labelVisibilityMode="unlabeled"/>
 </menu>
