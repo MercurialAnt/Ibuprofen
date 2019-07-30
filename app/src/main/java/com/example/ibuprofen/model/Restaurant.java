@@ -16,6 +16,7 @@ public class Restaurant {
     public String ivImage;
     public String categories;
     public double distance;
+    public String reviews;
 
 
     //deserialize the JSON
@@ -41,6 +42,9 @@ public class Restaurant {
 
         //image
         restaurant.ivImage = jsonObject.optString("image_url", "");
+
+        //reviews
+        restaurant.reviews = jsonObject.optString("reviews", "");
 
 
         //categories
@@ -80,9 +84,9 @@ public class Restaurant {
         return categories;
     }
 
-//    public Number getHealthRating() {
-//
-//    }
+    public String getReviews() {
+        return reviews;
+    }
 
     public int getRating() {
         return rbRating;
@@ -99,4 +103,6 @@ public class Restaurant {
     public double getDistance() {
         return  this.distance;
     }
+
+
 }

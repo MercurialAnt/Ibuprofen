@@ -17,7 +17,7 @@ import static com.parse.Parse.getApplicationContext;
 
 public class YelpAPI {
     private static final String API_KEY = "EE9jyEqL-mfsN9GgQ98zTUsfwCCo8dEMd3oO6Rc5an_uMq3ilJRNYiaarDzJWd5rBvdF25BLcEeyOPLpBxlzzyrIhd2f8-d3q-nk0lTHu16b7KVqzC61LWhYcTQuXXYx";
-    private static final String CLIENT_ID = "Syqog6jHymMjfL2jLkaMgw";
+    private static final String CLIENT_ID = "mUOZCkNGCqMlYAobs2PbjQ";
     private final String base_url = "https://api.yelp.com/v3";
     private final String auth_key_header = "Authorization";
     final String auth_value_header = "Bearer " + API_KEY;

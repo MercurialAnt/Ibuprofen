@@ -62,41 +62,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$"
+        android:background="@drawable/button_toggle_selector"
+        android:textOff="$"
+        android:textOn="$"
         app:layout_constraintEnd_toStartOf="@+id/btnTwo"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$$$"
+        android:background="@drawable/button_toggle_selector"
+        android:textOff="$$$"
+        android:textOn="$$$"
         app:layout_constraintEnd_toStartOf="@+id/btnFour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnTwo"
         app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnFour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$$$$"
+        android:background="@drawable/button_toggle_selector"
+        android:textOff="$$$$"
+        android:textOn="$$$$"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnThree"
         app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$$"
+        android:background="@drawable/button_toggle_selector"
+        android:textOff="$$"
+        android:textOn="$$"
         app:layout_constraintEnd_toStartOf="@+id/btnThree"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnOne"

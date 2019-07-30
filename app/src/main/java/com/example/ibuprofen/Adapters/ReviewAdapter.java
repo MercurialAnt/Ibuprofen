@@ -84,4 +84,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         }
     }
+
+    public void clear() {
+        reviews.clear();
+        notifyDataSetChanged();
+    }
 }
