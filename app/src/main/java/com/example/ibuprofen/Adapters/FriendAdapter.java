@@ -15,9 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
-import com.parse.CountCallback;
-import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -25,6 +22,7 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // adapter to show user's past events
@@ -33,18 +31,20 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     private Context context;
     private List<ParseUser> users;
     Event event; // to access attendees list and edit it
-    boolean addMembers; // true if this is the AddMembersActivity, false if its the friendFragment
+    boolean addNewMembersFragment; // true if this is the AddMembersActivity, false if its the friendFragment
     public ParseRelation<ParseUser> members;
     public boolean saved; // keeps track of whether or not something is currently saving
+    ArrayList<String> addedToEvent; // arrayList of usernames of users that have been added to current event
 
-    public FriendAdapter(Context context, List<ParseUser> users, Event event, boolean addMembers) {
+    public FriendAdapter(Context context, List<ParseUser> users, Event event, boolean addNewMembersFragment) {
         this.context = context;
         this.users = users;
         this.event = event;
-        this.addMembers = addMembers;
-        if (addMembers) {
+        this.addNewMembersFragment = addNewMembersFragment;
+        if (addNewMembersFragment) {
             this.members = event.getMembers();
             this.saved = true;
+            this.addedToEvent = new ArrayList<>();
         }
     }
 
@@ -77,6 +77,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         TextView tvName;
         Button btnAdd;
         TextView tvAdded;
+        TextView tvFriends;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -87,46 +88,46 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             tvName = view.findViewById(R.id.tvN);
             btnAdd = view.findViewById(R.id.btnAddd);
             tvAdded = view.findViewById(R.id.tvAdded);
+            tvFriends = view.findViewById(R.id.tvFriends);
 
+            // sets initial text to gone
             tvAdded.setVisibility(View.GONE);
+            tvFriends.setVisibility(View.GONE);
 
             // sets on click listener for add button if in the AddMembers page
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // replaces buttons
                     btnAdd.setVisibility(View.GONE);
-                    tvAdded.setVisibility(View.VISIBLE);
 
                     // does additional actions depending on view
-                    if (addMembers) { // if this is the addnewmembers fragment
+                    if (addNewMembersFragment) { // if this is the addNewMembers fragment
+                        // replaces button
+                        tvAdded.setVisibility(View.VISIBLE);
+                        tvFriends.setVisibility(View.GONE);
+
                         // sets saved to false
                         saved = false;
                         // adds added user to attendees in event
                         // find number of event attendees (list all of them in details page)
-                        members.add(users.get(getAdapterPosition()));
+                        ParseUser clicked = users.get(getAdapterPosition());
+                        addedToEvent.add(clicked.getUsername());
+                        members.add(clicked);
                         event.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
                                 saved = true;
                             }
                         });
-                        Log.d("FRIENDADD", users.get(getAdapterPosition()).getUsername());
                     }
                     else { // if this is the friends fragment
-                        ParseUser friend = users.get(getAdapterPosition());
+                        // replaces button
+                        tvFriends.setVisibility(View.VISIBLE);
+                        tvAdded.setVisibility(View.GONE);
 
                         // adds friend to current user's friend list
+                        ParseUser friend = users.get(getAdapterPosition());
                         addFriends(friend);
-
-                        // adds current user to friend's list todo--decide if we want friend requests
-//                        friend.getRelation("friends").add(ParseUser.getCurrentUser());
-//                        friend.saveInBackground(new SaveCallback() {
-//                            @Override
-//                            public void done(ParseException e) {
-//                                Log.d("FriendAdapter","saved");
-//                            }
-//                        });
                     }
                 }
             });
@@ -141,32 +142,26 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             current.saveInBackground();
         }
 
-        public boolean isCurrentFriend(ParseUser friend) throws ParseException {
-            // get current users friends
-            ParseUser current = ParseUser.getCurrentUser();
-            ParseQuery<ParseObject> postQuery = current.getRelation("friends").getQuery();
-            postQuery.whereEqualTo("username", friend.getUsername());
-            int results = postQuery.find().size();
-            Log.d("results", results + friend.getUsername());
-
-            // returns true if friends
-            if (results != 0) {
-                return true;
-            }
-            return false;
-        }
-
         public void bind(ParseUser user) throws ParseException {
-            // makes add button disappear if the user being shown is the current user
+            btnAdd.setVisibility(View.VISIBLE);
+            tvAdded.setVisibility((View.GONE));
+            tvFriends.setVisibility(View.GONE);
+
+            // makes all text/buttons disappear if the user being shown is the current user
             if (user.hasSameId(ParseUser.getCurrentUser())) {
                 btnAdd.setVisibility(View.GONE);
-                tvAdded.setVisibility((View.GONE));
             }
 
             // replaces Add button for current friends
-            if (!addMembers) {
+            if (!addNewMembersFragment) {
                 if (isCurrentFriend(user)) {
                     // replaces buttons
+                    btnAdd.setVisibility(View.GONE);
+                    tvFriends.setVisibility(View.VISIBLE);
+                }
+            }
+            else { // replaces Add button for users that have already been added
+                if(addedToEvent.contains(user.getUsername())) { // checks if user has already been added to event
                     btnAdd.setVisibility(View.GONE);
                     tvAdded.setVisibility(View.VISIBLE);
                 }
@@ -187,6 +182,21 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             tvUsername.setText(user.getString("username"));
             // name
             tvName.setText(user.getString("name"));
+        }
+
+        public boolean isCurrentFriend(ParseUser friend) throws ParseException {
+            // get current users friends
+            ParseUser current = ParseUser.getCurrentUser();
+            ParseQuery<ParseObject> postQuery = current.getRelation("friends").getQuery();
+            postQuery.whereEqualTo("username", friend.getUsername());
+            int results = postQuery.find().size();
+            Log.d("results", results + friend.getUsername());
+
+            // returns true if friends
+            if (results != 0) {
+                return true;
+            }
+            return false;
         }
     }
 }
