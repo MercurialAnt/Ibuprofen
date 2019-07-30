@@ -14,7 +14,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/brightPink"
+        android:background="@drawable/standard_button"
         android:text="next"
         android:textColor="#F7F4F4"
         android:textSize="14sp"

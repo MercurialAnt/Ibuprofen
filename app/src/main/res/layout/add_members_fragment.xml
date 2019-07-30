@@ -30,6 +30,7 @@
         android:layout_marginRight="17dp"
         android:layout_marginBottom="17dp"
         android:text="NEXT"
+        android:background="@drawable/standard_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

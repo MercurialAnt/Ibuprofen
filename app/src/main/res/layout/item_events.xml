@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvCard"
-    android:layout_width="350dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:padding="1dp"
     card_view:cardBackgroundColor="#ffffff"
@@ -15,7 +15,7 @@
     card_view:contentPadding="0dp">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content">
 
         <ImageView

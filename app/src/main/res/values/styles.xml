@@ -22,4 +22,18 @@
         <item name="colorControlActivated">@color/teal</item>
     </style>
 
+    <style name="custom_bar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/custom_rating_bar</item>
+        <item name="android:indeterminateDrawable">@drawable/custom_rating_bar</item>.
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+    </style>
+
+    <!--<style name="custom_button" parent="Widget.AppCompat.Button">-->
+        <!--<item name="android:progressDrawable">@drawable/custom_rating_bar</item>-->
+        <!--<item name="android:indeterminateDrawable">@drawable/custom_rating_bar</item>-->
+        <!--<item name="android:minHeight">16dip</item>-->
+        <!--<item name="android:maxHeight">16dip</item>-->
+    <!--</style>-->
+
 </resources>
