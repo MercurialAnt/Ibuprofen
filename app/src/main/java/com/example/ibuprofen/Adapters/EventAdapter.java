@@ -1,6 +1,5 @@
 package com.example.ibuprofen.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,10 +27,6 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -79,8 +74,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         TextView tvRestaurant;
         TextView tvFriendNumber;
         CardView cvCard;
-        Button btnAccept;
-        Button btnDecline;
+        ImageView ivAccept;
+        ImageView ivDecline;
 
 
         public ViewHolder(@NonNull View view) {
@@ -92,21 +87,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             tvRestaurant = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
             cvCard = view.findViewById(R.id.cvCard);
-            btnAccept = view.findViewById(R.id.btnAccept);
-            btnDecline = view.findViewById(R.id.btnDecline);
+            ivAccept = view.findViewById(R.id.ivAccept);
+            ivDecline = view.findViewById(R.id.ivDecline);
 
             if (pastEvent) {
-                btnAccept.setVisibility(View.GONE);
-                btnDecline.setVisibility(View.GONE);
+                ivAccept.setVisibility(View.GONE);
+                ivDecline.setVisibility(View.GONE);
             }
 
             // sets on click listener for add button if in the AddMembers page
-            btnAccept.setOnClickListener(new View.OnClickListener() {
+            ivAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // replaces buttons
-                    btnAccept.setVisibility(View.GONE);
-                    btnDecline.setVisibility(View.GONE);
                     int position = getAdapterPosition();
                     Event event = events.get(position);
                     Intent intent = new Intent(context, ChooseActivity.class);
@@ -115,7 +107,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                 }
             });
 
-            btnDecline.setOnClickListener(new View.OnClickListener() {
+            ivDecline.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -193,10 +185,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             else {
                 bundle.putString("fragment", "ResultsFragment");
                 bundle.putString("votedOn", event.getOptions());
-//                intent.putExtra("votedOn", event.getOptions());
             }
             bundle.putParcelable("event", event);
-//            intent.putExtra("event", event);
             intent.putExtra("bundle", bundle);
             context.startActivity(intent);
         }

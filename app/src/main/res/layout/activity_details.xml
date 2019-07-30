@@ -49,33 +49,26 @@
 
     <RatingBar
         android:id="@+id/rbRating"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:theme="@style/RatingBar"
+        app:layout_constraintBottom_toTopOf="@+id/tvHours"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCuisine" />
-
-    <RatingBar
-        android:id="@+id/rbHealth"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/rbRating"
-        app:layout_constraintTop_toBottomOf="@+id/rbRating" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
     <RatingBar
         android:id="@+id/rbPrice"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="6dp"
         android:numStars="4"
-        app:layout_constraintStart_toStartOf="@+id/rbHealth"
-        app:layout_constraintTop_toBottomOf="@+id/rbHealth" />
+        app:layout_constraintBottom_toTopOf="@+id/tvDistance"
+        app:layout_constraintStart_toStartOf="@+id/rbRating"
+        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
 
     <TextView
         android:id="@+id/tvDistance"
@@ -91,23 +84,12 @@
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Rating:"
+        app:layout_constraintBottom_toTopOf="@+id/tvHours"
         app:layout_constraintEnd_toStartOf="@+id/rbRating"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
-
-    <TextView
-        android:id="@+id/tvHealth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Health:"
-        app:layout_constraintEnd_toStartOf="@+id/rbHealth"
-        app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
     <TextView
         android:id="@+id/tvPrice"
@@ -117,8 +99,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Price:"
+        app:layout_constraintBottom_toTopOf="@+id/tvDistance"
         app:layout_constraintEnd_toStartOf="@+id/rbPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tvHealth" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvReviews"

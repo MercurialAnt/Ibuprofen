@@ -46,7 +46,6 @@ public class DetailsActivity extends AppCompatActivity {
     private RatingBar rbRating;
     private TextView tvCuisine;
     private RatingBar rbPrice;
-    private RatingBar rbHealth;
     private TextView tvDistance;
     private RecyclerView rvReviews;
     private LinearLayout llDots;
@@ -62,12 +61,10 @@ public class DetailsActivity extends AppCompatActivity {
         rbRating = findViewById(R.id.rbRating);
         tvCuisine = findViewById(R.id.tvCuisine);
         rbPrice = findViewById(R.id.rbPrice);
-        rbHealth = findViewById(R.id.rbHealth);
         tvDistance = findViewById(R.id.tvDistance);
         restaurant = Parcels.unwrap(getIntent().getParcelableExtra("Detailed"));
         rvReviews = findViewById(R.id.rvReviews);
         llDots = findViewById(R.id.llDots);
-
 
         reviews = new ArrayList<>();
         urls = new ArrayList<>();
@@ -160,8 +157,6 @@ public class DetailsActivity extends AppCompatActivity {
 //        tvHours.setText(restaurant.getHours());
         rbRating.setRating(restaurant.getRating());
         rbPrice.setRating(restaurant.getPrice());
-//        rbHealth.setRating(restaurant.getHealth());
-
 
     }
 
@@ -183,7 +178,5 @@ public class DetailsActivity extends AppCompatActivity {
             layoutParams.setMargins(4, 0, 4, 0);
             llDots.addView(dots[i], layoutParams);
         }
-
-
     }
 }
