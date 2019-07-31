@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,8 +75,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         TextView tvRestaurant;
         TextView tvFriendNumber;
         CardView cvCard;
-        Button btnAccept;
-        Button btnDecline;
+        ImageView ivAccept;
+        ImageView ivDecline;
 
 
         public ViewHolder(@NonNull View view) {
@@ -87,30 +88,30 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             tvRestaurant = view.findViewById(R.id.tvEventName);
             tvFriendNumber = view.findViewById(R.id.tvFriendNumber);
             cvCard = view.findViewById(R.id.cvCard);
-            btnAccept = view.findViewById(R.id.btnAccept);
-            btnDecline = view.findViewById(R.id.btnDecline);
+            ivAccept = view.findViewById(R.id.ivAccept);
+            ivDecline = view.findViewById(R.id.ivDecline);
 
             if (pastEvent) {
-                btnAccept.setVisibility(View.GONE);
-                btnDecline.setVisibility(View.GONE);
+                ivAccept.setVisibility(View.GONE);
+                ivDecline.setVisibility(View.GONE);
             }
 
             // sets on click listener for add button if in the AddMembers page
-            btnAccept.setOnClickListener(new View.OnClickListener() {
+            ivAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // replaces buttons
-                    btnAccept.setVisibility(View.GONE);
-                    btnDecline.setVisibility(View.GONE);
+                    Bundle bundle = new Bundle();
+                    Intent intent = new Intent(context, RestaurantManager.class);
                     int position = getAdapterPosition();
                     Event event = events.get(position);
-                    Intent intent = new Intent(context, ChooseActivity.class);
-                    intent.putExtra("event", event);
+                    bundle.putString("fragment", "ChooseFragment");
+                    bundle.putParcelable("event", event);
+                    intent.putExtra("bundle", bundle);
                     context.startActivity(intent);
                 }
             });
 
-            btnDecline.setOnClickListener(new View.OnClickListener() {
+            ivDecline.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -129,15 +130,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         }
 
         public void bind(Event event) throws ParseException {
-            if (!pastEvent) {
+            if (pastEvent) {
+
+                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
+//                    cvCard.setContentPadding(30, 30, 30, 0);
+
+            }
+            else {
                 cvCard.setCardBackgroundColor(Color.parseColor("#FFD8D9"));
                 cvCard.setRadius(40);
                 cvCard.setCardElevation(4);
                 cvCard.setMaxCardElevation(4);
-                if (events.size() > 1) {
-                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.WRAP_CONTENT, CardView.LayoutParams.MATCH_PARENT));
-//                    cvCard.setContentPadding(30, 30, 30, 0);
-                }
             }
 
             // set username
@@ -178,10 +181,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         @Override
         public void onClick(View v) {
             Bundle bundle = new Bundle();
-
             Intent intent = new Intent(context, RestaurantManager.class);
             int position = getAdapterPosition();
-            System.out.println(position);
             Event event = events.get(position);
             if (!pastEvent)
                 bundle.putString("fragment", "ChooseFragment");
@@ -190,7 +191,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                 bundle.putString("votedOn", event.getOptions());
             }
             bundle.putParcelable("event", event);
-//            intent.putExtra("event", event);
             intent.putExtra("bundle", bundle);
             context.startActivity(intent);
         }

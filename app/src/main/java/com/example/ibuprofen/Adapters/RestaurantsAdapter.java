@@ -56,7 +56,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public ImageView ivImage;
         public RatingBar rbRating;
         public TextView tvCuisine;
-        public RatingBar rbPrice;
+        public TextView tvPrice;
         public TextView tvDistance;
         public ConstraintLayout clRestaurant;
 
@@ -66,7 +66,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             ivImage = itemView.findViewById(R.id.ivImage);
             rbRating = itemView.findViewById(R.id.rbRating);
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
-            rbPrice = itemView.findViewById(R.id.rbPrice);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             clRestaurant = itemView.findViewById(R.id.clRestaurant);
 
@@ -98,7 +98,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             tvCuisine.setText(restaurant.getCategories());
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating(restaurant.getRating());
-            rbPrice.setRating(restaurant.getPrice());
+            String price = "";
+            for(int i = 0; i < restaurant.getPrice(); i++) {
+                price += "$";
+            }
+            tvPrice.setText(price);
         }
     }
 

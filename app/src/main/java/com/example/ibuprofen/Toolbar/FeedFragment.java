@@ -61,8 +61,6 @@ public class FeedFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // inserts PendingFragment
-        insertNestedFragment();
 
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         mRestaurants = new ArrayList<>();
@@ -84,12 +82,6 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-    }
-
-    private void insertNestedFragment() {
-        Fragment pendingFragment = new PendingFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.flPending, pendingFragment).commit();
     }
 
     private void populateFeed() {

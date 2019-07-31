@@ -4,26 +4,26 @@
 
     <item
         android:id="@+id/action_feed"
-        android:icon="@drawable/feed"
+        android:icon="@drawable/homeicon"
         android:title="Home"
-        app:showAsAction="always"
-        app:labelVisibilityMode="unlabeled"/>
+        app:labelVisibilityMode="unlabeled"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_event"
-        android:icon="@drawable/event"
+        android:icon="@drawable/neweventicon"
         android:title="Compose"
-        app:showAsAction="always"
-        app:labelVisibilityMode="unlabeled"/>
+        app:labelVisibilityMode="unlabeled"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_friends"
-        android:icon="@drawable/friends"
+        android:icon="@drawable/friendsagain"
         android:title="Add Friends"
-        app:showAsAction="always"
-        app:labelVisibilityMode="unlabeled"/>
+        app:labelVisibilityMode="unlabeled"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/userpossibility"
         android:title="Profile"
-        app:showAsAction="always"
-        app:labelVisibilityMode="unlabeled"/>
+        app:labelVisibilityMode="unlabeled"
+        app:showAsAction="always" />
 </menu>

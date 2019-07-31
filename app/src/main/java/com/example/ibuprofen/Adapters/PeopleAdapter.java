@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -51,17 +50,14 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivProfile;
-        private TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivProfile = itemView.findViewById(R.id.ivProfile);
-            tvName = itemView.findViewById(R.id.tvName);
         }
 
         public void bind(Pair<String, String> pair) {
-            tvName.setText(pair.first);
             Glide.with(context)
                     .load(pair.second)
                     .apply(RequestOptions.circleCropTransform())

@@ -72,7 +72,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         private ImageView ivImage;
         private RatingBar rbRating;
         private TextView tvCuisine;
-        public RatingBar rbPrice;
+        public TextView tvPrice;
         private TextView tvDistance;
         private RecyclerView rvReviews;
         private List<Review> reviews;
@@ -85,7 +85,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             ivImage = itemView.findViewById(R.id.ivImage);
             rbRating = itemView.findViewById(R.id.rbRating);
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
-            rbPrice = itemView.findViewById(R.id.rbPrice);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
 
             reviews = new ArrayList<>();
@@ -106,8 +106,11 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvCuisine.setText(restaurant.getCategories());
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating(restaurant.getRating());
-            rbPrice.setRating(restaurant.getPrice());
-
+            String price = "";
+            for(int i = 0; i < restaurant.getPrice(); i++) {
+                price += "$";
+            }
+            tvPrice.setText(price);
         }
 
         public void addReviews(String list) {

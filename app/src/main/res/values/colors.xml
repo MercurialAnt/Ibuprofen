@@ -19,6 +19,7 @@
     <color name="newPurple">#5E5392</color>
     <color name="plum">#57426B</color>
     <color name="brightPink">#FF007F</color>
+    <color name="lightGray">#D3D3D3</color>
     <color name="darkPink">#cc0066</color>
     <color name="lightDarkPink">#e60072</color>
     <color name="yes_button">#6dd988</color>
@@ -27,4 +28,5 @@
     <color name="no_button_border">#b1113e</color>
     <color name="white">#ffffff</color>
     <color name="white_trans">#22FFFFFF</color>
-</resources>
+    <color name="black">#000000</color>
+    </resources>

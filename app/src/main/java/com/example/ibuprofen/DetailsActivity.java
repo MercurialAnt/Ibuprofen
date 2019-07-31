@@ -45,8 +45,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvHours;
     private RatingBar rbRating;
     private TextView tvCuisine;
-    private RatingBar rbPrice;
-    private RatingBar rbHealth;
+    private TextView tvPrice;
     private TextView tvDistance;
     private RecyclerView rvReviews;
     private LinearLayout llDots;
@@ -61,13 +60,11 @@ public class DetailsActivity extends AppCompatActivity {
         tvHours = findViewById(R.id.tvHours);
         rbRating = findViewById(R.id.rbRating);
         tvCuisine = findViewById(R.id.tvCuisine);
-        rbPrice = findViewById(R.id.rbPrice);
-        rbHealth = findViewById(R.id.rbHealth);
+        tvPrice = findViewById(R.id.tvPrice);
         tvDistance = findViewById(R.id.tvDistance);
         restaurant = Parcels.unwrap(getIntent().getParcelableExtra("Detailed"));
         rvReviews = findViewById(R.id.rvReviews);
         llDots = findViewById(R.id.llDots);
-
 
         reviews = new ArrayList<>();
         urls = new ArrayList<>();
@@ -159,10 +156,11 @@ public class DetailsActivity extends AppCompatActivity {
         tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
 //        tvHours.setText(restaurant.getHours());
         rbRating.setRating(restaurant.getRating());
-        rbPrice.setRating(restaurant.getPrice());
-//        rbHealth.setRating(restaurant.getHealth());
-
-
+        String price = "";
+        for(int i = 0; i < restaurant.getPrice(); i++) {
+            price += "$";
+        }
+        tvPrice.setText(price);
     }
 
     private void prepareDots(int currentSlide, int size) {
@@ -183,7 +181,5 @@ public class DetailsActivity extends AppCompatActivity {
             layoutParams.setMargins(4, 0, 4, 0);
             llDots.addView(dots[i], layoutParams);
         }
-
-
     }
 }

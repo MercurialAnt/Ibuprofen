@@ -23,6 +23,8 @@
         android:text="Name"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/title_font"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llDots" />
 
@@ -34,6 +36,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Cuisine"
+        android:fontFamily="@font/text_body"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/tvRating"
         app:layout_constraintStart_toStartOf="@+id/tvName"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -44,38 +48,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Hours"
+        android:fontFamily="@font/text_body"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tvName"
         app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
     <RatingBar
         android:id="@+id/rbRating"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:theme="@style/RatingBar"
+        app:layout_constraintBottom_toTopOf="@+id/tvHours"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCuisine" />
-
-    <RatingBar
-        android:id="@+id/rbHealth"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/rbRating"
-        app:layout_constraintTop_toBottomOf="@+id/rbRating" />
-
-    <RatingBar
-        android:id="@+id/rbPrice"
-        style="@android:style/Widget.Holo.Light.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:numStars="4"
-        app:layout_constraintStart_toStartOf="@+id/rbHealth"
-        app:layout_constraintTop_toBottomOf="@+id/rbHealth" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
     <TextView
         android:id="@+id/tvDistance"
@@ -83,6 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Distance"
+        android:fontFamily="@font/text_body"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tvName"
         app:layout_constraintTop_toBottomOf="@+id/tvHours" />
@@ -91,34 +81,26 @@
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Rating:"
+        android:fontFamily="@font/text_body"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tvHours"
         app:layout_constraintEnd_toStartOf="@+id/rbRating"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
     <TextView
-        android:id="@+id/tvHealth"
+        android:id="@+id/tvPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Health:"
-        app:layout_constraintEnd_toStartOf="@+id/rbHealth"
-        app:layout_constraintTop_toBottomOf="@+id/tvRating" />
-
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="Price:"
-        app:layout_constraintEnd_toStartOf="@+id/rbPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tvHealth" />
+        android:fontFamily="@font/text_body"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tvDistance"
+        app:layout_constraintEnd_toEndOf="@+id/tvRating"
+        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvReviews"
@@ -134,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel"
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
@@ -150,5 +132,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vpImages"></LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Price"
+        android:fontFamily="@font/text_body"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tvDistance"
+        app:layout_constraintStart_toEndOf="@+id/tvPriceLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
 
 </android.support.constraint.ConstraintLayout>

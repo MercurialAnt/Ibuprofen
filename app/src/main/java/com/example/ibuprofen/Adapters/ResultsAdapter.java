@@ -65,7 +65,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
             rvPeople = itemView.findViewById(R.id.rvPeople);
             peopleAdapter = new PeopleAdapter(context, people);
             rvPeople.setAdapter(peopleAdapter);
-            rvPeople.setLayoutManager(new GridLayoutManager(context, 4, LinearLayoutManager.VERTICAL, false));
+            rvPeople.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
         }
 
         public void bind(Restaurant restaurant) {
