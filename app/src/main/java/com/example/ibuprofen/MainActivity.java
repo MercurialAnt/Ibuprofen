@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void addBadgeView() {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(0);
-
+        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(3);
         notificationBadge = LayoutInflater.from(this).inflate(R.layout.view_notification_badge, menuView, false);
-
         itemView.addView(notificationBadge);
+
+        //check if list of pending events is empty
     }
 }
