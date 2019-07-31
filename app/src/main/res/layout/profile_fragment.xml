@@ -10,11 +10,9 @@
         android:layout_width="162dp"
         android:layout_height="148dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignout"
         app:srcCompat="@android:color/black"
@@ -24,10 +22,12 @@
         android:id="@+id/tvCreator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/title_font"
         android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/ivProfileImage" />
 
@@ -35,8 +35,10 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/text_body"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
         app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/tvCreator" />
@@ -47,11 +49,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
+        android:background="@drawable/standard_button"
         android:text="SIGN OUT"
+        android:textColor="#FDFCFC"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/standard_button"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/flReviews"
@@ -107,9 +109,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,9 +120,11 @@
         android:id="@+id/tvPendingLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/title_font"
         android:text="PENDING EVENTS"
+        android:textColor="@color/purple"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -131,9 +133,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/title_font"
         android:text="COMPLETED EVENTS"
+        android:textColor="@color/purple"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flReviews" />
 

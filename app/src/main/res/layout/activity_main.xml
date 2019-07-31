@@ -24,9 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="-16dp"
         android:background="@color/white"
-        app:itemTextColor="#FAFAFA"
+        app:itemTextColor="@color/purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom_navigation"
-        tools:layout_editor_absoluteX="-8dp" />
+        tools:layout_editor_absoluteX="-8dp"
+        app:itemIconTint="@color/colorselector" />
 
 </android.support.constraint.ConstraintLayout>

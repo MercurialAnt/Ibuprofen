@@ -3,10 +3,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvCard"
-    android:layout_width="300dp"
+    android:layout_width="290dp"
     android:layout_height="wrap_content"
     android:padding="1dp"
-    card_view:cardBackgroundColor="#ffffff"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="1dp"
     card_view:cardMaxElevation="1dp"
@@ -16,8 +15,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clEvent"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00F8F4F4">
 
         <ImageView
             android:id="@+id/ivRestaurant"
@@ -37,23 +37,28 @@
             android:id="@+id/tvCreator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:fontFamily="@font/text_body"
             android:text="Creator name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="normal"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="@+id/tvEventName"
             card_view:layout_constraintTop_toBottomOf="@+id/tvEventName" />
 
         <TextView
             android:id="@+id/tvEventName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="125dp"
+            android:layout_height="31dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/title_font"
             android:text="Event name"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/ivRestaurant"
             card_view:layout_constraintTop_toTopOf="parent" />
@@ -62,11 +67,13 @@
             android:id="@+id/tvFriendNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/text_body"
             android:text="#"
-            card_view:layout_constraintStart_toEndOf="@+id/ivRestaurant"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            card_view:layout_constraintStart_toStartOf="@+id/tvCreator"
             card_view:layout_constraintTop_toBottomOf="@+id/tvCreator" />
 
         <TextView
@@ -74,24 +81,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/text_body"
             android:text="friends"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="normal"
             card_view:layout_constraintStart_toEndOf="@+id/tvFriendNumber"
             card_view:layout_constraintTop_toBottomOf="@+id/tvCreator" />
 
         <ImageView
             android:id="@+id/ivDecline"
-            android:layout_width="75dp"
-            android:layout_height="45dp"
+            android:layout_width="65dp"
+            android:layout_height="47dp"
             card_view:layout_constraintStart_toStartOf="@+id/ivAccept"
             card_view:layout_constraintTop_toBottomOf="@+id/ivAccept"
             card_view:srcCompat="@drawable/ic_decline" />
 
         <ImageView
             android:id="@+id/ivAccept"
-            android:layout_width="75dp"
-            android:layout_height="45dp"
+            android:layout_width="67dp"
+            android:layout_height="44dp"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:srcCompat="@drawable/ic_accept" />
