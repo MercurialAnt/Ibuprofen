@@ -22,13 +22,11 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="109dp"
+        android:layout_height="61dp"
         android:layout_marginStart="162dp"
-        android:layout_marginLeft="162dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="162dp"
-        android:layout_marginRight="162dp"
         android:background="@drawable/standard_button"
         android:fontFamily="@font/title_font"
         android:text="Log in"

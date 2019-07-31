@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -129,15 +130,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         }
 
         public void bind(Event event) throws ParseException {
-            if (!pastEvent) {
+            if (pastEvent) {
+
+                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
+//                    cvCard.setContentPadding(30, 30, 30, 0);
+
+            }
+            else {
                 cvCard.setCardBackgroundColor(Color.parseColor("#FFD8D9"));
                 cvCard.setRadius(40);
                 cvCard.setCardElevation(4);
                 cvCard.setMaxCardElevation(4);
-                if (events.size() > 1) {
-                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.WRAP_CONTENT, CardView.LayoutParams.MATCH_PARENT));
-//                    cvCard.setContentPadding(30, 30, 30, 0);
-                }
             }
 
             // set username
