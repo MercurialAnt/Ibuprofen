@@ -132,6 +132,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         }
 
         public void bind(Event event) throws ParseException {
+            cvCard.setVisibility(View.VISIBLE);
+
             if (pastEvent) {
                 cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
                 cvCard.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
