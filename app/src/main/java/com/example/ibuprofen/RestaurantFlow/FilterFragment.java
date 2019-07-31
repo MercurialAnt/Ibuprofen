@@ -165,6 +165,7 @@ public class FilterFragment extends Fragment {
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject store = array.getJSONObject(i);
                             store.accumulate("count", new Integer(0));
+                            store.accumulate("people", new JSONArray());
                         }
                         options = array.toString();
                         event.setOptions(options);

@@ -21,10 +21,8 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -101,17 +99,19 @@ public class ChooseFragment extends Fragment {
 
     }
 
-    public synchronized void change_counts(Event currentEvent) {
-        String newJson = null;
+    public void change_counts(Event currentEvent) {
+//        String newJson = null;
+        Bundle bundle = new Bundle();
         String options = currentEvent.getOptions();
+        bundle.putIntArray("votes", adapter.counters);
+        String [] people = new String[10];
         try {
             JSONArray places = new JSONArray(options);
             for (int i = 0; i < places.length(); i++) {
                 JSONObject place = places.getJSONObject(i);
                 // get current count
-                int curr = place.getInt("count");
+
                 int my_vote = adapter.counters[i];
-                place.put("count", curr + my_vote);
 
                 if (my_vote == 1) {
                     //update people who voted for this restaurant
@@ -124,31 +124,14 @@ public class ChooseFragment extends Fragment {
                     } else {
                         person.put("image", R.drawable.ic_launcher_foreground);
                     }
-
-                    if (place.has("people")) {
-                        JSONArray people = place.getJSONArray("people");
-                        people.put(person);
-                        place.put("people", people);
-                    } else {
-                        JSONArray people = new JSONArray();
-                        people.put(person);
-                        place.put("people", people);
-                    }
+                    people[i] = person.toString();
                 }
 
             }
-            newJson = places.toString();
-            currentEvent.setOptions(newJson);
-            final String finalNewJson = newJson;
-            currentEvent.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("event", event);
-                    bundle.putString("votedOn", finalNewJson);
-                    fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), true);
-                }
-            });
+            bundle.putParcelable("event", currentEvent);
+            bundle.putStringArray("my_info", people);
+            fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), true);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

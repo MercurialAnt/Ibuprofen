@@ -188,7 +188,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                 bundle.putString("fragment", "ChooseFragment");
             else {
                 bundle.putString("fragment", "ResultsFragment");
-                bundle.putString("votedOn", event.getOptions());
+                bundle.putIntArray("votes", new int[10]);
+                bundle.putStringArray("my_info", new String[1]);
             }
             bundle.putParcelable("event", event);
             intent.putExtra("bundle", bundle);

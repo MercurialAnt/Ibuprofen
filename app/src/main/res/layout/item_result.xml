@@ -15,7 +15,9 @@
         android:text="temp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/rvPeople"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,14 +29,13 @@
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/text_body"
         android:text="temp"
+        android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/rvPeople"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -48,7 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:background="@color/white_trans"
         android:visibility="visible"
@@ -63,11 +63,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvCount" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
 </android.support.constraint.ConstraintLayout>

@@ -17,13 +17,17 @@ import com.example.ibuprofen.MainActivity;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ResultsFragment extends Fragment {
 
@@ -32,6 +36,7 @@ public class ResultsFragment extends Fragment {
     RecyclerView tvResults;
     Button btnDone;
     Event event;
+    ReentrantLock update = new ReentrantLock();
 
     @Nullable
     @Override
@@ -41,28 +46,44 @@ public class ResultsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        Bundle bundle = getArguments();
-        event = bundle.getParcelable("event");
-        String jsonResults = bundle.getString("votedOn");
-        event.getVoters().add(ParseUser.getCurrentUser());
-        event.saveInBackground();
+        update.lock();
 
         // initializes variables
         tvResults = view.findViewById(R.id.rvResults);
         btnDone = view.findViewById(R.id.btnDone);
 
-        // shows results
+        // show results
         restaurants = new ArrayList<>();
-        JSONArray places;
+        Bundle bundle = getArguments();
+        event = bundle.getParcelable("event");
+        event.getVoters().add(ParseUser.getCurrentUser());
+        int[] my_vote = bundle.getIntArray("votes");
+        String [] my_info = bundle.getStringArray("my_info");
+
         try {
-            places = new JSONArray(jsonResults);
+            JSONArray places = new JSONArray(event.getOptions());
             for (int i = 0; i < places.length(); i++) {
-                restaurants.add(Restaurant.fromJSON(places.getJSONObject(i)));
+                JSONObject place = places.getJSONObject(i);
+                JSONArray people = place.getJSONArray("people");
+                if (my_info.length == 10 && my_info[i] != null) {
+                    people.put(new JSONObject(my_info[i]));
+                }
+
+                place.put("count", place.getInt("count") + my_vote[i]);
+                restaurants.add(Restaurant.fromJSON(place));
             }
+            event.setOptions(places.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        event.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                update.unlock();
+            }
+        });
+
 
         resultsAdapter = new ResultsAdapter(getContext(), restaurants);
 
