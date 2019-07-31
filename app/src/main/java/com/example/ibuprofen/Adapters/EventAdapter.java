@@ -74,6 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         CardView cvCard;
         ImageView ivAccept;
         ImageView ivDecline;
+        TextView tvFriends;
 
 
         public ViewHolder(@NonNull View view) {
@@ -87,6 +88,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             cvCard = view.findViewById(R.id.cvCard);
             ivAccept = view.findViewById(R.id.ivAccept);
             ivDecline = view.findViewById(R.id.ivDecline);
+            tvFriends =  view.findViewById(R.id.tvFriends);
 
             if (pastEvent) {
                 ivAccept.setVisibility(View.GONE);
@@ -128,20 +130,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
         public void bind(Event event) throws ParseException {
             if (pastEvent) {
-
-                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
-//                    cvCard.setContentPadding(30, 30, 30, 0);
-
+                cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
+                cvCard.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+//                tvCreator.setTextSize(20);
             }
             else {
-                cvCard.setCardBackgroundColor(Color.parseColor("#FFD8D9"));
                 cvCard.setRadius(40);
                 cvCard.setCardElevation(4);
                 cvCard.setMaxCardElevation(4);
+                if (events.size() <= 1) {
+                    cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
+                }
             }
 
             // set username
-            tvCreator.setText(event.getCreator().fetchIfNeeded().getUsername());
+            tvCreator.setText("@" + event.getCreator().fetchIfNeeded().getUsername());
             // set image (either restaurant of choice or profile picture of organizer)
             final ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
             if (creatorImage != null) {

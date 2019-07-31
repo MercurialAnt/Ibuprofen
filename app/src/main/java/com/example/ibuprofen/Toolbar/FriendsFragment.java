@@ -50,8 +50,11 @@ public class FriendsFragment extends Fragment {
     }
 
     private void queryUsers() {
-        // get all users in the database
+        // get all users in the database except for current user, sort by alphabetical username
         ParseQuery query = ParseUser.getQuery();
+        query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        query.orderByAscending("username");
+
         // since it's an expensive operation you want to do this in a background thread not in the
         // same thread as the UI
         query.findInBackground(new FindCallback<ParseUser>() {

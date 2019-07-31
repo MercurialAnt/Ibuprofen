@@ -148,11 +148,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             tvAdded.setVisibility((View.GONE));
             tvFriends.setVisibility(View.GONE);
 
-            // makes all text/buttons disappear if the user being shown is the current user
-            if (user.hasSameId(ParseUser.getCurrentUser())) {
-                btnAdd.setVisibility(View.GONE);
-            }
-
             // replaces Add button for current friends
             if (!addNewMembersFragment) {
                 if (isCurrentFriend(user)) {
