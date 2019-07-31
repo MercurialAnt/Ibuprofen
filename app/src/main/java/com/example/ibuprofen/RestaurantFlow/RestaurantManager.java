@@ -35,7 +35,6 @@ public class RestaurantManager extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.flRestaurant, nextFragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

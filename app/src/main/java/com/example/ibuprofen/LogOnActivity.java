@@ -26,6 +26,10 @@ public class LogOnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_on);
 
+        if (ParseUser.getCurrentUser() != null) {
+            to_landing_page();
+        }
+
         getSupportActionBar().hide();
 
         etUsername = findViewById(R.id.etUsername);
@@ -58,14 +62,18 @@ public class LogOnActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     Log.d("Login Activity", "Login successful");
-                    final Intent intent = new Intent(LogOnActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    to_landing_page();
                 } else {
                     Log.e("Login Activity", "Login error");
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void to_landing_page() {
+        Intent intent = new Intent(LogOnActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
