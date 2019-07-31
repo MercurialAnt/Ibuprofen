@@ -45,7 +45,7 @@ import okhttp3.Response;
 public class PendingFragment extends Fragment {
     private RecyclerView rvPending;
     protected EventAdapter adapter;
-    protected List<Event> mPending;
+    public List<Event> mPending;
     private SwipeRefreshLayout scPending;
 
 
@@ -64,9 +64,6 @@ public class PendingFragment extends Fragment {
         rvPending.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvPending.setLayoutManager(layoutManager);
-        // divider lines
-//        rvPending.addItemDecoration(new DividerItemDecoration(getContext(),
-//                DividerItemDecoration.HORIZONTAL));
 
         queryPendingEvents();
 
