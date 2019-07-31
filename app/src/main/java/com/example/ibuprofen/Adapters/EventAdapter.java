@@ -11,15 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.RestaurantFlow.ChooseActivity;
 import com.example.ibuprofen.RestaurantFlow.RestaurantManager;
 import com.example.ibuprofen.model.Event;
 import com.parse.CountCallback;
@@ -147,23 +144,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             tvCreator.setText(event.getCreator().fetchIfNeeded().getUsername());
             // set image (either restaurant of choice or profile picture of organizer)
             final ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
-            creatorImage.getDataInBackground(new GetDataCallback() {
-                public void done(byte[] data, ParseException e) {
-                    if (e == null) {
-                        if (!pastEvent) {
-                            Glide.with(context)
-                                    .load(creatorImage.getUrl())
-                                    .apply(RequestOptions.circleCropTransform())
-                                    .into(ivRestaurant);
+            if (creatorImage != null) {
+                creatorImage.getDataInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
+                            if (!pastEvent) {
+                                Glide.with(context)
+                                        .load(creatorImage.getUrl())
+                                        .apply(RequestOptions.circleCropTransform())
+                                        .into(ivRestaurant);
+                            }
+                            else {
+                                Glide.with(context).load(creatorImage.getUrl()).into(ivRestaurant);
+                            }
+                        } else {
+                            Log.d("test", "Problem load image the data.");
                         }
-                        else {
-                            Glide.with(context).load(creatorImage.getUrl()).into(ivRestaurant);
-                        }
-                    } else {
-                        Log.d("test", "Problem load image the data.");
                     }
-                }
-            });
+                });
+            }
+
 
             tvRestaurant.setText(event.getName());
 

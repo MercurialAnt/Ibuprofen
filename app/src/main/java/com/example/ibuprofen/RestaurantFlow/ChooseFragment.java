@@ -118,7 +118,12 @@ public class ChooseFragment extends Fragment {
                     ParseUser user = ParseUser.getCurrentUser();
                     JSONObject person = new JSONObject();
                     person.put("name", user.getUsername());
-                    person.put("image", ((ParseFile)user.get("profilePic")).getUrl());
+                    ParseFile file = (ParseFile)user.get("profilePic");
+                    if (file != null) {
+                        person.put("image", file.getUrl());
+                    } else {
+                        person.put("image", R.drawable.ic_launcher_foreground);
+                    }
 
                     if (place.has("people")) {
                         JSONArray people = place.getJSONArray("people");
