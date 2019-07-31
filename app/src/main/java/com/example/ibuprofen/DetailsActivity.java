@@ -55,6 +55,9 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        // hide action bar
+        getSupportActionBar().hide();
+
         tvName = findViewById(R.id.tvName);
         vpImages = findViewById(R.id.vpImages);
         tvHours = findViewById(R.id.tvHours);

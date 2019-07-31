@@ -15,6 +15,8 @@ public class RestaurantManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_manager);
 
+        // hides action bar
+        getSupportActionBar().hide();
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
