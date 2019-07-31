@@ -99,10 +99,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             ivAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    Intent intent = new Intent(context, RestaurantManager.class);
                     int position = getAdapterPosition();
                     Event event = events.get(position);
-                    Intent intent = new Intent(context, ChooseActivity.class);
-                    intent.putExtra("event", event);
+                    bundle.putString("fragment", "ChooseFragment");
+                    bundle.putParcelable("event", event);
+                    intent.putExtra("bundle", bundle);
                     context.startActivity(intent);
                 }
             });
@@ -175,10 +178,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         @Override
         public void onClick(View v) {
             Bundle bundle = new Bundle();
-
             Intent intent = new Intent(context, RestaurantManager.class);
             int position = getAdapterPosition();
-            System.out.println(position);
             Event event = events.get(position);
             if (!pastEvent)
                 bundle.putString("fragment", "ChooseFragment");

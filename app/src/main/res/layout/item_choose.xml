@@ -6,11 +6,11 @@
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/ivImage"
@@ -62,29 +62,14 @@
 
         <RatingBar
             android:id="@+id/rbRating"
-            style="@android:style/Widget.Holo.Light.RatingBar.Small"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:theme="@style/RatingBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvCuisine" />
-
-        <RatingBar
-            android:id="@+id/rbPrice"
-            style="@android:style/Widget.Holo.Light.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:numStars="4"
-            android:stepSize="1"
-            app:layout_constraintBottom_toTopOf="@+id/rvReviews"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/rbRating"
-            app:layout_constraintTop_toTopOf="@+id/tvPrice"
-            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvDistance"
@@ -108,16 +93,12 @@
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <TextView
-            android:id="@+id/tvPrice"
+            android:id="@+id/tvPriceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:text="Price:"
-            app:layout_constraintEnd_toStartOf="@+id/rbPrice"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvRating"
+            app:layout_constraintEnd_toEndOf="@+id/tvRating"
             app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 
         <android.support.v7.widget.RecyclerView
@@ -129,6 +110,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDistance"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            app:layout_constraintStart_toStartOf="@+id/rbRating"
+            app:layout_constraintTop_toTopOf="@+id/tvPriceLabel" />
 
 
     </android.support.constraint.ConstraintLayout>

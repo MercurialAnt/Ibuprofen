@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvFilter" />
 
     <TextView
-        android:id="@+id/tvPrice"
+        android:id="@+id/tvPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnTwo"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
 
     <ToggleButton
         android:id="@+id/btnThree"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnFour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnTwo"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
 
     <ToggleButton
         android:id="@+id/btnFour"
@@ -97,7 +97,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnThree"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
 
     <ToggleButton
         android:id="@+id/btnTwo"
@@ -109,7 +109,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnThree"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnOne"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
 
     <TextView
         android:id="@+id/tvCategories"
