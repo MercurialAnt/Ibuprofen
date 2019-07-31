@@ -23,6 +23,7 @@
             android:id="@+id/ivRestaurant"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
@@ -37,6 +38,7 @@
             android:id="@+id/tvCreator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/text_body"
@@ -45,33 +47,34 @@
             android:textSize="14sp"
             android:textStyle="normal"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="@+id/tvEventName"
+            card_view:layout_constraintStart_toEndOf="@+id/ivRestaurant"
             card_view:layout_constraintTop_toBottomOf="@+id/tvEventName" />
 
         <TextView
             android:id="@+id/tvEventName"
             android:layout_width="125dp"
             android:layout_height="31dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/title_font"
             android:text="Event name"
+            android:textAlignment="viewStart"
             android:textColor="@color/purple"
             android:textSize="20sp"
-            card_view:layout_constraintStart_toEndOf="@+id/ivRestaurant"
+            card_view:layout_constraintStart_toStartOf="@+id/tvCreator"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvFriendNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/text_body"
             android:text="#"
             android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="normal"
-            card_view:layout_constraintStart_toStartOf="@+id/tvCreator"
+            card_view:layout_constraintStart_toEndOf="@+id/ivRestaurant"
             card_view:layout_constraintTop_toBottomOf="@+id/tvCreator" />
 
         <TextView
