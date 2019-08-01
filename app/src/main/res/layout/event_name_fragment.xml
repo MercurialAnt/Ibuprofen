@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B942CCC8">
+    android:background="@color/purple">
 
     <Button
         android:id="@+id/btnNext"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/title_font"
         android:text="NAME YOUR EVENT"
@@ -33,30 +33,32 @@
         android:textColor="#FFFFFF"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clEnterName"
-        android:layout_width="358dp"
-        android:layout_height="87dp"
+        android:layout_width="285dp"
+        android:layout_height="91dp"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="27dp"
         android:background="@drawable/standard_transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEventName">
 
         <EditText
             android:id="@+id/etEventName"
-            android:layout_width="327dp"
-            android:layout_height="49dp"
+            android:layout_width="256dp"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/brightPink"
+            android:backgroundTint="#FFFFFF"
             android:ems="10"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_horizontal"
@@ -71,5 +73,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
     </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/title_font"
+        android:text="SELECT EVENT TYPE"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        app:layout_constraintTop_toBottomOf="@+id/clEnterName"
+        tools:layout_editor_absoluteX="26dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/restauranticon" />
 
 </android.support.constraint.ConstraintLayout>
