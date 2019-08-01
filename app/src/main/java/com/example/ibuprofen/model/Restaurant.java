@@ -12,7 +12,7 @@ import org.json.JSONObject;
 @ParseClassName("Restaurant")
 public class Restaurant extends ParseObject {
 
-    public static final String KEY_ID = "id";
+    public static final String KEY_ID = "code";
     public static final String KEY_VOTERS = "voted";
     public static final String KEY_REVIEWS = "reviews";
     public static final String KEY_PRICE = "price";
@@ -65,19 +65,19 @@ public class Restaurant extends ParseObject {
     }
 
 
-    public long getRating() {
-        return getLong(KEY_RATING);
+    public double getRating() {
+        return getDouble(KEY_RATING);
     }
 
-    public void setRating(long rating) {
+    public void setRating(double rating) {
         put(KEY_RATING, rating);
     }
 
-    public long getDistance() {
-        return getLong(KEY_DISTANCE);
+    public double getDistance() {
+        return getDouble(KEY_DISTANCE);
     }
 
-    public void setDistance(long distance) {
+    public void setDistance(double distance) {
         put(KEY_DISTANCE, distance);
     }
 
@@ -99,11 +99,11 @@ public class Restaurant extends ParseObject {
 
     public static Restaurant fromJSON(JSONObject store) throws JSONException {
         Restaurant restaurant = new Restaurant();
-        restaurant.setRating(store.getLong(KEY_RATING));
-        restaurant.setPrice(store.getString(KEY_PRICE));
-        restaurant.setID(store.getString(KEY_ID));
+        restaurant.setRating(store.getDouble(KEY_RATING));
+        restaurant.setPrice(store.optString(KEY_PRICE, ""));
+        restaurant.setID(store.getString("id"));
         restaurant.setName(store.getString(KEY_NAME));
-        restaurant.setDistance(store.getLong(KEY_DISTANCE) / 1609);
+        restaurant.setDistance(store.getDouble(KEY_DISTANCE) / 1609.0);
         restaurant.setCategories(categoryToString(store.getJSONArray(KEY_CATEGORIES)));
         restaurant.setImage(store.getString(KEY_IMAGE));
             //do reviews

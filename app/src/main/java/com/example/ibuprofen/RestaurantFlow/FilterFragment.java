@@ -1,5 +1,6 @@
 package com.example.ibuprofen.RestaurantFlow;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -56,10 +58,12 @@ public class FilterFragment extends Fragment {
     ToggleButton btnFour;
     TextView tvMiles;
     RecyclerView rvCuisine;
-
+    FragmentManager manager;
+    Activity mActivity;
     Event event;
 
     final double meterToMile = 1609;
+    AtomicInteger count;
 
     // filter options that come with set defaults
     int dist = (int) (5 * meterToMile);
@@ -71,6 +75,15 @@ public class FilterFragment extends Fragment {
     // list of restaurants that fit the criteria
     String options;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            mActivity = (Activity) context;
+        }
+        manager = getFragmentManager();
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -166,12 +179,26 @@ public class FilterFragment extends Fragment {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("businesses");
                         final ParseRelation<Restaurant> relation = event.getRelation("stores");
+                        count = new AtomicInteger(array.length());
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject store = array.getJSONObject(i);
-                            Restaurant restaurant = Restaurant.fromJSON(store);
-                            relation.add(restaurant);
+                            final Restaurant restaurant = Restaurant.fromJSON(store);
+                            restaurant.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        relation.add(restaurant);
+                                        if (count.decrementAndGet() == 0) {
+                                            saveEvent();
+                                        } else {
+                                            event.saveInBackground();
+                                        }
+                                    } else {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                         }
-                        saveEvent();
                         Log.d("RESTACTIVITY", options);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -197,14 +224,13 @@ public class FilterFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("event", event);
 
-                fragmentIntent(new AddMembersFragment(), bundle, getFragmentManager(), false);
+                fragmentIntent(new AddMembersFragment(), bundle, manager, false);
             }
         });
     }
 
     public static void fragmentIntent(Fragment nextFragment, Bundle bundle, FragmentManager manager, boolean back) {
         FragmentTransaction transaction = manager.beginTransaction();
-
         nextFragment.setArguments(bundle);
         transaction.replace(R.id.flRestaurant, nextFragment);
         if (back)

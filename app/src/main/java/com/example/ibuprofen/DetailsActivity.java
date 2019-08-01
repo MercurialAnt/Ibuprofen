@@ -158,7 +158,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvCuisine.setText(restaurant.getCategories());
         tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
 //        tvHours.setText(restaurant.getHours());
-        rbRating.setRating(restaurant.getRating());
+        rbRating.setRating((float) restaurant.getRating());
         tvPrice.setText(restaurant.getPrice());
     }
 

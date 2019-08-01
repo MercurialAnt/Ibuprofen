@@ -1,10 +1,13 @@
 package com.example.ibuprofen.RestaurantFlow;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +32,19 @@ public class ResultsFragment extends Fragment {
     RecyclerView tvResults;
     Button btnDone;
     Event event;
+    Activity mActivity;
+    FragmentManager manager;
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            mActivity = (Activity) context;
+        }
+        manager = getFragmentManager();
+    }
 
     @Nullable
     @Override
@@ -47,6 +62,7 @@ public class ResultsFragment extends Fragment {
         Bundle bundle = getArguments();
         event = bundle.getParcelable("event");
         event.getVoters().add(ParseUser.getCurrentUser());
+        event.saveInBackground();
 
         ParseRelation<Restaurant> places = event.getRelation("stores");
         places.getQuery().findInBackground(new FindCallback<Restaurant>() {
@@ -70,7 +86,7 @@ public class ResultsFragment extends Fragment {
             public void onClick(View v) {
                 Intent finishedIntent = new Intent(getContext(), MainActivity.class);
                 startActivity(finishedIntent);
-                getActivity().finish();
+                mActivity.finish();
             }
         });
 

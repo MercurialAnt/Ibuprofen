@@ -1,9 +1,12 @@
 package com.example.ibuprofen.RestaurantFlow;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,6 +36,18 @@ public class AddMembersFragment extends Fragment {
     List<ParseUser> users;
     Button btnNext;
     Event event;
+    FragmentManager manager;
+    Activity mActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            mActivity = (Activity) context;
+        }
+        manager = getFragmentManager();
+    }
 
     @Nullable
     @Override
@@ -64,7 +79,7 @@ public class AddMembersFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("event", event);
 
-                    fragmentIntent(new ChooseFragment(), bundle, getFragmentManager(), false);
+                    fragmentIntent(new ChooseFragment(), bundle, manager, false);
                 }
                 else {
                     Toast.makeText(getContext(), "Loading, please try again in a second.", Toast.LENGTH_LONG).show();

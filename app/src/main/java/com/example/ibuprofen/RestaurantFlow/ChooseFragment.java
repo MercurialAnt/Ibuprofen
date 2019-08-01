@@ -1,5 +1,6 @@
 package com.example.ibuprofen.RestaurantFlow;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,6 +54,18 @@ public class ChooseFragment extends Fragment {
     private YelpAPI api;
     private OkSingleton client;
     Event event;
+    Activity mActivity;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            mActivity = (Activity) context;
+        }
+        manager = getFragmentManager();
+    }
 
     @Nullable
     @Override
@@ -63,7 +76,7 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         context = getContext();
-        manager = getFragmentManager();
+
 
         // set up list
         mChoices = new ArrayList<>();
@@ -169,7 +182,7 @@ public class ChooseFragment extends Fragment {
     private void addRestaurant(Restaurant restaurant) {
 
         mChoices.add(restaurant);
-        getActivity().runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 adapter.notifyDataSetChanged();

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -102,7 +101,6 @@ public class FeedFragment extends Fragment {
                         JSONArray array = obj.getJSONArray("businesses");
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject store = array.getJSONObject(i);
-                            store.accumulate("count", new Integer(0));
                             Restaurant restaurant = Restaurant.fromJSON(store);
                             mRestaurants.add(restaurant);
                             mActivity.runOnUiThread(new Runnable() {

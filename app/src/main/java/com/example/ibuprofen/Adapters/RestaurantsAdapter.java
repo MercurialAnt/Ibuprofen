@@ -97,7 +97,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             tvName.setText(restaurant.getName());
             tvCuisine.setText(restaurant.getCategories());
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
-            rbRating.setRating(restaurant.getRating());
+            rbRating.setRating((float) restaurant.getRating());
             tvPrice.setText(restaurant.getPrice());
         }
     }

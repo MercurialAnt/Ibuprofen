@@ -83,16 +83,14 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        if (position < getIntXml(context, R.integer.result_limit)) {
-                            nextChoice(position + 1);
-                        } else {
-                            goToResults(event);
-                        }
+                        nextChoice(position);
                     } else {
                         e.printStackTrace();
                     }
                 }
             });
+        } else {
+            nextChoice(position);
         }
     }
 
@@ -134,7 +132,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvName.setText(restaurant.getName());
             tvCuisine.setText(restaurant.getCategories());
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
-            rbRating.setRating(restaurant.getRating());
+            rbRating.setRating((float) restaurant.getRating());
             tvPrice.setText(restaurant.getPrice());
         }
 
@@ -158,8 +156,13 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         public void onItemClear() {
         }
     }
-    public void nextChoice(int count) {
-        rvChoices.scrollToPosition(count);
+    public void nextChoice(int position) {
+        if (position + 1 != getIntXml(context, R.integer.result_limit)) {
+            rvChoices.scrollToPosition(position + 1);
+        } else {
+            goToResults(event);
+        }
+
     }
 
     public void clear() {
