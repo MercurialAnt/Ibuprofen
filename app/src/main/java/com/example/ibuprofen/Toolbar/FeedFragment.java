@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ibuprofen.Adapters.EndlessRecyclerViewScrollListener;
 import com.example.ibuprofen.Adapters.RestaurantsAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
@@ -32,7 +33,6 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class FeedFragment extends Fragment {
@@ -41,6 +41,11 @@ public class FeedFragment extends Fragment {
     protected List<Restaurant> mRestaurants;
     private SwipeRefreshLayout scFeed;
     protected Activity mActivity;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private OkSingleton client;
+    private YelpAPI api;
+    private Context context;
+    private int total_offset;
 
     @Override
     public void onAttach(Context context) {
@@ -49,6 +54,9 @@ public class FeedFragment extends Fragment {
         if (context instanceof Activity) {
             mActivity = (Activity) context;
         }
+        client = OkSingleton.getInstance();
+        api = new YelpAPI(context);
+        this.context = context;
     }
 
     //onCreateView to inflate the view
@@ -63,18 +71,31 @@ public class FeedFragment extends Fragment {
 
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         mRestaurants = new ArrayList<>();
-        adapter = new RestaurantsAdapter(getContext(), mRestaurants);
+        adapter = new RestaurantsAdapter(context, mRestaurants);
         rvRestaurants.setAdapter(adapter);
-        rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        rvRestaurants.setLayoutManager(linearLayoutManager);
         adapter.notifyDataSetChanged();
-        populateFeed();
+        populateFeed(total_offset + "");
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadFromParse();
+            }
+        };
+
+        rvRestaurants.addOnScrollListener(scrollListener);
 
         //swipe refresh
-        scFeed = (SwipeRefreshLayout) view.findViewById(R.id.scFeed);
+        scFeed = view.findViewById(R.id.scFeed);
         scFeed.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                populateFeed();
+                adapter.clear();
+                total_offset = 0;
+                scrollListener.resetState();
+                populateFeed(total_offset + "");
             }
         });
         scFeed.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -83,11 +104,13 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
-    private void populateFeed() {
-        YelpAPI test = new YelpAPI(getContext());
-        Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
-        OkHttpClient client = OkSingleton.getInstance();
-        client.newCall(test.getRestaurants(gpsLocation)).enqueue(new Callback() {
+    public void loadFromParse() {
+        populateFeed(total_offset + "");
+    }
+
+    private void populateFeed(final String offset) {
+        Location gpsLocation = api.getLocationByProvider(LocationManager.GPS_PROVIDER);
+        client.newCall(api.getRestaurants(gpsLocation, offset)).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Feed", "Did not work");
@@ -99,6 +122,7 @@ public class FeedFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("businesses");
+                        total_offset += array.length();
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject store = array.getJSONObject(i);
                             Restaurant restaurant = Restaurant.fromJSON(store);
