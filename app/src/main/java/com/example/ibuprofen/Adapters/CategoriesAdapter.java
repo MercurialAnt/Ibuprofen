@@ -66,7 +66,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
                         v.setBackgroundColor(Color.parseColor(WHITE_COLOR));
                         choosen.remove(type);
                     } else {
-                        v.setBackgroundColor(Color.parseColor(RED_COLOR));
+                        v.setBackgroundColor(Color.parseColor("#794d7e"));
                         choosen.add(tvFoodType.getHint().toString());
                     }
                 }

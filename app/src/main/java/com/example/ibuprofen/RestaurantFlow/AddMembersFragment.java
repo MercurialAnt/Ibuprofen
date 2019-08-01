@@ -92,7 +92,7 @@ public class AddMembersFragment extends Fragment {
         // get all users in the database except for current user, sort by alphabetical username
         ParseQuery query = ParseUser.getQuery();
         query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
-        query.orderByAscending("username");
+        query.orderByAscending("name");
 
         // since it's an expensive operation you want to do this in a background thread not in the
         // same thread as the UI
@@ -109,14 +109,5 @@ public class AddMembersFragment extends Fragment {
                 Log.d("AddMembersActivity", "number of users: " + users.size());
             }
         });
-        // get all friends of the current user todo--finalize this
-//        ParseUser current = ParseUser.getCurrentUser();
-//        ParseQuery<ParseObject> postQuery = current.getRelation("friends").getQuery();
-//        postQuery.findInBackground(new FindCallback<ParseObject>() {
-//            @Override
-//            public void done(List<ParseObject> objects, ParseException e) {
-//                users.addAll((Collection<? extends ParseUser>) objects);
-//            }
-//        });
     }
 }

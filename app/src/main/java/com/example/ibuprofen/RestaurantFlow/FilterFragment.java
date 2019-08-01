@@ -2,6 +2,8 @@ package com.example.ibuprofen.RestaurantFlow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -47,6 +49,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+
+import static android.graphics.Color.*;
 
 public class FilterFragment extends Fragment {
 
@@ -116,7 +120,6 @@ public class FilterFragment extends Fragment {
         btnTwo.setOnCheckedChangeListener(new MoneyListen(2));
         btnThree.setOnCheckedChangeListener(new MoneyListen(3));
         btnFour.setOnCheckedChangeListener(new MoneyListen(4));
-
 
         // set on click listener for submit
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -269,8 +272,10 @@ public class FilterFragment extends Fragment {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 price.add(level);
+                buttonView.setTextColor(WHITE);
             } else {
                 price.remove(new Integer(level));
+                buttonView.setTextColor(Color.parseColor("#794d7e"));
             }
         }
     }

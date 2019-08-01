@@ -8,7 +8,7 @@
                 android:topRightRadius="@dimen/rounded_button"
                 android:topLeftRadius="@dimen/rounded_button"/>
             <stroke
-                android:color="@color/no_button_border"
+                android:color="@color/purple"
                 android:width="5dp"
                 />
         </shape>

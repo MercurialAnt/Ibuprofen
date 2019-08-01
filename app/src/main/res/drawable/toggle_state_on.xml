@@ -8,7 +8,7 @@
                 android:topRightRadius="@dimen/rounded_button"
                 android:topLeftRadius="@dimen/rounded_button"/>
             <stroke
-            android:color="@color/yes_button_border"
+            android:color="@color/purple"
             android:width="5dp"
             />
         </shape>
@@ -18,7 +18,7 @@
         android:bottom="5dp"
         >
         <shape android:shape="rectangle">
-            <solid android:color="@color/yes_button"/>
+            <solid android:color="@color/purple"/>
             <corners android:bottomRightRadius="@dimen/rounded_button"
                 android:bottomLeftRadius="@dimen/rounded_button"
                 android:topRightRadius="@dimen/rounded_button"
