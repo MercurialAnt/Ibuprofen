@@ -31,11 +31,12 @@ public class YelpAPI {
         this.context = context;
     }
 
-    public Request getRestaurants(Location gpsLocation) {
+    public Request getRestaurants(Location gpsLocation, String offset) {
         HttpUrl.Builder builder = HttpUrl
                 .parse(base_url + "/businesses/search")
                 .newBuilder()
-                .addQueryParameter("limit", "30");
+                .addQueryParameter("limit", "5")
+                .addQueryParameter("offset", offset);
         builder = gpsLocation != null
                 ? builder.addQueryParameter("latitude",gpsLocation.getLatitude() + "").addQueryParameter("longitude", gpsLocation.getLongitude() + "")
                 : builder.addQueryParameter("location", "Seattle");
