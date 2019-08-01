@@ -35,7 +35,8 @@ public class YelpAPI {
         HttpUrl.Builder builder = HttpUrl
                 .parse(base_url + "/businesses/search")
                 .newBuilder()
-                .addQueryParameter("limit", "5")
+                .addQueryParameter("sort_by", "distance")
+                .addQueryParameter("limit", "10")
                 .addQueryParameter("offset", offset);
         builder = gpsLocation != null
                 ? builder.addQueryParameter("latitude",gpsLocation.getLatitude() + "").addQueryParameter("longitude", gpsLocation.getLongitude() + "")

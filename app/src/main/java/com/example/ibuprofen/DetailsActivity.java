@@ -49,6 +49,13 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvDistance;
     private RecyclerView rvReviews;
     private LinearLayout llDots;
+    private TextView tvSundayHours;
+    private TextView tvMondayHours;
+    private TextView tvTuesdayHours;
+    private TextView tvWednesdayHours;
+    private TextView tvThursdayHours;
+    private TextView tvFridayHours;
+    private TextView tvSaturdaydayHours;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,13 @@ public class DetailsActivity extends AppCompatActivity {
         restaurant = Parcels.unwrap(getIntent().getParcelableExtra("Detailed"));
         rvReviews = findViewById(R.id.rvReviews);
         llDots = findViewById(R.id.llDots);
+        tvSundayHours = findViewById(R.id.tvSundayHours);
+        tvMondayHours = findViewById(R.id.tvMondayHours);
+        tvTuesdayHours = findViewById(R.id.tvTuesdayHours);
+        tvWednesdayHours = findViewById(R.id.tvWednesdayHours);
+        tvThursdayHours = findViewById(R.id.tvThursdayHours);
+        tvFridayHours = findViewById(R.id.tvFridayHours);
+        tvSaturdaydayHours = findViewById(R.id.tvSaturdayHours);
 
         reviews = new ArrayList<>();
         urls = new ArrayList<>();

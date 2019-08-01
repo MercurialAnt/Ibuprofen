@@ -31,8 +31,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     }
 
 
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -68,17 +66,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
                         v.setBackgroundColor(Color.parseColor(WHITE_COLOR));
                         choosen.remove(type);
                     } else {
-                        v.setBackgroundColor(Color.parseColor(RED_COLOR));
+                        v.setBackgroundColor(Color.parseColor("#794d7e"));
                         choosen.add(tvFoodType.getHint().toString());
                     }
-
                 }
             });
         }
 
         public void bind(Category icon) {
-
-
             tvFoodType.setText(icon.getName());
             tvFoodType.setHint(icon.getApi_name());
             if (!choosen.contains(icon.getApi_name())) {

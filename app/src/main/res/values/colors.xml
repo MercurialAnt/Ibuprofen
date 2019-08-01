@@ -23,7 +23,7 @@
     <color name="darkPink">#cc0066</color>
     <color name="lightDarkPink">#e60072</color>
     <color name="yes_button">#6dd988</color>
-    <color name="no_button">#f51354</color>
+    <color name="no_button">#22ffffff</color>
     <color name="yes_button_border">#4c975d</color>
     <color name="no_button_border">#b1113e</color>
     <color name="white">#ffffff</color>
