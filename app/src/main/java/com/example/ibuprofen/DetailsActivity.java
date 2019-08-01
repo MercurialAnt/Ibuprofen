@@ -134,6 +134,7 @@ public class DetailsActivity extends AppCompatActivity {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("photos");
+//                        JSONArray hours = obj.getJSONObject("hours").getJSONArray("open");
                         for (int i = 0; i < array.length(); i++) {
                             urls.add(array.getString(i));
                         }
