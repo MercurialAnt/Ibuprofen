@@ -175,9 +175,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             }
 
             // username
-            tvUsername.setText(user.getString("username"));
+            tvUsername.setText("@" + user.getString("username"));
             // name
-            tvName.setText("@" + user.getString("name"));
+            tvName.setText(user.getString("name"));
         }
 
         public boolean isCurrentFriend(ParseUser friend) throws ParseException {

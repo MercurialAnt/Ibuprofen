@@ -18,7 +18,6 @@ public class Event extends ParseObject {
     public static final String KEY_NAME = "name";
 
     public Event() {
-
     }
 
     public String getRestaurantId() {

@@ -1,5 +1,6 @@
 package com.example.ibuprofen.RestaurantFlow;
 
+import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -151,7 +152,7 @@ public class FilterFragment extends Fragment {
         YelpAPI test = new YelpAPI(getContext());
         Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
         OkHttpClient client = OkSingleton.getInstance();
-        client.newCall(test.getFilteredRestaurants(dist, 10, gpsLocation, choosen, price)).enqueue(new Callback() {
+        client.newCall(test.getFilteredRestaurants(dist, getIntXml(getContext(), R.integer.result_limit), gpsLocation, choosen, price)).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Feed", "Did not work");
@@ -245,6 +246,9 @@ public class FilterFragment extends Fragment {
                 price.remove(new Integer(level));
             }
         }
+    }
 
+    public static int getIntXml(Context con, int id) {
+        return con.getResources().getInteger(id);
     }
 }

@@ -1,118 +1,109 @@
 package com.example.ibuprofen.model;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcel;
 
-@Parcel
-public class Restaurant {
-    //list out attributes
-    public String tvName;
-    public String id;
-    public int count;
-    public int rbRating;
-    public String rbPrice;
-    public String ivImage;
-    public String categories;
-    public double distance;
-    public String reviews;
-    public String people;
+@ParseClassName("Restaurant")
+public class Restaurant extends ParseObject {
 
+    public static final String KEY_ID = "id";
+    public static final String KEY_VOTERS = "voted";
+    public static final String KEY_REVIEWS = "reviews";
+    public static final String KEY_PRICE = "price";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_RATING = "rating";
+    public static final String KEY_DISTANCE = "distance";
+    public static final String KEY_CATEGORIES = "categories";
 
-    //deserialize the JSON
-    public static Restaurant fromJSON(JSONObject jsonObject) throws JSONException {
-        Restaurant restaurant = new Restaurant();
-        JSONArray tvCuisine;
+    public Restaurant() {
 
-        //extract values from JSON
-        //name
-        restaurant.tvName = jsonObject.optString("name", "");
-
-        //id
-        restaurant.id = jsonObject.optString("id", "");
-
-
-        //rating
-        restaurant.rbRating = jsonObject.optInt("rating", 0);
-
-
-        //price
-        restaurant.rbPrice = jsonObject.optString("price", "");
-
-
-        //image
-        restaurant.ivImage = jsonObject.optString("image_url", "");
-
-        //reviews
-        restaurant.reviews = jsonObject.optString("reviews", "");
-
-        //people
-        JSONArray voters = jsonObject.optJSONArray("people");
-        if (voters != null) {
-            restaurant.people = voters.toString();
-        }
-
-
-        //categories
-        restaurant.categories = "";
-        if (jsonObject.has("categories")) {
-            tvCuisine = jsonObject.getJSONArray("categories");
-            for (int i = 0; i < tvCuisine.length(); i++) {
-                JSONObject as = tvCuisine.getJSONObject(i);
-                if (i == tvCuisine.length() - 1)
-                    restaurant.categories += (as.get("title") + "");
-                else
-                    restaurant.categories += (as.get("title") + ", ");
-            }
-        }
-
-        restaurant.count = jsonObject.optInt("count", 0);
-
-
-        double conversion = 1609.344;
-        restaurant.distance = jsonObject.optDouble("distance", 0) / conversion;
-
-
-        return restaurant;
     }
 
+    // Getters and Setters
+    public String getID() {
+        return getString(KEY_ID);
+    }
 
-    // getter methods for columns
+    public void setID(String id) {
+        put(KEY_ID, id);
+
+    }
+
+    public ParseRelation<ParseUser> getVoted() {
+        return getRelation(KEY_VOTERS);
+    }
+
+    public JSONArray getReviews() {
+        return getJSONArray(KEY_REVIEWS);
+    }
+
+    public void setReviews(JSONArray array) {
+        put(KEY_REVIEWS, array);
+    }
+
     public String getName() {
-        return tvName;
+        return getString(KEY_NAME);
     }
 
-    public String getImage() {
-        return ivImage;
+    public void setName(String name) {
+        put(KEY_NAME, name);
+    }
+
+    public String getPrice() {
+        return getString(KEY_PRICE);
+    }
+
+    public void setPrice(String price) {
+        put(KEY_PRICE, price);
+    }
+
+
+    public long getRating() {
+        return getLong(KEY_RATING);
+    }
+
+    public void setRating(long rating) {
+        put(KEY_RATING, rating);
+    }
+
+    public long getDistance() {
+        return getLong(KEY_DISTANCE);
+    }
+
+    public void setDistance(long distance) {
+        put(KEY_DISTANCE, distance);
     }
 
     public String getCategories() {
-        return categories;
+        return getString(KEY_CATEGORIES);
     }
 
-    public String getReviews() {
-        return reviews;
+    public void setCategories(String categories) {
+        put(KEY_CATEGORIES, categories);
     }
 
-    public String getPeople() {
-        return people;
-    }
+    public static Restaurant fromJSON(JSONObject store) {
+        Restaurant restaurant = new Restaurant();
+        try {
+            restaurant.setRating(store.getLong("rating"));
+            restaurant.setPrice(store.getString("price"));
+            restaurant.setID(store.getString("id"));
+            restaurant.setName(store.getString("name"));
+            restaurant.setDistance();
+            //do images
+            //do reviews
+            //do categories
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-    public int getRating() {
-        return rbRating;
-    }
-
-    public int getPrice() {
-        return rbPrice.length();
-    }
-
-    public int getCount() {
-        return this.count;
-    }
-
-    public double getDistance() {
-        return  this.distance;
+        return null;
     }
 
 }

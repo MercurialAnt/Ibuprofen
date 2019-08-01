@@ -100,41 +100,34 @@ public class ChooseFragment extends Fragment {
     }
 
     public void change_counts(Event currentEvent) {
-//        String newJson = null;
         Bundle bundle = new Bundle();
-        String options = currentEvent.getOptions();
         bundle.putIntArray("votes", adapter.counters);
         String [] people = new String[10];
-        try {
-            JSONArray places = new JSONArray(options);
-            for (int i = 0; i < places.length(); i++) {
-                JSONObject place = places.getJSONObject(i);
-                // get current count
 
-                int my_vote = adapter.counters[i];
-
-                if (my_vote == 1) {
-                    //update people who voted for this restaurant
-                    ParseUser user = ParseUser.getCurrentUser();
-                    JSONObject person = new JSONObject();
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseFile file = (ParseFile)user.get("profilePic");
+        for (int i = 0; i < adapter.counters.length; i++) {
+            if (adapter.counters[i] == 1) {
+                //update people who voted for this restaurant
+                JSONObject person = new JSONObject();
+                try {
                     person.put("name", user.getUsername());
-                    ParseFile file = (ParseFile)user.get("profilePic");
                     if (file != null) {
                         person.put("image", file.getUrl());
                     } else {
                         person.put("image", R.drawable.ic_launcher_foreground);
                     }
-                    people[i] = person.toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
+                people[i] = person.toString();
             }
-            bundle.putParcelable("event", currentEvent);
-            bundle.putStringArray("my_info", people);
-            fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), true);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+        bundle.putString("id", currentEvent.getRestaurantId());
+        bundle.putStringArray("my_info", people);
+        fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), false);
+
     }
 
     private void populateChoices() throws JSONException {
@@ -149,6 +142,8 @@ public class ChooseFragment extends Fragment {
             }
 
         }
+        event.setOptions(options.toString());
+        event.saveInBackground();
     }
 
     private void populateReviews(final JSONObject object) {

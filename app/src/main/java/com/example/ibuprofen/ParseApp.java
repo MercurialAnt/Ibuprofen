@@ -3,6 +3,7 @@ package com.example.ibuprofen;
 import android.app.Application;
 
 import com.example.ibuprofen.model.Event;
+import com.example.ibuprofen.model.Restaurant;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -14,6 +15,7 @@ public class ParseApp extends Application {
 
         // register Event class
         ParseObject.registerSubclass(Event.class);
+        ParseObject.registerSubclass(Restaurant.class);
 
         final Parse.Configuration config = new Parse.Configuration.Builder(this)
                 .applicationId("ANA")

@@ -36,7 +36,7 @@ public class ResultsFragment extends Fragment {
     RecyclerView tvResults;
     Button btnDone;
     Event event;
-    ReentrantLock update = new ReentrantLock();
+    static ReentrantLock update = new ReentrantLock();
 
     @Nullable
     @Override
