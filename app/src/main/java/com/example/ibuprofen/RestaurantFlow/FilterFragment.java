@@ -27,7 +27,9 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Category;
 import com.example.ibuprofen.model.Event;
+import com.example.ibuprofen.model.Restaurant;
 import com.parse.ParseException;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -163,13 +165,12 @@ public class FilterFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("businesses");
+                        final ParseRelation<Restaurant> relation = event.getRelation("stores");
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject store = array.getJSONObject(i);
-                            store.accumulate("count", new Integer(0));
-                            store.accumulate("people", new JSONArray());
+                            Restaurant restaurant = Restaurant.fromJSON(store);
+                            relation.add(restaurant);
                         }
-                        options = array.toString();
-                        event.setOptions(options);
                         saveEvent();
                         Log.d("RESTACTIVITY", options);
                     } catch (JSONException e) {
@@ -196,7 +197,7 @@ public class FilterFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("event", event);
 
-                fragmentIntent(new AddMembersFragment(), bundle, getFragmentManager(), true);
+                fragmentIntent(new AddMembersFragment(), bundle, getFragmentManager(), false);
             }
         });
     }

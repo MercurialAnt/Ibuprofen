@@ -73,8 +73,8 @@ public class DetailsActivity extends AppCompatActivity {
         urls = new ArrayList<>();
 
         YelpAPI api = new YelpAPI(DetailsActivity.this);
-        Request reqReviews = api.getReview(restaurant.id);
-        Request reqDetailed = api.getDetails(restaurant.id);
+        Request reqReviews = api.getReview(restaurant.getID());
+        Request reqDetailed = api.getDetails(restaurant.getID());
         OkSingleton client = OkSingleton.getInstance();
 
         client.newCall(reqReviews).enqueue(new Callback() {
@@ -159,11 +159,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
 //        tvHours.setText(restaurant.getHours());
         rbRating.setRating(restaurant.getRating());
-        String price = "";
-        for(int i = 0; i < restaurant.getPrice(); i++) {
-            price += "$";
-        }
-        tvPrice.setText(price);
+        tvPrice.setText(restaurant.getPrice());
     }
 
     private void prepareDots(int currentSlide, int size) {

@@ -18,13 +18,10 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
@@ -67,7 +64,7 @@ public class AddMembersFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("event", event);
 
-                    fragmentIntent(new ChooseFragment(), bundle, getFragmentManager(), true);
+                    fragmentIntent(new ChooseFragment(), bundle, getFragmentManager(), false);
                 }
                 else {
                     Toast.makeText(getContext(), "Loading, please try again in a second.", Toast.LENGTH_LONG).show();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -21,11 +22,12 @@ import com.example.ibuprofen.R;
 import com.example.ibuprofen.YelpAPI;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseFile;
-import com.parse.ParseUser;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseRelation;
+import com.parse.SaveCallback;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +49,7 @@ public class ChooseFragment extends Fragment {
     protected ChooseAdapter adapter;
     protected List<Restaurant> mChoices;
     private Context context;
+    private FragmentManager manager;
     private YelpAPI api;
     private OkSingleton client;
     Event event;
@@ -60,6 +63,7 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         context = getContext();
+        manager = getFragmentManager();
 
         // set up list
         mChoices = new ArrayList<>();
@@ -71,7 +75,7 @@ public class ChooseFragment extends Fragment {
 
         rvChoose = view.findViewById(R.id.rvChoose);
         btnDone = view.findViewById(R.id.btnDone);
-        adapter = new ChooseAdapter(context, mChoices, rvChoose);
+        adapter = new ChooseAdapter(context, mChoices, rvChoose, manager, event);
         rvChoose.setAdapter(adapter);
         rvChoose.setLayoutManager(new LinearLayoutManager(context) {
             @Override
@@ -93,68 +97,48 @@ public class ChooseFragment extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                change_counts(event);
+                goToResults(event);
             }
         });
 
     }
 
-    public void change_counts(Event currentEvent) {
+    public void goToResults(Event currentEvent) {
         Bundle bundle = new Bundle();
-        bundle.putIntArray("votes", adapter.counters);
-        String [] people = new String[10];
-
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseFile file = (ParseFile)user.get("profilePic");
-        for (int i = 0; i < adapter.counters.length; i++) {
-            if (adapter.counters[i] == 1) {
-                //update people who voted for this restaurant
-                JSONObject person = new JSONObject();
-                try {
-                    person.put("name", user.getUsername());
-                    if (file != null) {
-                        person.put("image", file.getUrl());
-                    } else {
-                        person.put("image", R.drawable.ic_launcher_foreground);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                people[i] = person.toString();
-            }
-        }
-        bundle.putString("id", currentEvent.getRestaurantId());
-        bundle.putStringArray("my_info", people);
-        fragmentIntent(new ResultsFragment(), bundle, getFragmentManager(), false);
-
+        bundle.putParcelable("event", currentEvent);
+        fragmentIntent(new ResultsFragment(), bundle, manager, false);
     }
 
     private void populateChoices() throws JSONException {
-        JSONArray options = new JSONArray(event.getOptions());
-        Log.d("ChooseFragment", options.length() + " places found with those filters");
-        for (int i = 0; i < options.length(); i++) {
-            JSONObject obj = (JSONObject)options.get(i);
-            if (!obj.has("reviews")) {
-                populateReviews(obj);
-            } else {
-                addRestaurant(obj);
+        ParseRelation<Restaurant> relation = event.getRelation("stores");
+        relation.getQuery().findInBackground(new FindCallback<Restaurant>() {
+            @Override
+            public void done(List<Restaurant> objects, ParseException e) {
+                Log.d("ChooseFragment", objects.size() + " places found with those filters");
+                if (e == null) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        Restaurant restaurant = objects.get(i);
+                        if (restaurant.getReviews() != null) {
+                            addRestaurant(restaurant);
+                        } else {
+                            populateReviews(restaurant);
+                        }
+                    }
+                }
             }
+        });
 
-        }
-        event.setOptions(options.toString());
-        event.saveInBackground();
     }
 
-    private void populateReviews(final JSONObject object) {
-        Request reviewRequest = api.getReview(object.optString("id"));
+    private void populateReviews(final Restaurant restaurant) {
+        Request reviewRequest = api.getReview(restaurant.getID());
 
         client.newCall(reviewRequest).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d("ReviewFragment", "getting the reviews failed");
                 e.printStackTrace();
-                addRestaurant(object);
+                addRestaurant(restaurant);
             }
 
             @Override
@@ -162,10 +146,17 @@ public class ChooseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
-                        String reviews  = obj.getJSONArray("reviews").toString();
-                        object.put("reviews", reviews);
-                        addRestaurant(object);
-
+                        restaurant.setReviews(obj.getJSONArray("reviews"));
+                        restaurant.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    addRestaurant(restaurant);
+                                } else {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -175,20 +166,15 @@ public class ChooseFragment extends Fragment {
         });
     }
 
-    private void addRestaurant(JSONObject obj) {
+    private void addRestaurant(Restaurant restaurant) {
 
-        try {
-            Restaurant restaurant = Restaurant.fromJSON(obj);
-            mChoices.add(restaurant);
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        mChoices.add(restaurant);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 

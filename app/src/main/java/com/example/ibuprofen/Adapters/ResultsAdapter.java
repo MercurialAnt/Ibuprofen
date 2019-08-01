@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,9 @@ import android.widget.TextView;
 
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Restaurant;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +51,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         private TextView tvCount;
         private TextView tvName;
         private RecyclerView rvPeople;
-        private List<Pair<String, String>> people;
+        private List<ParseUser> people;
         private PeopleAdapter peopleAdapter;
 
         public ViewHolder(@NonNull View itemView) {
@@ -70,33 +68,26 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
         public void bind(Restaurant restaurant) {
             peopleAdapter.clear();
-            try {
-                if (restaurant.getPeople() != null) {
-                    JSONArray voters = new JSONArray(restaurant.getPeople());
-                    addPeople(voters);
+            restaurant.getVoted().getQuery().findInBackground(new FindCallback<ParseUser>() {
+                @Override
+                public void done(List<ParseUser> objects, ParseException e) {
+                    if (e == null) {
+                        addPeople(objects);
+                        tvCount.setText(String.format("%d", objects.size()));
+                    } else {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            tvCount.setText(String.format("%d", restaurant.getCount()));
+            });
             tvName.setText(restaurant.getName());
+
         }
 
-        public void addPeople(JSONArray list) {
-            try {
-                for (int i = 0; i < list.length(); i++) {
-                    JSONObject person = list.getJSONObject(i);
-                    String url = person.getString("image");
-                    String name = person.getString("name");
-                    Pair<String, String> pair = new Pair<>(name, url);
-                    people.add(pair);
-                }
-                peopleAdapter.notifyDataSetChanged();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+        public void addPeople(List<ParseUser> list) {
+            for (int i = 0; i < list.size(); i++) {
+                people.add(list.get(i));
             }
+            peopleAdapter.notifyDataSetChanged();
         }
     }
 }

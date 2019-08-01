@@ -20,6 +20,7 @@ public class Restaurant extends ParseObject {
     public static final String KEY_RATING = "rating";
     public static final String KEY_DISTANCE = "distance";
     public static final String KEY_CATEGORIES = "categories";
+    public static final String KEY_IMAGE = "image_url";
 
     public Restaurant() {
 
@@ -88,22 +89,37 @@ public class Restaurant extends ParseObject {
         put(KEY_CATEGORIES, categories);
     }
 
-    public static Restaurant fromJSON(JSONObject store) {
-        Restaurant restaurant = new Restaurant();
-        try {
-            restaurant.setRating(store.getLong("rating"));
-            restaurant.setPrice(store.getString("price"));
-            restaurant.setID(store.getString("id"));
-            restaurant.setName(store.getString("name"));
-            restaurant.setDistance();
-            //do images
-            //do reviews
-            //do categories
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public String getImage() {
+        return getString(KEY_IMAGE);
+    }
 
-        return null;
+    public void setImage(String url) {
+        put(KEY_IMAGE, url);
+    }
+
+    public static Restaurant fromJSON(JSONObject store) throws JSONException {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRating(store.getLong(KEY_RATING));
+        restaurant.setPrice(store.getString(KEY_PRICE));
+        restaurant.setID(store.getString(KEY_ID));
+        restaurant.setName(store.getString(KEY_NAME));
+        restaurant.setDistance(store.getLong(KEY_DISTANCE) / 1609);
+        restaurant.setCategories(categoryToString(store.getJSONArray(KEY_CATEGORIES)));
+        restaurant.setImage(store.getString(KEY_IMAGE));
+            //do reviews
+        return restaurant;
+    }
+
+    public static String categoryToString(JSONArray array) throws JSONException {
+        String categories = "";
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject titles = array.getJSONObject(i);
+            if (i == array.length() - 1)
+                categories += (titles.get("title") + "");
+            else
+                categories += (titles.get("title") + ", ");
+        }
+        return categories;
     }
 
 }

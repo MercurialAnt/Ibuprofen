@@ -1,7 +1,9 @@
 package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -14,8 +16,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ibuprofen.R;
+import com.example.ibuprofen.RestaurantFlow.ResultsFragment;
+import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
 import com.example.ibuprofen.model.Review;
+import com.parse.ParseException;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,17 +31,22 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
+import static com.example.ibuprofen.RestaurantFlow.FilterFragment.getIntXml;
+
 public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private Context context;
+    private FragmentManager manager;
     private List<Restaurant> choices;
     private RecyclerView rvChoices;
-    public int[] counters;
+    private Event event;
 
-    public ChooseAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices) {
+    public ChooseAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices, FragmentManager manager, Event event) {
         this.context = context;
         this.choices = choices;
         this.rvChoices = rvChoices;
-        counters = new int[10]; // keeps track of votes
+        this.manager = manager;
+        this.event = event;
     }
 
     @NonNull
@@ -61,10 +74,26 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
     }
 
     @Override
-    public void onItemDismiss(int position, int direction) {
-            counters[position] = direction == ItemTouchHelper.END ? 1 : 0;
-        if (position <= counters.length)
-            nextChoice(position + 1);
+    public void onItemDismiss(final int position, int direction) {
+        if (direction == ItemTouchHelper.END) {
+            Restaurant restaurant = choices.get(position);
+            ParseRelation<ParseUser> relation = restaurant.getRelation("voted");
+            relation.add(ParseUser.getCurrentUser());
+            restaurant.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        if (position < getIntXml(context, R.integer.result_limit)) {
+                            nextChoice(position + 1);
+                        } else {
+                            goToResults(event);
+                        }
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder{
@@ -97,7 +126,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
 
         public void bind(Restaurant restaurant) {
             reviewAdapter.clear();
-            addReviews(restaurant.reviews);
+            addReviews(restaurant.getReviews());
 
             if (restaurant.getImage() != null) {
                 Glide.with(context).load(restaurant.getImage()).into(ivImage);
@@ -106,18 +135,13 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvCuisine.setText(restaurant.getCategories());
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating(restaurant.getRating());
-            String price = "";
-            for(int i = 0; i < restaurant.getPrice(); i++) {
-                price += "$";
-            }
-            tvPrice.setText(price);
+            tvPrice.setText(restaurant.getPrice());
         }
 
-        public void addReviews(String list) {
+        public void addReviews(JSONArray list) {
             try {
-                JSONArray array = new JSONArray(list);
-                for (int i = 0; i < array.length(); i++) {
-                    reviews.add(Review.fromJson(array.getJSONObject(i)));
+                for (int i = 0; i < list.length(); i++) {
+                    reviews.add(Review.fromJson(list.getJSONObject(i)));
                 }
                 reviewAdapter.notifyDataSetChanged();
 
@@ -147,6 +171,12 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
     public void addAll(List<Restaurant> list) {
         choices.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public void goToResults(Event currentEvent) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("event", currentEvent);
+        fragmentIntent(new ResultsFragment(), bundle, manager, false);
     }
 
 

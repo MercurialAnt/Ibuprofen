@@ -3,7 +3,6 @@ package com.example.ibuprofen.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.R;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
 
-    List<Pair<String, String>> people;
+    List<ParseUser> people;
     Context context;
 
-    public PeopleAdapter(Context context, List<Pair<String, String>> people) {
+    public PeopleAdapter(Context context, List<ParseUser> people) {
         this.context = context;
         this.people = people;
     }
@@ -35,8 +36,8 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Pair<String, String> pair = people.get(position);
-        viewHolder.bind(pair);
+        ParseUser user = people.get(position);
+        viewHolder.bind(user);
     }
 
     public void clear() {
@@ -58,13 +59,18 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
             ivProfile = itemView.findViewById(R.id.ivProfile);
         }
 
-        public void bind(Pair<String, String> pair) {
+        public void bind(ParseUser user) {
             RequestOptions options = new RequestOptions()
                     .error(R.drawable.ic_launcher_background)
                     .transform(new CircleCrop());
 
+            ParseFile file = user.getParseFile("profilePic");
+            String url = "";
+            if (file != null) {
+                url = file.getUrl();
+            }
             Glide.with(context)
-                    .load(pair.second)
+                    .load(url)
                     .apply(options)
                     .into(ivProfile);
         }
