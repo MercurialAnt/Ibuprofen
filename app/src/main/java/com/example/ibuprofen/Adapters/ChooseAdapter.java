@@ -105,6 +105,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         private List<Review> reviews;
         private ReviewAdapter reviewAdapter;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

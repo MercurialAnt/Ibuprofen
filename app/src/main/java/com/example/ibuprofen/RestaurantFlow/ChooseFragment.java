@@ -77,7 +77,6 @@ public class ChooseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         context = getContext();
 
-
         // set up list
         mChoices = new ArrayList<>();
 
