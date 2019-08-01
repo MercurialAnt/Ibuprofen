@@ -1,149 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    tools:layout_editor_absoluteX="match_parent"
+    tools:layout_editor_absoluteY="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpImages"
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="Name"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/title_font"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llDots" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpImages"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></android.support.v4.view.ViewPager>
 
-    <TextView
-        android:id="@+id/tvCuisine"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Cuisine"
-        android:fontFamily="@font/text_body"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/tvRating"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title_font"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llDots" />
 
-    <TextView
-        android:id="@+id/tvHours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Hours"
-        android:fontFamily="@font/text_body"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
+        <TextView
+            android:id="@+id/tvCuisine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Cuisine"
+            android:fontFamily="@font/text_body"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tvRating"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
-    <RatingBar
-        android:id="@+id/rbRating"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:theme="@style/RatingBar"
-        app:layout_constraintBottom_toTopOf="@+id/tvHours"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
+        <TextView
+            android:id="@+id/tvHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Hours"
+            android:fontFamily="@font/text_body"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
-    <TextView
-        android:id="@+id/tvDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Distance"
-        android:fontFamily="@font/text_body"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
+        <RatingBar
+            android:id="@+id/rbRating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:theme="@style/RatingBar"
+            app:layout_constraintBottom_toTopOf="@+id/tvHours"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Rating:"
-        android:fontFamily="@font/text_body"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/tvHours"
-        app:layout_constraintEnd_toStartOf="@+id/rbRating"
-        app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Distance"
+            android:fontFamily="@font/text_body"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvHours" />
 
-    <TextView
-        android:id="@+id/tvPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Price:"
-        android:fontFamily="@font/text_body"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/tvDistance"
-        app:layout_constraintEnd_toEndOf="@+id/tvRating"
-        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Rating:"
+            android:fontFamily="@font/text_body"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tvHours"
+            app:layout_constraintEnd_toStartOf="@+id/rbRating"
+            app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvReviews"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/tvPriceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Price:"
+            android:fontFamily="@font/text_body"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tvDistance"
+            app:layout_constraintEnd_toEndOf="@+id/tvRating"
+            app:layout_constraintTop_toBottomOf="@+id/tvHours" />
 
-    <LinearLayout
-        android:id="@+id/llDots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vpImages"></LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvReviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Price"
-        android:fontFamily="@font/text_body"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/tvDistance"
-        app:layout_constraintStart_toEndOf="@+id/tvPriceLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvHours" />
+        <LinearLayout
+            android:id="@+id/llDots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vpImages"></LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Price"
+            android:fontFamily="@font/text_body"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tvDistance"
+            app:layout_constraintStart_toEndOf="@+id/tvPriceLabel"
+            app:layout_constraintTop_toBottomOf="@+id/tvHours" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
