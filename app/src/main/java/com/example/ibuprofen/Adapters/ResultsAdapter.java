@@ -155,4 +155,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
                     .into(iv);
         }
     }
+
+    public void clear() {
+        restaurants.clear();
+        notifyDataSetChanged();
+    }
 }
