@@ -2,8 +2,6 @@ package com.example.ibuprofen.model;
 
 import android.util.Log;
 
-import com.example.ibuprofen.Adapters.SlidingImageAdapter;
-import com.example.ibuprofen.DetailsActivity;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.YelpAPI;
 import com.parse.ParseClassName;
@@ -184,6 +182,7 @@ public class Restaurant extends ParseObject {
                 }
             }
         });
+        return null;
     }
 
     public static String militaryToNormal(int time) throws ParseException {
