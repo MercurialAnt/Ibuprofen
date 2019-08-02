@@ -29,6 +29,7 @@ import com.parse.ParseRelation;
 import com.parse.SaveCallback;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +43,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
+import static com.example.ibuprofen.model.Restaurant.hoursToArray;
 
 public class ChooseFragment extends Fragment {
 
@@ -131,15 +133,60 @@ public class ChooseFragment extends Fragment {
                 if (e == null) {
                     for (int i = 0; i < objects.size(); i++) {
                         Restaurant restaurant = objects.get(i);
-                        if (restaurant.getReviews() != null) {
+                        if (restaurant.getReviews() != null && restaurant.getTime() != null) {
                             addRestaurant(restaurant);
-                        } else {
-                            populateReviews(restaurant);
+                        } else{
+                            populateTime(restaurant);
                         }
+
                     }
                 }
             }
         });
+
+    }
+
+    private void populateTime(final Restaurant restaurant) {
+        Request detailRequest = api.getDetails(restaurant.getID());
+
+        client.newCall(detailRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d("ChooseFragment", "getting the hours failed");
+                e.printStackTrace();
+                populateReviews(restaurant);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject obj = new JSONObject(response.body().string());
+                        if (obj.has("hours")) {
+                            JSONArray hours = obj.getJSONArray("hours").getJSONObject(0).getJSONArray("open");
+                            final JSONArray week = hoursToArray(hours);
+                            restaurant.setTime(week);
+                            restaurant.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        populateReviews(restaurant);
+                                    } else {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (java.text.ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+
 
     }
 

@@ -1,28 +1,17 @@
 package com.example.ibuprofen.model;
 
-import android.util.Log;
-
-import com.example.ibuprofen.OkSingleton;
-import com.example.ibuprofen.YelpAPI;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Request;
-import okhttp3.Response;
 
 @ParseClassName("Restaurant")
 public class Restaurant extends ParseObject {
@@ -146,7 +135,7 @@ public class Restaurant extends ParseObject {
         return categories;
     }
 
-    public static JSONArray hoursToString(JSONArray array) throws JSONException, ParseException {
+    public static JSONArray hoursToArray(JSONArray array) throws JSONException, ParseException {
         JSONArray week = new JSONArray();
         for (int i = 0; i < array.length(); i++) {
             JSONObject day = array.getJSONObject(i);
@@ -155,35 +144,36 @@ public class Restaurant extends ParseObject {
                     militaryToNormal(day.getInt("start")),
                     militaryToNormal(day.getInt("end")));
             newDay.put("time", time);
+            newDay.put("day", day.getInt("day"));
             week.put(newDay);
         }
 
         return week;
     }
 
-    public static JSONObject getDetailedInfo(String id, YelpAPI api, OkSingleton client) {
-        Request reqDetailed = api.getDetails(id);
-        final JSONObject details = new JSONObject();
-        client.newCall(reqDetailed).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.d("DetailsActivity", "couldn't get details");
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject obj = new JSONObject(response.body().string());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        return null;
-    }
+//    public static JSONObject getDetailedInfo(String id, YelpAPI api, OkSingleton client) {
+//        Request reqDetailed = api.getDetails(id);
+//        final JSONObject details = new JSONObject();
+//        client.newCall(reqDetailed).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                Log.d("DetailsActivity", "couldn't get details");
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    try {
+//                        JSONObject obj = new JSONObject(response.body().string());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        return null;
+//    }
 
     public static String militaryToNormal(int time) throws ParseException {
         Date date = new SimpleDateFormat("hhmm").parse(String.format("%04d", time));
