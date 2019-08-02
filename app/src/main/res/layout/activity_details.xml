@@ -20,7 +20,7 @@
             android:fontFamily="@font/text_body"
             android:text="Sun:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvSundayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -32,7 +32,7 @@
             android:fontFamily="@font/text_body"
             android:text="Mon:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvMondayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvSunday" />
 
@@ -44,7 +44,7 @@
             android:fontFamily="@font/text_body"
             android:text="Tue:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvTuesdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvMonday" />
 
@@ -56,7 +56,7 @@
             android:fontFamily="@font/text_body"
             android:text="Wed:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvWednesdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvTuesday" />
 
@@ -68,7 +68,7 @@
             android:fontFamily="@font/text_body"
             android:text="Thu:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvThursdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvWednesday" />
 
@@ -80,7 +80,7 @@
             android:fontFamily="@font/text_body"
             android:text="Fri:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvFridayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvThursday" />
 
@@ -92,7 +92,7 @@
             android:fontFamily="@font/text_body"
             android:text="Sat:"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/tvSaturdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvFriday" />
 
@@ -101,9 +101,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tvSundayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvSundayHours" />
 
@@ -111,11 +111,11 @@
             android:id="@+id/tvSundayHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvSunday" />
 
@@ -124,9 +124,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tvFridayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvFridayHours" />
 
@@ -158,9 +158,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/text_body"
             android:text="Cuisine"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tvWednesday"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 
@@ -169,9 +171,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tvThursdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvThursdayHours" />
 
@@ -180,9 +182,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tvWednesdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvWednesdayHours" />
 
@@ -191,9 +193,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tvMondayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvMondayHours" />
 
@@ -202,9 +204,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/text_body"
-            android:text="Hours:"
+            android:text="N/A"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tvTuesdayHours"
             app:layout_constraintTop_toBottomOf="@+id/tvTuesdayHours" />
 

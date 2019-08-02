@@ -31,6 +31,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ibuprofen.DetailsActivity.setHours;
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.getIntXml;
 
@@ -60,7 +61,11 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChooseAdapter.ViewHolder viewHolder, int position) {
         Restaurant choice = choices.get(position);
-        viewHolder.bind(choice);
+        try {
+            viewHolder.bind(choice);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -104,6 +109,13 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         private RecyclerView rvReviews;
         private List<Review> reviews;
         private ReviewAdapter reviewAdapter;
+        private TextView tvSundayHours;
+        private TextView tvMondayHours;
+        private TextView tvTuesdayHours;
+        private TextView tvWednesdayHours;
+        private TextView tvThursdayHours;
+        private TextView tvFridayHours;
+        private TextView tvSaturdaydayHours;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -115,6 +127,13 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvCuisine = itemView.findViewById(R.id.tvCuisine);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvDistance = itemView.findViewById(R.id.tvDistance);
+            tvSundayHours = itemView.findViewById(R.id.tvSundayHours);
+            tvMondayHours = itemView.findViewById(R.id.tvMondayHours);
+            tvTuesdayHours = itemView.findViewById(R.id.tvTuesdayHours);
+            tvWednesdayHours = itemView.findViewById(R.id.tvWednesdayHours);
+            tvThursdayHours = itemView.findViewById(R.id.tvThursdayHours);
+            tvFridayHours = itemView.findViewById(R.id.tvFridayHours);
+            tvSaturdaydayHours = itemView.findViewById(R.id.tvSaturdayHours);
 
             reviews = new ArrayList<>();
             rvReviews = itemView.findViewById(R.id.rvReviews);
@@ -123,7 +142,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             rvReviews.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         }
 
-        public void bind(Restaurant restaurant) {
+        public void bind(Restaurant restaurant) throws JSONException {
             reviewAdapter.clear();
             addReviews(restaurant.getReviews());
 
@@ -135,6 +154,16 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
             rbRating.setRating((float) restaurant.getRating());
             tvPrice.setText(restaurant.getPrice());
+            if (restaurant.getTime() != null) {
+                setHours(tvMondayHours, restaurant.getTime(), 0);
+                setHours(tvTuesdayHours, restaurant.getTime(), 1);
+                setHours(tvWednesdayHours, restaurant.getTime(), 2);
+                setHours(tvThursdayHours, restaurant.getTime(), 3);
+                setHours(tvFridayHours, restaurant.getTime(), 4);
+                setHours(tvSaturdaydayHours, restaurant.getTime(), 5);
+                setHours(tvSundayHours, restaurant.getTime(), 6);
+            }
+
         }
 
         public void addReviews(JSONArray list) {

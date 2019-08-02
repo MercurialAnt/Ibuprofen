@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static com.example.ibuprofen.model.Restaurant.hoursToArray;
 
 public class DetailsActivity extends AppCompatActivity {
     Restaurant restaurant;
@@ -42,7 +45,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     private TextView tvName;
     private ViewPager vpImages;
-    private TextView tvHours;
     private RatingBar rbRating;
     private TextView tvCuisine;
     private TextView tvPrice;
@@ -67,7 +69,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         tvName = findViewById(R.id.tvName);
         vpImages = findViewById(R.id.vpImages);
-        tvHours = findViewById(R.id.tvHours);
         rbRating = findViewById(R.id.rbRating);
         tvCuisine = findViewById(R.id.tvCuisine);
         tvPrice = findViewById(R.id.tvPrice);
@@ -103,9 +104,11 @@ public class DetailsActivity extends AppCompatActivity {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("reviews");
+
                         for (int i = 0; i < array.length(); i++) {
                             reviews.add(Review.fromJson(array.getJSONObject(i)));
                         }
+
                         reviewAdapter = new ReviewAdapter(DetailsActivity.this, reviews);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -134,6 +137,30 @@ public class DetailsActivity extends AppCompatActivity {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("photos");
+
+                        if (obj.has("hours")) {
+                            JSONArray time = obj.getJSONArray("hours");
+                            JSONArray hours = obj.getJSONArray("hours").getJSONObject(0).getJSONArray("open");
+                            final JSONArray week = hoursToArray(hours);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        setHours(tvMondayHours, week, 0);
+                                        setHours(tvTuesdayHours, week, 1);
+                                        setHours(tvWednesdayHours, week, 2);
+                                        setHours(tvThursdayHours, week, 3);
+                                        setHours(tvFridayHours, week, 4);
+                                        setHours(tvSaturdaydayHours, week, 5);
+                                        setHours(tvSundayHours, week, 6);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            });
+                        }
+
                         for (int i = 0; i < array.length(); i++) {
                             urls.add(array.getString(i));
                         }
@@ -148,7 +175,10 @@ public class DetailsActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
+
                 }
             }
         });
@@ -171,9 +201,18 @@ public class DetailsActivity extends AppCompatActivity {
         tvName.setText(restaurant.getName());
         tvCuisine.setText(restaurant.getCategories());
         tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
-//        tvHours.setText(restaurant.getHours());
         rbRating.setRating((float) restaurant.getRating());
         tvPrice.setText(restaurant.getPrice());
+    }
+
+    public static void setHours(TextView tvDay, JSONArray week, int index) throws JSONException {
+        if (week.length() > index) {
+            JSONObject day = week.getJSONObject(index);
+            if (day.getInt("day") == index) {
+                tvDay.setText(day.getString("time"));
+            }
+        }
+
     }
 
     private void prepareDots(int currentSlide, int size) {
