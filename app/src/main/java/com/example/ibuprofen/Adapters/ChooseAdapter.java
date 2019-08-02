@@ -117,6 +117,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         private TextView tvFridayHours;
         private TextView tvSaturdaydayHours;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
