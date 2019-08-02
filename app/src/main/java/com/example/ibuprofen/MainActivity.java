@@ -16,7 +16,12 @@ import android.view.View;
 import com.example.ibuprofen.Toolbar.EventNameFragment;
 import com.example.ibuprofen.Toolbar.FeedFragment;
 import com.example.ibuprofen.Toolbar.FriendsFragment;
+import com.example.ibuprofen.Toolbar.PendingFragment;
 import com.example.ibuprofen.Toolbar.ProfileFragment;
+import com.example.ibuprofen.model.Event;
+import com.parse.ParseUser;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         addBadgeView();
+
+        //get feed fragment
+//        ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.action_profile);
+//        mPending = fragment.getPendingList();
+//        System.out.println(mPending);
 
         // hide support action bar
         getSupportActionBar().hide();
@@ -70,5 +80,6 @@ public class MainActivity extends AppCompatActivity {
         itemView.addView(notificationBadge);
 
         //check if list of pending events is empty
+
     }
 }
