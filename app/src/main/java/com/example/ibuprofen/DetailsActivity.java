@@ -1,5 +1,7 @@
 package com.example.ibuprofen;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -7,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvCuisine;
     private TextView tvPrice;
     private TextView tvDistance;
+    private ImageView ivMaps;
     private RecyclerView rvReviews;
     private LinearLayout llDots;
     private TextView tvSundayHours;
@@ -83,6 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvThursdayHours = findViewById(R.id.tvThursdayHours);
         tvFridayHours = findViewById(R.id.tvFridayHours);
         tvSaturdaydayHours = findViewById(R.id.tvSaturdayHours);
+        ivMaps = findViewById(R.id.ivMaps);
 
         reviews = new ArrayList<>();
         urls = new ArrayList<>();
@@ -137,6 +142,16 @@ public class DetailsActivity extends AppCompatActivity {
                     try {
                         JSONObject obj = new JSONObject(response.body().string());
                         JSONArray array = obj.getJSONArray("photos");
+
+                        final double lat = obj.getJSONObject("coordinates").getDouble("latitude");
+                        final double lon = obj.getJSONObject("coordinates").getDouble("longitude");
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                callMaps(ivMaps, lat, lon, restaurant.getName());
+                            }
+                        });
 
                         if (obj.has("hours")) {
                             JSONArray time = obj.getJSONArray("hours");
@@ -198,6 +213,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+
         tvName.setText(restaurant.getName());
         tvCuisine.setText(restaurant.getCategories());
         tvDistance.setText(String.format("%.2f miles", restaurant.getDistance()));
@@ -213,6 +229,17 @@ public class DetailsActivity extends AppCompatActivity {
             }
         }
 
+    }
+    public void callMaps(ImageView ivMaps, final double lat, double lon, final String name) {
+        ivMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("geo:" + lat + "," + "lon" + "?q=" + Uri.encode(name));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
     }
 
     private void prepareDots(int currentSlide, int size) {
