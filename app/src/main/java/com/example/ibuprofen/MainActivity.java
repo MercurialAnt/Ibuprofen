@@ -1,6 +1,8 @@
 package com.example.ibuprofen;
 
+import android.app.ActionBar;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -10,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -40,17 +44,24 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
-                    case R.id.action_feed:
+                    case R.id.action_feed: {
+                        getSupportActionBar().hide();
                         fragment = new FeedFragment();
                         break;
-                    case R.id.action_event:
+                    }
+                    case R.id.action_event: {
+                        getSupportActionBar().hide();
                         fragment = new EventNameFragment();
                         break;
-                    case R.id.action_profile:
+                    }
+                    case R.id.action_profile: {
+                        getSupportActionBar().hide();
                         fragment = new ProfileFragment();
                         break;
+                    }
                     case R.id.action_friends:
                     default:
+                        getSupportActionBar().show();
                         fragment = new FriendsFragment();
                         break;
                 }
@@ -61,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
         //set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_feed);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
     }
 
     public void addBadgeView() {

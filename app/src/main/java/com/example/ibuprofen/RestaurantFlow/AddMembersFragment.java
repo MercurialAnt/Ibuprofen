@@ -9,8 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,6 +56,7 @@ public class AddMembersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.add_members_fragment, container, false);
     }
 
@@ -88,7 +93,43 @@ public class AddMembersFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // inflates menu
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+
+        inflater.inflate(R.menu.options_menu, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        // sets up search view listener
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query.equals("")) {
+                    queryUsers();
+                    return true;
+                }
+                querySearchedUsers(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    queryUsers();
+                    return true;
+                }
+                querySearchedUsers(newText);
+                return true;
+            }
+        });
+    }
+
     private void queryUsers() {
+        users.removeAll(users);
         // get all users in the database except for current user, sort by alphabetical username
         ParseQuery query = ParseUser.getQuery();
         query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
@@ -109,5 +150,27 @@ public class AddMembersFragment extends Fragment {
                 Log.d("AddMembersActivity", "number of users: " + users.size());
             }
         });
+    }
+
+    private void querySearchedUsers(String search) {
+        if (search.equals("")) {
+            // means that the search got canceled
+            queryUsers();
+        }
+        else {
+            List<ParseUser> temp = new ArrayList<>(); // keeps track of users that match search results
+            List<String> tempIds = new ArrayList<>(); // keeps track of ids
+            for (ParseUser i : users) {
+                if ((i.getUsername().contains(search)) || (i.getString("name").contains(search))) {
+                    if (!tempIds.contains(i.getObjectId())) {
+                        temp.add(i);
+                        tempIds.add(i.getObjectId());
+                    }
+                }
+            }
+            users.removeAll(users);
+            users.addAll(temp);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
