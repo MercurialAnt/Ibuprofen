@@ -105,35 +105,38 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
             if (size == 0) {
                 return;
             }
-            int cutoff = Math.min(size, 2);
+            int cutoff = Math.min(size, 3);
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 80);
             layoutParams.setMargins(2, 2, 2, 0);
             ImageView[] imageViews = new ImageView[cutoff];
 
             for (int i = 0; i < cutoff; i++) {
-                imageViews[i] = new ImageView(context);
-                loadPic(imageViews[i], users.get(i));
-                llProfiles.addView(imageViews[i], i, layoutParams);
-            }
-            if (size > cutoff) {
-                ImageView extra = new ImageView(context);
-                extra.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.plusoptions));
-                extra.setOnClickListener(new View.OnClickListener() {
-                    boolean clicked = true;
-                    @Override
-                    public void onClick(View v) {
-                        if (clicked) {
-                            rvPeople.setVisibility(View.VISIBLE);
-                            clicked = false;
-                        } else {
-                            rvPeople.setVisibility(View.GONE);
-                            clicked = true;
+                if (size > cutoff && i == 2) {
+                    ImageView extra = new ImageView(context);
+                    extra.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.plusoptions));
+                    extra.setOnClickListener(new View.OnClickListener() {
+                        boolean clicked = true;
+                        @Override
+                        public void onClick(View v) {
+                            if (clicked) {
+                                rvPeople.setVisibility(View.VISIBLE);
+                                clicked = false;
+                            } else {
+                                rvPeople.setVisibility(View.GONE);
+                                clicked = true;
+                            }
                         }
-                    }
-                });
-                llProfiles.addView(extra, 2, layoutParams);
+                    });
+                    llProfiles.addView(extra, 2, layoutParams);
+                } else {
+                    imageViews[i] = new ImageView(context);
+                    loadPic(imageViews[i], users.get(i));
+                    llProfiles.addView(imageViews[i], i, layoutParams);
+                }
+
             }
+
         }
 
         public void loadPic(ImageView iv, ParseUser user) {
