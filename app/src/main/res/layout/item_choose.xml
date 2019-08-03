@@ -51,31 +51,20 @@
             android:fontFamily="@font/text_body"
             android:text="Cuisine"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/tvRating"
+            app:layout_constraintEnd_toStartOf="@+id/tvWednesday"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
-
-        <TextView
-            android:id="@+id/tvHours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/text_body"
-            android:text="Hours"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 
         <RatingBar
             android:id="@+id/rbRating"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
             android:theme="@style/RatingBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvCuisine" />
+            app:layout_constraintStart_toEndOf="@+id/tvRating"
+            app:layout_constraintTop_toTopOf="@+id/tvRating" />
 
         <TextView
             android:id="@+id/tvDistance"
@@ -87,50 +76,215 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@+id/tvHours" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCuisine" />
 
         <TextView
             android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/text_body"
             android:text="Rating:"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/rbRating"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <TextView
             android:id="@+id/tvPriceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/text_body"
             android:text="Price:"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tvRating"
-            app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvReviews"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDistance"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
 
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/text_body"
             android:text="Price"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/rbRating"
+            app:layout_constraintStart_toEndOf="@+id/tvPriceLabel"
             app:layout_constraintTop_toTopOf="@+id/tvPriceLabel" />
+
+
+        <TextView
+            android:id="@+id/tvSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Sun:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvSundayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <TextView
+            android:id="@+id/tvMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Mon:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvMondayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvSunday" />
+
+        <TextView
+            android:id="@+id/tvTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Tue:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvTuesdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvMonday" />
+
+        <TextView
+            android:id="@+id/tvWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Wed:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvWednesdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvTuesday" />
+
+        <TextView
+            android:id="@+id/tvThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Thu:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvThursdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvWednesday" />
+
+        <TextView
+            android:id="@+id/tvFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Fri:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvFridayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvThursday" />
+
+        <TextView
+            android:id="@+id/tvSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="Sat:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvSaturdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvFriday" />
+
+        <TextView
+            android:id="@+id/tvMondayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvSundayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvSundayHours" />
+
+        <TextView
+            android:id="@+id/tvSundayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvSunday" />
+
+        <TextView
+            android:id="@+id/tvSaturdayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvFridayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvFridayHours" />
+
+        <TextView
+            android:id="@+id/tvFridayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvThursdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvThursdayHours" />
+
+        <TextView
+            android:id="@+id/tvThursdayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvWednesdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvWednesdayHours" />
+
+        <TextView
+            android:id="@+id/tvTuesdayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvMondayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvMondayHours" />
+
+        <TextView
+            android:id="@+id/tvWednesdayHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/text_body"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTuesdayHours"
+            app:layout_constraintTop_toBottomOf="@+id/tvTuesdayHours" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

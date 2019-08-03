@@ -9,6 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @ParseClassName("Restaurant")
 public class Restaurant extends ParseObject {
 
@@ -21,6 +25,7 @@ public class Restaurant extends ParseObject {
     public static final String KEY_DISTANCE = "distance";
     public static final String KEY_CATEGORIES = "categories";
     public static final String KEY_IMAGE = "image_url";
+    public static final String KEY_TIME = "time";
 
     public Restaurant() {
 
@@ -97,6 +102,14 @@ public class Restaurant extends ParseObject {
         put(KEY_IMAGE, url);
     }
 
+    public JSONArray getTime() {
+        return getJSONArray(KEY_TIME);
+    }
+
+    public void setTime(JSONArray time) {
+         put(KEY_TIME, time);
+    }
+
     public static Restaurant fromJSON(JSONObject store) throws JSONException {
         Restaurant restaurant = new Restaurant();
         restaurant.setRating(store.getDouble(KEY_RATING));
@@ -106,7 +119,7 @@ public class Restaurant extends ParseObject {
         restaurant.setDistance(store.getDouble(KEY_DISTANCE) / 1609.0);
         restaurant.setCategories(categoryToString(store.getJSONArray(KEY_CATEGORIES)));
         restaurant.setImage(store.getString(KEY_IMAGE));
-            //do reviews
+
         return restaurant;
     }
 
@@ -120,6 +133,52 @@ public class Restaurant extends ParseObject {
                 categories += (titles.get("title") + ", ");
         }
         return categories;
+    }
+
+    public static JSONArray hoursToArray(JSONArray array) throws JSONException, ParseException {
+        JSONArray week = new JSONArray();
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject day = array.getJSONObject(i);
+            JSONObject newDay = new JSONObject();
+            String time = String.format("%s - %s",
+                    militaryToNormal(day.getInt("start")),
+                    militaryToNormal(day.getInt("end")));
+            newDay.put("time", time);
+            newDay.put("day", day.getInt("day"));
+            week.put(newDay);
+        }
+
+        return week;
+    }
+
+//    public static JSONObject getDetailedInfo(String id, YelpAPI api, OkSingleton client) {
+//        Request reqDetailed = api.getDetails(id);
+//        final JSONObject details = new JSONObject();
+//        client.newCall(reqDetailed).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                Log.d("DetailsActivity", "couldn't get details");
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    try {
+//                        JSONObject obj = new JSONObject(response.body().string());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        return null;
+//    }
+
+    public static String militaryToNormal(int time) throws ParseException {
+        Date date = new SimpleDateFormat("hhmm").parse(String.format("%04d", time));
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        return sdf.format(date);
     }
 
 }

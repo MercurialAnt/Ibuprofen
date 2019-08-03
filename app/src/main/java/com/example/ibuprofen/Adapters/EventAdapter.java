@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,10 @@ import com.parse.ParseFile;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 // adapter to show user's past events
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
@@ -75,6 +80,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         ImageView ivAccept;
         ImageView ivDecline;
         TextView tvFriends;
+        TextView tvDate;
 
 
         public ViewHolder(@NonNull View view) {
@@ -88,11 +94,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             cvCard = view.findViewById(R.id.cvCard);
             ivAccept = view.findViewById(R.id.ivAccept);
             ivDecline = view.findViewById(R.id.ivDecline);
-            tvFriends =  view.findViewById(R.id.tvFriends);
+            tvFriends = view.findViewById(R.id.tvFriends);
+            tvDate = view.findViewById(R.id.tvDate);
+            tvDate.setVisibility(View.GONE);
 
             if (pastEvent) {
                 ivAccept.setVisibility(View.GONE);
                 ivDecline.setVisibility(View.GONE);
+                tvDate.setVisibility(View.VISIBLE);
             }
 
             // sets on click listener for add button if in the AddMembers page
@@ -134,7 +143,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             if (pastEvent) {
                 cvCard.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT));
                 cvCard.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-//                tvCreator.setTextSize(20);
             }
             else {
                 cvCard.setRadius(40);
@@ -147,6 +155,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
             // set username
             tvCreator.setText("@" + event.getCreator().fetchIfNeeded().getUsername());
+
+            //set date
+            tvDate.setText(getRelativeTimeAgo(event.getCreatedAt().toString()));
+
             // set image (either restaurant of choice or profile picture of organizer)
             final ParseFile creatorImage = (ParseFile) event.getCreator().fetchIfNeeded().get("profilePic");
             if (creatorImage != null) {
@@ -168,7 +180,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                     }
                 });
             }
-
 
             tvRestaurant.setText(event.getName());
 
@@ -197,6 +208,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             bundle.putParcelable("event", event);
             intent.putExtra("bundle", bundle);
             context.startActivity(intent);
+        }
+
+        public String getRelativeTimeAgo(String rawJsonDate) {
+            String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+            SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+            sf.setLenient(true);
+
+            String relativeDate = "";
+            try {
+                long dateMillis = sf.parse(rawJsonDate).getTime();
+                relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+            return relativeDate;
         }
     }
 }

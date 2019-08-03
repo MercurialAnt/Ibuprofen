@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -144,4 +145,27 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flReviews" />
+
+    <ImageView
+        android:id="@+id/ivRefresh"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/flReviews"
+        app:layout_constraintStart_toEndOf="@+id/tvPendingLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvPendingLabel"
+        app:srcCompat="@drawable/ic_refresh" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="29dp"
+        android:layout_height="33dp"
+        app:layout_constraintBottom_toTopOf="@+id/flReviews"
+        app:layout_constraintStart_toEndOf="@+id/ivRefresh"
+        app:layout_constraintTop_toTopOf="@+id/tvPendingLabel"
+        app:layout_constraintVertical_bias="0.0">
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>
