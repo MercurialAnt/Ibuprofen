@@ -3,11 +3,13 @@ package com.example.ibuprofen.Toolbar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 
 import android.support.v4.app.FragmentTransaction;
@@ -51,6 +53,8 @@ public class ProfileFragment extends PhotoCapture {
     private ImageView ivAdd;
     private ImageView ivCamera;
     private ImageView ivGallery;
+    private ImageView ivRefresh;
+    private ConstraintLayout clRefresh;
     private RecyclerView rvFeed;
     private ParseUser user;
     boolean currentUser; //todo--make this applicable to viewing other profiles
@@ -75,6 +79,8 @@ public class ProfileFragment extends PhotoCapture {
         rvFeed = view.findViewById(R.id.rvPastEvents);
         ivProfile = view.findViewById(R.id.ivProfileImage);
         ivGallery = view.findViewById(R.id.ivGallery);
+        ivRefresh = view.findViewById(R.id.ivRefresh);
+        clRefresh = view.findViewById(R.id.clRefresh);
         ivCamera = view.findViewById(R.id.ivCamera);
         ivAdd = view.findViewById(R.id.ivAdd);
         eventsList = new ArrayList<>();
@@ -119,6 +125,20 @@ public class ProfileFragment extends PhotoCapture {
                 // goes back to sign in page
                 Intent i = new Intent(getContext(), HomeActivity.class);
                 startActivity(i);
+            }
+        });
+
+        ivRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertNestedFragment();
+            }
+        });
+
+        clRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertNestedFragment();
             }
         });
 
