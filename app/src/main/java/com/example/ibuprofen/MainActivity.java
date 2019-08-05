@@ -1,8 +1,5 @@
 package com.example.ibuprofen;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -20,12 +17,12 @@ import android.view.View;
 import com.example.ibuprofen.Toolbar.EventNameFragment;
 import com.example.ibuprofen.Toolbar.FeedFragment;
 import com.example.ibuprofen.Toolbar.FriendsFragment;
-import com.example.ibuprofen.Toolbar.PendingFragment;
 import com.example.ibuprofen.Toolbar.ProfileFragment;
 import com.example.ibuprofen.model.Event;
+import com.parse.CountCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,12 +36,7 @@ public class MainActivity extends AppCompatActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        addBadgeView();
-
-        //get feed fragment
-//        ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.action_profile);
-//        mPending = fragment.getPendingList();
-//        System.out.println(mPending);
+        setPendingBoolean();
 
         // hide support action bar
         getSupportActionBar().hide();
@@ -52,19 +44,24 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                // check if pending exists
                 Fragment fragment;
+                setPendingBoolean();
                 switch (menuItem.getItemId()) {
                     case R.id.action_feed: {
+//                        addBadgeView(ParseUser.getCurrentUser().getBoolean("hasPending"));
                         getSupportActionBar().hide();
                         fragment = new FeedFragment();
                         break;
                     }
                     case R.id.action_event: {
+//                        addBadgeView(ParseUser.getCurrentUser().getBoolean("hasPending"));
                         getSupportActionBar().hide();
                         fragment = new EventNameFragment();
                         break;
                     }
                     case R.id.action_profile: {
+//                        addBadgeView(ParseUser.getCurrentUser().getBoolean("hasPending"));
                         getSupportActionBar().hide();
                         fragment = new ProfileFragment();
                         break;
@@ -91,12 +88,41 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void addBadgeView() {
+    public void addBadgeView(boolean add) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(3);
         notificationBadge = LayoutInflater.from(this).inflate(R.layout.view_notification_badge, menuView, false);
         itemView.addView(notificationBadge);
 
-        //check if list of pending events is empty
+        if (add) {
+            notificationBadge.setVisibility(View.VISIBLE);
+        }
+        else {
+            notificationBadge.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    // will use triggers later
+    public void setPendingBoolean() {
+        ParseQuery<Event> postQuery = new ParseQuery<>(Event.class);
+        postQuery.include(Event.KEY_USERS);
+        postQuery.whereEqualTo("attendees", ParseUser.getCurrentUser());
+        postQuery.whereNotEqualTo("hasVoted", ParseUser.getCurrentUser());
+
+        postQuery.countInBackground(new CountCallback() {
+            @Override
+            public void done(int count, ParseException e) {
+                if (count != 0) {
+                    ParseUser.getCurrentUser().put("hasPending", true);
+                    addBadgeView(true);
+                }
+                else {
+                    ParseUser.getCurrentUser().put("hasPending", false);
+                    addBadgeView(false);
+                }
+            }
+        });
+
+        ParseUser.getCurrentUser().saveInBackground();
     }
 }

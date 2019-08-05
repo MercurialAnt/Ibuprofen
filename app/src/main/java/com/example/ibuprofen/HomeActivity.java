@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.ParseACL;
 import com.parse.ParseUser;
 
 public class HomeActivity extends AppCompatActivity {
@@ -42,6 +43,11 @@ public class HomeActivity extends AppCompatActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_LOCATION);
 
         if (ParseUser.getCurrentUser() != null) {
+            ParseUser curr = ParseUser.getCurrentUser();
+            ParseACL acl = new ParseACL(curr);
+            acl.setPublicReadAccess(true);
+            curr.setACL(acl);
+
             to_landing_page();
         }
 
