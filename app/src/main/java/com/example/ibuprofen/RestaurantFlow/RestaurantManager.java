@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.example.ibuprofen.R;
 
@@ -15,9 +17,7 @@ public class RestaurantManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_manager);
 
-        // hides action bar
         final FragmentManager fragmentManager = getSupportFragmentManager();
-
 
         Bundle bundle = getIntent().getBundleExtra("bundle");
         Fragment nextFragment;
