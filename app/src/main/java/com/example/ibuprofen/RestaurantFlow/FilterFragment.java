@@ -2,7 +2,6 @@ package com.example.ibuprofen.RestaurantFlow;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
@@ -27,7 +26,7 @@ import android.widget.ToggleButton;
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.YelpAPI;
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.model.Category;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;

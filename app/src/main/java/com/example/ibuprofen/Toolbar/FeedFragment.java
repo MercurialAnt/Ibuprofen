@@ -20,7 +20,7 @@ import com.example.ibuprofen.Adapters.EndlessRecyclerViewScrollListener;
 import com.example.ibuprofen.Adapters.RestaurantsAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.YelpAPI;
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.model.Restaurant;
 
 import org.json.JSONArray;

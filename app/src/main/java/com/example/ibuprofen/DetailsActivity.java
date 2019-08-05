@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.Adapters.ReviewAdapter;
 import com.example.ibuprofen.Adapters.SlidingImageAdapter;
 import com.example.ibuprofen.model.Restaurant;
