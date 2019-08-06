@@ -53,19 +53,17 @@ public class MainActivity extends AppCompatActivity {
                 // check if pending exists
                 Fragment fragment;
                 setPendingBoolean();
+                getSupportActionBar().hide();
                 switch (menuItem.getItemId()) {
                     case R.id.action_feed: {
-                        getSupportActionBar().hide();
                         fragment = new FeedFragment();
                         break;
                     }
                     case R.id.action_event: {
-                        getSupportActionBar().hide();
                         fragment = new EventNameFragment();
                         break;
                     }
                     case R.id.action_profile: {
-                        getSupportActionBar().hide();
                         fragment = new ProfileFragment();
                         break;
                     }

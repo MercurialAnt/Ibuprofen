@@ -20,8 +20,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".LogOnActivity"></activity>
-        <activity android:name=".RestaurantFlow.RestaurantManager"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".RestaurantFlow.RestaurantManager" />
         <activity android:name=".RestaurantFlow.AddMembersActivity" />
         <activity
             android:name=".RestaurantFlow.ResultsActivity"
