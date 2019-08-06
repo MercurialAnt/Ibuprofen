@@ -1,6 +1,7 @@
 package com.example.ibuprofen.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -60,6 +61,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ChooseAdapter.ViewHolder viewHolder, int position) {
+        viewHolder.itemView.setBackgroundColor(Color.WHITE);
         Restaurant choice = choices.get(position);
         try {
             viewHolder.bind(choice);
