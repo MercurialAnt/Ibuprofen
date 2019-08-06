@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        // sets up notification for Pending
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(3);
+        notificationBadge = LayoutInflater.from(this).inflate(R.layout.view_notification_badge, menuView, false);
+        itemView.addView(notificationBadge);
         setPendingBoolean();
 
         // hide support action bar
@@ -49,19 +55,16 @@ public class MainActivity extends AppCompatActivity {
                 setPendingBoolean();
                 switch (menuItem.getItemId()) {
                     case R.id.action_feed: {
-//                        addBadgeView(ParseUser.getCurrentUser().getBoolean("hasPending"));
                         getSupportActionBar().hide();
                         fragment = new FeedFragment();
                         break;
                     }
                     case R.id.action_event: {
-//                        addBadgeView(ParseUser.getCurrentUser().getBoolean("hasPending"));
                         getSupportActionBar().hide();
                         fragment = new EventNameFragment();
                         break;
                     }
                     case R.id.action_profile: {
-//                        addBadgeView(ParseUser.getCurrentUser().getBoolean("hasPending"));
                         getSupportActionBar().hide();
                         fragment = new ProfileFragment();
                         break;
@@ -89,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addBadgeView(boolean add) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(3);
-        notificationBadge = LayoutInflater.from(this).inflate(R.layout.view_notification_badge, menuView, false);
-        itemView.addView(notificationBadge);
-
         if (add) {
             notificationBadge.setVisibility(View.VISIBLE);
         }
@@ -120,9 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     ParseUser.getCurrentUser().put("hasPending", false);
                     addBadgeView(false);
                 }
+                ParseUser.getCurrentUser().saveInBackground();
             }
         });
-
-        ParseUser.getCurrentUser().saveInBackground();
     }
 }

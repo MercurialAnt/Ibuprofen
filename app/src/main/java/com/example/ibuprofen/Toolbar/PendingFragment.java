@@ -72,7 +72,7 @@ public class PendingFragment extends Fragment {
                 else {
                     ParseUser.getCurrentUser().put("hasPending", false);
                 }
-//                ParseUser.getCurrentUser().saveInBackground();
+                ParseUser.getCurrentUser().saveInBackground();
             }
         });
     }
