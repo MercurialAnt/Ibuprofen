@@ -130,6 +130,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                         notifyItemRemoved(position);
                         event.removeMember(user);
                         event.saveInBackground();
+
+                        // checks if there are any events left, and changes notification symbol
+                        if (events.size() == 0) {
+                            ParseUser.getCurrentUser().put("hasPending", false);
+//                            ParseUser.getCurrentUser().saveInBackground();
+                        }
                     }
                 }
             });

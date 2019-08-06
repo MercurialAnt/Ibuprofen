@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -42,6 +43,7 @@ public class AddMembersFragment extends Fragment {
     Event event;
     FragmentManager manager;
     Activity mActivity;
+    boolean searchUsed = false;
 
     @Override
     public void onAttach(Context context) {
@@ -66,6 +68,7 @@ public class AddMembersFragment extends Fragment {
         btnNext = view.findViewById(R.id.btnNext);
         users = new ArrayList<>();
         event = getArguments().getParcelable("event");
+        ((AppCompatActivity)mActivity).getSupportActionBar().show();
 
         //create adapter
         adapter = new FriendAdapter(getContext(), users, event, true);
@@ -110,30 +113,39 @@ public class AddMembersFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 if (query.equals("")) {
                     queryUsers();
+                    searchUsed = true;
                     return true;
                 }
-                querySearchedUsers(query);
+                querySearchedUsers(query, true);
+                searchUsed = true;
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.equals("")) {
+                if (newText.equals("") && searchUsed) {
                     queryUsers();
-                    return true;
+                    return false;
                 }
-                querySearchedUsers(newText);
-                return true;
+                else if (!newText.equals("")) {
+                    querySearchedUsers(newText, false);
+                    searchUsed = true;
+                    return false;
+                }
+                return false;
             }
         });
     }
 
     private void queryUsers() {
+        // remove everything from users list
         users.removeAll(users);
+        adapter.notifyDataSetChanged();
+
         // get all users in the database except for current user, sort by alphabetical username
         ParseQuery query = ParseUser.getQuery();
-        query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
         query.orderByAscending("name");
+        query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
 
         // since it's an expensive operation you want to do this in a background thread not in the
         // same thread as the UI
@@ -141,23 +153,24 @@ public class AddMembersFragment extends Fragment {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
                 if (e != null) {
-                    Log.e("AddMembersActivity", "query failed");
+                    Log.e("FriendsFragment", "query failed");
                     e.printStackTrace();
                     return;
                 }
                 users.addAll(objects);
                 adapter.notifyDataSetChanged();
-                Log.d("AddMembersActivity", "number of users: " + users.size());
             }
         });
     }
 
-    private void querySearchedUsers(String search) {
-        if (search.equals("")) {
+    private void querySearchedUsers(String search, boolean submitClicked) {
+        if (search.equals("") && submitClicked) {
             // means that the search got canceled
+            users.removeAll(users);
+            adapter.notifyDataSetChanged();
             queryUsers();
         }
-        else {
+        else if (!search.equals("")){
             List<ParseUser> temp = new ArrayList<>(); // keeps track of users that match search results
             List<String> tempIds = new ArrayList<>(); // keeps track of ids
             for (ParseUser i : users) {
@@ -169,6 +182,7 @@ public class AddMembersFragment extends Fragment {
                 }
             }
             users.removeAll(users);
+            adapter.notifyDataSetChanged();
             users.addAll(temp);
             adapter.notifyDataSetChanged();
         }

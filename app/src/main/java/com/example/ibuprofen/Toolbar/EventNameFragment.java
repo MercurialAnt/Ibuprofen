@@ -26,6 +26,7 @@ public class EventNameFragment extends Fragment {
     private Button btnNext;
     private EditText etEventName;
     ImageView ivRestaurant;
+    ImageView ivMovie;
 
 
     @Nullable
@@ -39,8 +40,10 @@ public class EventNameFragment extends Fragment {
         btnNext = view.findViewById(R.id.btnNext);
         etEventName = view.findViewById(R.id.etEventName);
         ivRestaurant = view.findViewById(R.id.ivRestaurant);
+        ivMovie = view.findViewById(R.id.ivMovie);
 
         final boolean[] restaurant = new boolean[1];
+        final boolean[] movie = new boolean[1];
 
         ivRestaurant.setOnClickListener(new View.OnClickListener() {
             // onClick bring it to restaurants filter fragment
@@ -52,6 +55,21 @@ public class EventNameFragment extends Fragment {
                 }
                 else {
                     restaurant[0] = true;
+                    v.setBackgroundColor(Color.parseColor("#3B299895"));
+                }
+            }
+        });
+
+        ivMovie.setOnClickListener(new View.OnClickListener() {
+            // onClick bring it to restaurants filter fragment
+            @Override
+            public void onClick(View v) {
+                if (movie[0]) {
+                    movie[0] = false;
+                    v.setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+                else {
+                    movie[0] = true;
                     v.setBackgroundColor(Color.parseColor("#3B299895"));
                 }
             }

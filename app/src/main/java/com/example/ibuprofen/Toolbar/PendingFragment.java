@@ -64,7 +64,15 @@ public class PendingFragment extends Fragment {
                 }
                 mPending.addAll(events);
                 adapter.notifyDataSetChanged();
-                Log.d("ProfileFragment", "number of posts: " + mPending.size());
+
+                // updates hasPending
+                if (mPending.size() != 0) {
+                    ParseUser.getCurrentUser().put("hasPending", true);
+                }
+                else {
+                    ParseUser.getCurrentUser().put("hasPending", false);
+                }
+                ParseUser.getCurrentUser().saveInBackground();
             }
         });
     }

@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import com.example.ibuprofen.HomeActivity;
 import com.example.ibuprofen.PhotoCapture;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
+import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -61,6 +63,8 @@ public class ProfileFragment extends PhotoCapture {
     private List<Event> eventsList;
     private EventAdapter adapter;
     private boolean show;
+    TextView tvPendingLabel;
+    FrameLayout flReviews;
 
     @Nullable
     @Override
@@ -84,6 +88,9 @@ public class ProfileFragment extends PhotoCapture {
         ivCamera = view.findViewById(R.id.ivCamera);
         ivAdd = view.findViewById(R.id.ivAdd);
         eventsList = new ArrayList<>();
+        tvPendingLabel = view.findViewById(R.id.tvPendingLabel);
+        flReviews = view.findViewById(R.id.flReviews);
+
         show = true;
 
         // set current user and set username, name, and image
@@ -98,6 +105,17 @@ public class ProfileFragment extends PhotoCapture {
 
         // get past events by user
         queryUserEvents();
+
+        if (!ParseUser.getCurrentUser().getBoolean("hasPending")) {
+            tvPendingLabel.setVisibility(view.GONE);
+//            flReviews.setVisibility(view.GONE);
+            ivRefresh.setVisibility(view.GONE);
+        }
+        else {
+            tvPendingLabel.setVisibility(view.VISIBLE);
+//            flReviews.setVisibility(view.VISIBLE);
+            ivRefresh.setVisibility(view.VISIBLE);
+        }
 
         // load profile image
         ParseFile profile = user.getParseFile("profilePic");
@@ -276,4 +294,27 @@ public class ProfileFragment extends PhotoCapture {
             }
         });
     }
+
+//    private int getNumberPending() {
+//        ParseQuery<Event> postQuery = new ParseQuery<>(Event.class);
+//        postQuery.include(Event.KEY_USERS);
+//        postQuery.whereEqualTo("attendees", ParseUser.getCurrentUser());
+//        postQuery.whereNotEqualTo("hasVoted", ParseUser.getCurrentUser());
+//        final int[] numPending = {0};
+//
+//        postQuery.countInBackground(new CountCallback() {
+//            @Override
+//            public void done(int count, ParseException e) {
+//                if (count != 0) {
+//                    ParseUser.getCurrentUser().put("hasPending", true);
+//                    numPending[0] = count;
+//                }
+//                else {
+//                    ParseUser.getCurrentUser().put("hasPending", false);
+//                }
+//                ParseUser.getCurrentUser().saveInBackground();
+//            }
+//        });
+//        return numPending[0];
+//    }
 }
