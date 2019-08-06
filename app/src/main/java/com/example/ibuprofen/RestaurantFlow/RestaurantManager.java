@@ -28,7 +28,6 @@ public class RestaurantManager extends AppCompatActivity {
         } else if(fragment.equals("ResultsFragment")) {
             nextFragment = new ResultsFragment();
         } else {
-//            getSupportActionBar().hide();
             nextFragment = new FilterFragment();
         }
 

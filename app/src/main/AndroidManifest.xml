@@ -19,13 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LogOnActivity"></activity>
+        <activity android:name=".MovieFlow.MovieManager"></activity>
+        <activity android:name=".LogOnActivity" />
         <activity android:name=".RestaurantFlow.RestaurantManager" />
-        <activity android:name=".RestaurantFlow.AddMembersActivity" />
-        <activity
-            android:name=".RestaurantFlow.ResultsActivity"
-            android:label="@string/title_activity_results"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -37,10 +33,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".RestaurantFlow.ChooseActivity" />
+
         <activity android:name=".SignUpActivity" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".RestaurantFlow.RestaurantActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
