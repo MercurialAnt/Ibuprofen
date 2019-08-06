@@ -17,6 +17,7 @@ public class ParseApp extends Application {
         ParseObject.registerSubclass(Event.class);
         ParseObject.registerSubclass(Restaurant.class);
 
+
         final Parse.Configuration config = new Parse.Configuration.Builder(this)
                 .applicationId("ANA")
                 .clientKey("erichascrustyelbows")
