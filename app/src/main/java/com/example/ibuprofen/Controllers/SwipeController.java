@@ -35,6 +35,11 @@ public class SwipeController extends ItemTouchHelper.Callback {
     }
 
     @Override
+    public void onMoved(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, int fromPos, @NonNull RecyclerView.ViewHolder target, int toPos, int x, int y) {
+
+    }
+
+    @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         mAdapter.onItemDismiss(viewHolder.getAdapterPosition(), direction);
     }
