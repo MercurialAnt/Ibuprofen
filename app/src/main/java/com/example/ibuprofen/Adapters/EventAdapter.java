@@ -200,14 +200,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             Intent intent = new Intent(context, RestaurantManager.class);
             int position = getAdapterPosition();
             Event event = events.get(position);
-            if (!pastEvent)
-                bundle.putString("fragment", "ChooseFragment");
-            else {
+            if (!pastEvent) {
+
+            } else {
                 bundle.putString("fragment", "ResultsFragment");
+                bundle.putParcelable("event", event);
+                intent.putExtra("bundle", bundle);
+                context.startActivity(intent);
             }
-            bundle.putParcelable("event", event);
-            intent.putExtra("bundle", bundle);
-            context.startActivity(intent);
         }
 
         public String getRelativeTimeAgo(String rawJsonDate) {
