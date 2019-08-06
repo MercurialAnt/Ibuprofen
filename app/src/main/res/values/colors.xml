@@ -28,6 +28,7 @@
     <color name="no_button_border">#b1113e</color>
     <color name="white">#ffffff</color>
     <color name="white_trans">#22FFFFFF</color>
+    <color name="less_white_trans">#99FFFFFF</color>
     <color name="black">#000000</color>
     <color name="neon_purple">#ee00ee</color>
     </resources>
