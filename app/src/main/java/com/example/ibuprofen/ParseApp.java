@@ -24,5 +24,6 @@ public class ParseApp extends Application {
                 .server("http://ibuprofen.herokuapp.com/parse")
                 .build();
         Parse.initialize(config);
+        
     }
 }

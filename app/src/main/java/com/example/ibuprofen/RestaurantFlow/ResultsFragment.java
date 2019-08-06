@@ -95,6 +95,7 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent finishedIntent = new Intent(getContext(), MainActivity.class);
+                finishedIntent.putExtra("results", true);
                 startActivity(finishedIntent);
                 mActivity.finish();
             }

@@ -1,8 +1,5 @@
 package com.example.ibuprofen;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -20,12 +17,7 @@ import android.view.View;
 import com.example.ibuprofen.Toolbar.EventNameFragment;
 import com.example.ibuprofen.Toolbar.FeedFragment;
 import com.example.ibuprofen.Toolbar.FriendsFragment;
-import com.example.ibuprofen.Toolbar.PendingFragment;
 import com.example.ibuprofen.Toolbar.ProfileFragment;
-import com.example.ibuprofen.model.Event;
-import com.parse.ParseUser;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,7 +73,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //set default selection
-        bottomNavigationView.setSelectedItemId(R.id.action_feed);
+        if (getIntent() != null && getIntent().hasExtra("results")) {
+            bottomNavigationView.setSelectedItemId(R.id.action_profile);
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.action_feed);
+        }
     }
 
     @Override
