@@ -2,10 +2,10 @@
 
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
     <!--</style>-->
 
     <style name="AppTheme.NoActionBar">
@@ -30,10 +30,10 @@
     </style>
 
     <!--<style name="custom_button" parent="Widget.AppCompat.Button">-->
-        <!--<item name="android:progressDrawable">@drawable/custom_rating_bar</item>-->
-        <!--<item name="android:indeterminateDrawable">@drawable/custom_rating_bar</item>-->
-        <!--<item name="android:minHeight">16dip</item>-->
-        <!--<item name="android:maxHeight">16dip</item>-->
+    <!--<item name="android:progressDrawable">@drawable/custom_rating_bar</item>-->
+    <!--<item name="android:indeterminateDrawable">@drawable/custom_rating_bar</item>-->
+    <!--<item name="android:minHeight">16dip</item>-->
+    <!--<item name="android:maxHeight">16dip</item>-->
     <!--</style>-->
 
     <!-- Base application theme. -->
