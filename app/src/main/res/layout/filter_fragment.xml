@@ -10,11 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="165dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="165dp"
         android:fontFamily="@font/title_font"
         android:text="ENTER FILTERS"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/purple"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +56,13 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/text_body"
+        android:fontFamily="@font/title_font"
         android:text="Price"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
@@ -67,6 +71,7 @@
         android:id="@+id/btnOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_toggle_selector"
         android:textColor="@color/purple"
         android:textOff="$"
@@ -87,7 +92,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnFour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnTwo"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
+        app:layout_constraintTop_toTopOf="@+id/btnOne" />
 
     <ToggleButton
         android:id="@+id/btnFour"
@@ -100,7 +105,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnThree"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
+        app:layout_constraintTop_toTopOf="@+id/btnOne" />
 
     <ToggleButton
         android:id="@+id/btnTwo"
@@ -113,18 +118,20 @@
         app:layout_constraintEnd_toStartOf="@+id/btnThree"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnOne"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
+        app:layout_constraintTop_toTopOf="@+id/btnOne" />
 
     <TextView
         android:id="@+id/tvCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/text_body"
+        android:fontFamily="@font/title_font"
         android:text="Categories"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnThree" />

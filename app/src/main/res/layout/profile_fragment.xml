@@ -159,14 +159,4 @@
         app:layout_constraintTop_toTopOf="@+id/tvPendingLabel"
         app:srcCompat="@drawable/ic_refresh" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="29dp"
-        android:layout_height="33dp"
-        app:layout_constraintBottom_toTopOf="@+id/flReviews"
-        app:layout_constraintStart_toEndOf="@+id/ivRefresh"
-        app:layout_constraintTop_toTopOf="@+id/tvPendingLabel"
-        app:layout_constraintVertical_bias="0.0">
-
-    </android.support.constraint.ConstraintLayout>
-
 </android.support.constraint.ConstraintLayout>

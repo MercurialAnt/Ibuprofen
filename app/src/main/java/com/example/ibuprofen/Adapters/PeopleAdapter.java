@@ -21,10 +21,12 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     List<ParseUser> people;
     Context context;
+    boolean popup;
 
-    public PeopleAdapter(Context context, List<ParseUser> people) {
+    public PeopleAdapter(Context context, List<ParseUser> people, Boolean popup) {
         this.context = context;
         this.people = people;
+        this.popup = popup;
     }
 
     @NonNull
