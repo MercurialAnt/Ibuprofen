@@ -34,7 +34,6 @@ import java.util.List;
 
 import static com.example.ibuprofen.DetailsActivity.setHours;
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
-import static com.example.ibuprofen.RestaurantFlow.FilterFragment.getIntXml;
 
 public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private Context context;
@@ -189,7 +188,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         }
     }
     public void nextChoice(int position) {
-        if (position + 1 != getIntXml(context, R.integer.result_limit)) {
+        if (position + 1 < choices.size()) {
             rvChoices.scrollToPosition(position + 1);
         } else {
             goToResults(event);

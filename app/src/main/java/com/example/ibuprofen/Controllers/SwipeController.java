@@ -40,18 +40,19 @@ public class SwipeController extends ItemTouchHelper.Callback {
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            setTouchListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            setBackgroundColor(viewHolder, dX);
         } else {
             viewHolder.itemView.setBackgroundColor(Color.WHITE);
         }
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
     }
 
-    private void setTouchListener(Canvas c, RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, float dY, final int actionState, boolean isCurrentlyActive) {
+    private void setBackgroundColor(final RecyclerView.ViewHolder viewHolder, final float dX) {
+        int transparency = Math.min(255, Math.abs((int) dX / 3));
         if (dX < 0) {
-            viewHolder.itemView.setBackgroundColor(ColorUtils.setAlphaComponent(Color.parseColor("#BD4958"), Math.min(255, Math.abs((int) dX / 4))));
+            viewHolder.itemView.setBackgroundColor(ColorUtils.setAlphaComponent(Color.parseColor("#BD4958"), transparency));
         } else {
-            viewHolder.itemView.setBackgroundColor(ColorUtils.setAlphaComponent(Color.parseColor("#659E47"), Math.min(255, Math.min(255, (int) dX / 4))));
+            viewHolder.itemView.setBackgroundColor(ColorUtils.setAlphaComponent(Color.parseColor("#659E47"), transparency));
         }
     }
 
