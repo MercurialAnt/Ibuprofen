@@ -12,7 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,6 +99,7 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent finishedIntent = new Intent(getContext(), MainActivity.class);
+                finishedIntent.putExtra("results", true);
                 startActivity(finishedIntent);
                 mActivity.finish();
             }
@@ -112,6 +112,17 @@ public class ResultsFragment extends Fragment {
             @Override
             public void done(List<Restaurant> objects, ParseException e) {
                 if (e == null) {
+//                    Collections.sort(objects, new Comparator<Restaurant>() {
+//                        @Override
+//                        public int compare(Restaurant o1, Restaurant o2) {
+//                            try {
+//                                return o2.getVoted().getQuery().count() - o1.getVoted().getQuery().count();
+//                            } catch (ParseException e1) {
+//                                e1.printStackTrace();
+//                                return 0;
+//                            }
+//                        }
+//                    });
                     resultsAdapter = new ResultsAdapter(getContext(), objects);
 
                     tvResults.setAdapter(resultsAdapter);

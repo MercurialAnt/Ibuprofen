@@ -1,6 +1,9 @@
 package com.example.ibuprofen.Controllers;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
@@ -32,6 +35,25 @@ public class SwipeController extends ItemTouchHelper.Callback {
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder source, @NonNull RecyclerView.ViewHolder target) {
         mAdapter.onItemMove(source.getAdapterPosition(), target.getAdapterPosition());
         return true;
+    }
+
+    @Override
+    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            setBackgroundColor(viewHolder, dX);
+        } else {
+            viewHolder.itemView.setBackgroundColor(Color.WHITE);
+        }
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    }
+
+    private void setBackgroundColor(final RecyclerView.ViewHolder viewHolder, final float dX) {
+        int transparency = Math.min(255, Math.abs((int) dX / 3));
+        if (dX < 0) {
+            viewHolder.itemView.setBackgroundColor(ColorUtils.setAlphaComponent(Color.parseColor("#BD4958"), transparency));
+        } else {
+            viewHolder.itemView.setBackgroundColor(ColorUtils.setAlphaComponent(Color.parseColor("#659E47"), transparency));
+        }
     }
 
     @Override

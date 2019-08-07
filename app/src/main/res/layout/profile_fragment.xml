@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="17dp"
-        android:background="@drawable/standard_button"
+        android:background="@drawable/feed_button"
         android:text="SIGN OUT"
         android:textColor="#FDFCFC"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +76,7 @@
 
     <ImageView
         android:id="@+id/ivAdd"
+        android:background="@drawable/standard_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
@@ -157,15 +158,5 @@
         app:layout_constraintStart_toEndOf="@+id/tvPendingLabel"
         app:layout_constraintTop_toTopOf="@+id/tvPendingLabel"
         app:srcCompat="@drawable/ic_refresh" />
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="29dp"
-        android:layout_height="33dp"
-        app:layout_constraintBottom_toTopOf="@+id/flReviews"
-        app:layout_constraintStart_toEndOf="@+id/ivRefresh"
-        app:layout_constraintTop_toTopOf="@+id/tvPendingLabel"
-        app:layout_constraintVertical_bias="0.0">
-
-    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
