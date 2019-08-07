@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
+    <color name="yesGreen">#659E47</color>
+    <color name="noRed">#BD4958</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="pasterPink">#F08080</color>
@@ -28,6 +30,8 @@
     <color name="no_button_border">#b1113e</color>
     <color name="white">#ffffff</color>
     <color name="white_trans">#22FFFFFF</color>
+    <color name="less_white_trans">#99FFFFFF</color>
     <color name="black">#000000</color>
     <color name="popPurple">#e8e0e9</color>
+    <color name="neon_purple">#ee00ee</color>
     </resources>

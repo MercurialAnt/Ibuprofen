@@ -79,7 +79,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //set default selection
-        bottomNavigationView.setSelectedItemId(R.id.action_feed);
+        if (getIntent() != null && getIntent().hasExtra("results")) {
+            bottomNavigationView.setSelectedItemId(R.id.action_profile);
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.action_feed);
+        }
     }
 
     @Override

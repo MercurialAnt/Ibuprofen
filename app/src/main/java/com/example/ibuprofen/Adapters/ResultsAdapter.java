@@ -69,12 +69,14 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         // pop up vars
         private TextView tvPopName;
         private RecyclerView rvPopPeople;
+        private View divider;
 
         public ViewHolder(@NonNull View itemView) {
            super(itemView);
             tvCount = itemView.findViewById(R.id.tvCount);
             tvName = itemView.findViewById(R.id.tvName);
             llProfiles = itemView.findViewById(R.id.llProfiles);
+            divider = itemView.findViewById(R.id.divider);
 
             people = new ArrayList<>();
             rvPeople = itemView.findViewById(R.id.rvPeople);
@@ -84,6 +86,12 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         }
 
         public void bind(final Restaurant restaurant) {
+            if (getAdapterPosition() == restaurants.size() - 1) {
+                divider.setVisibility(View.GONE);
+            } else {
+                divider.setVisibility(View.VISIBLE);
+            }
+
             peopleAdapter.clear();
             restaurant.getVoted().getQuery().findInBackground(new FindCallback<ParseUser>() {
                 @Override
