@@ -120,13 +120,17 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
             if (size == 0) {
                 return;
             }
+
+            // The allowed number of people to be shown before the plus icon is shown
             int cutoff = Math.min(size, 3);
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 80);
             layoutParams.setMargins(2, 2, 2, 0);
             ImageView[] imageViews = new ImageView[cutoff];
 
+            // Adding the images to the layout
             for (int i = 0; i < cutoff; i++) {
+                // Creating the plus icon if there are more people than the cutoff
                 if (size > cutoff && i == 2) {
                     ImageView extra = new ImageView(context);
                     extra.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.plusoptions));
