@@ -85,6 +85,7 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
             Restaurant restaurant = choices.get(position);
             ParseRelation<ParseUser> relation = restaurant.getRelation("voted");
             relation.add(ParseUser.getCurrentUser());
+            restaurant.increment("count");
             restaurant.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -173,7 +174,6 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
                     reviews.add(Review.fromJson(list.getJSONObject(i)));
                 }
                 reviewAdapter.notifyDataSetChanged();
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

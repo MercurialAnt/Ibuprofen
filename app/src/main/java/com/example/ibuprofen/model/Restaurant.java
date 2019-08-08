@@ -110,6 +110,10 @@ public class Restaurant extends ParseObject {
          put(KEY_TIME, time);
     }
 
+    public int getCount() {
+        return getInt("count");
+    }
+
     public static Restaurant fromJSON(JSONObject store) throws JSONException {
         Restaurant restaurant = new Restaurant();
         restaurant.setRating(store.getDouble(KEY_RATING));

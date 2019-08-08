@@ -28,6 +28,8 @@ import com.parse.ParseException;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ResultsFragment extends Fragment {
@@ -112,17 +114,12 @@ public class ResultsFragment extends Fragment {
             @Override
             public void done(List<Restaurant> objects, ParseException e) {
                 if (e == null) {
-//                    Collections.sort(objects, new Comparator<Restaurant>() {
-//                        @Override
-//                        public int compare(Restaurant o1, Restaurant o2) {
-//                            try {
-//                                return o2.getVoted().getQuery().count() - o1.getVoted().getQuery().count();
-//                            } catch (ParseException e1) {
-//                                e1.printStackTrace();
-//                                return 0;
-//                            }
-//                        }
-//                    });
+                    Collections.sort(objects, new Comparator<Restaurant>() {
+                        @Override
+                        public int compare(Restaurant o1, Restaurant o2) {
+                            return o2.getCount() - o1.getCount();
+                        }
+                    });
                     resultsAdapter = new ResultsAdapter(getContext(), objects);
 
                     tvResults.setAdapter(resultsAdapter);

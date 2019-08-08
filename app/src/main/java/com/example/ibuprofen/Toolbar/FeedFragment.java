@@ -16,11 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.Adapters.EndlessRecyclerViewScrollListener;
 import com.example.ibuprofen.Adapters.RestaurantsAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.model.Restaurant;
 
 import org.json.JSONArray;
@@ -68,7 +68,6 @@ public class FeedFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         mRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(context, mRestaurants);
