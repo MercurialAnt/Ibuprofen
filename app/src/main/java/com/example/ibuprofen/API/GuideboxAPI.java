@@ -5,14 +5,16 @@ import android.content.Context;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-public class MovieAPI extends BaseAPI {
+public class GuideboxAPI extends BaseAPI {
     Context context;
+    MoviedbAPI movieAPI;
 
     private final String movie_base_url = "http://api-public.guidebox.com/v2/";
     private static final String GUIDE_BOX_API_KEY = "c816879da73e2d82733d7d52abc1a1a198d9234c";
 
-    public MovieAPI(Context context) {
+    public GuideboxAPI(Context context) {
         this.context = context;
+        movieAPI = new MoviedbAPI(context);
     }
 
     public Request getGenres() {
