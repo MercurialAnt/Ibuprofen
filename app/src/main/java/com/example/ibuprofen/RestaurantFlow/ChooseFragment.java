@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.ibuprofen.Adapters.ChooseRestaurantAdapter;
+import com.example.ibuprofen.Adapters.ChooseAdapter;
 import com.example.ibuprofen.Controllers.SwipeController;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
@@ -50,7 +50,7 @@ public class ChooseFragment extends Fragment {
 
     private RecyclerView rvChoose;
     private Button btnDone;
-    protected ChooseRestaurantAdapter adapter;
+    protected ChooseAdapter chooseAdapter;
     protected List<Restaurant> mChoices;
     private Context context;
     private FragmentManager manager;
@@ -86,15 +86,15 @@ public class ChooseFragment extends Fragment {
         // set up list
         mChoices = new ArrayList<>();
 
-        // initialize vars and adapter
+        // initialize vars and friendAdapter
         event = getArguments().getParcelable("event");
         client = OkSingleton.getInstance();
         api = new YelpAPI(context);
 
         rvChoose = view.findViewById(R.id.rvChoose);
         btnDone = view.findViewById(R.id.btnDone);
-        adapter = new ChooseRestaurantAdapter(context, mChoices, rvChoose, manager, event);
-        rvChoose.setAdapter(adapter);
+        chooseAdapter = new ChooseAdapter(context, mChoices, rvChoose, manager, event);
+        rvChoose.setAdapter(chooseAdapter);
         rvChoose.setLayoutManager(new LinearLayoutManager(context) {
             @Override
             public boolean canScrollVertically() {
@@ -102,7 +102,7 @@ public class ChooseFragment extends Fragment {
             }
         });
 
-        SwipeController swipeController = new SwipeController(adapter);
+        SwipeController swipeController = new SwipeController(chooseAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
         itemTouchHelper.attachToRecyclerView(rvChoose);
 
@@ -185,9 +185,12 @@ public class ChooseFragment extends Fragment {
                     } catch (java.text.ParseException e) {
                         e.printStackTrace();
                     }
+
                 }
             }
         });
+
+
     }
 
     private void populateReviews(final Restaurant restaurant) {
@@ -227,12 +230,16 @@ public class ChooseFragment extends Fragment {
     }
 
     private void addRestaurant(Restaurant restaurant) {
+
         mChoices.add(restaurant);
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter.notifyDataSetChanged();
+                chooseAdapter.notifyDataSetChanged();
             }
         });
+
     }
+
+
 }

@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-// adapter to show user's past events
+// chooseAdapter to show user's past events
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
     private Context context;

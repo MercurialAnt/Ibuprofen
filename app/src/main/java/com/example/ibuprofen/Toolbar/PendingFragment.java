@@ -24,7 +24,7 @@ import java.util.List;
 
 public class PendingFragment extends Fragment {
     private RecyclerView rvPending;
-    protected EventAdapter adapter;
+    protected EventAdapter eventAdapter;
     public List<Event> mPending;
 
     //onCreateView to inflate the view
@@ -38,8 +38,8 @@ public class PendingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rvPending = view.findViewById(R.id.rvPending);
         mPending = new ArrayList<>();
-        adapter = new EventAdapter(getContext(), mPending, false);
-        rvPending.setAdapter(adapter);
+        eventAdapter = new EventAdapter(getContext(), mPending, false);
+        rvPending.setAdapter(eventAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvPending.setLayoutManager(layoutManager);
 
@@ -63,7 +63,7 @@ public class PendingFragment extends Fragment {
                     return;
                 }
                 mPending.addAll(events);
-                adapter.notifyDataSetChanged();
+                eventAdapter.notifyDataSetChanged();
 
                 // updates hasPending
                 if (mPending.size() != 0) {

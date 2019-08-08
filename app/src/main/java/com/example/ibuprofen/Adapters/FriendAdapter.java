@@ -24,7 +24,7 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-// adapter to show user's past events
+// chooseAdapter to show user's past events
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder>{
 
     private Context context;

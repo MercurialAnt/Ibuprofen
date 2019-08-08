@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -29,7 +28,7 @@ import java.util.List;
 public class FriendsFragment extends Fragment {
     // instance vars
     RecyclerView rvUsers;
-    FriendAdapter adapter;
+    FriendAdapter friendAdapter;
     List<ParseUser> users;
     boolean searchUsed = false;
 
@@ -47,10 +46,10 @@ public class FriendsFragment extends Fragment {
         rvUsers = view.findViewById(R.id.rvUsers);
         users = new ArrayList<>();
 
-        //create adapter
-        adapter = new FriendAdapter(getContext(), users, null, false);
-        //set the adapter on the recycler view
-        rvUsers.setAdapter(adapter);
+        //create chooseAdapter
+        friendAdapter = new FriendAdapter(getContext(), users, null, false);
+        //set the chooseAdapter on the recycler view
+        rvUsers.setAdapter(friendAdapter);
         //set layout manager on recycler view
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
         queryUsers();
@@ -100,7 +99,7 @@ public class FriendsFragment extends Fragment {
     private void queryUsers() {
         // remove everything from users list
         users.removeAll(users);
-        adapter.notifyDataSetChanged();
+        friendAdapter.notifyDataSetChanged();
 
         // get all users in the database except for current user, sort by alphabetical username
         ParseQuery query = ParseUser.getQuery();
@@ -118,7 +117,7 @@ public class FriendsFragment extends Fragment {
                     return;
                 }
                 users.addAll(objects);
-                adapter.notifyDataSetChanged();
+                friendAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -127,7 +126,7 @@ public class FriendsFragment extends Fragment {
         if (search.equals("") && submitClicked) {
             // means that the search got canceled
             users.removeAll(users);
-            adapter.notifyDataSetChanged();
+            friendAdapter.notifyDataSetChanged();
             queryUsers();
         }
         else if (!search.equals("")){
@@ -142,9 +141,9 @@ public class FriendsFragment extends Fragment {
                 }
             }
             users.removeAll(users);
-            adapter.notifyDataSetChanged();
+            friendAdapter.notifyDataSetChanged();
             users.addAll(temp);
-            adapter.notifyDataSetChanged();
+            friendAdapter.notifyDataSetChanged();
         }
     }
 }

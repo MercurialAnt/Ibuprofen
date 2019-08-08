@@ -37,7 +37,7 @@ import okhttp3.Response;
 
 public class FeedFragment extends Fragment {
     private RecyclerView rvRestaurants;
-    protected RestaurantsAdapter adapter;
+    protected RestaurantsAdapter restaurantsAdapter;
     protected List<Restaurant> mRestaurants;
     private SwipeRefreshLayout scFeed;
     protected Activity mActivity;
@@ -71,11 +71,11 @@ public class FeedFragment extends Fragment {
 
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         mRestaurants = new ArrayList<>();
-        adapter = new RestaurantsAdapter(context, mRestaurants);
-        rvRestaurants.setAdapter(adapter);
+        restaurantsAdapter = new RestaurantsAdapter(context, mRestaurants);
+        rvRestaurants.setAdapter(restaurantsAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         rvRestaurants.setLayoutManager(linearLayoutManager);
-        adapter.notifyDataSetChanged();
+        restaurantsAdapter.notifyDataSetChanged();
         populateFeed(total_offset + "");
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -92,7 +92,7 @@ public class FeedFragment extends Fragment {
         scFeed.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.clear();
+                restaurantsAdapter.clear();
                 total_offset = 0;
                 scrollListener.resetState();
                 populateFeed(total_offset + "");
@@ -130,7 +130,7 @@ public class FeedFragment extends Fragment {
                             mActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    adapter.notifyDataSetChanged();
+                                    restaurantsAdapter.notifyDataSetChanged();
                                 }
                             });
                         }

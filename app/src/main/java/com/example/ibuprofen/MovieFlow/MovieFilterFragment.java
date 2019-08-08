@@ -3,8 +3,6 @@ package com.example.ibuprofen.MovieFlow;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,41 +11,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.ibuprofen.API.MovieAPI;
-import com.example.ibuprofen.API.YelpAPI;
+import com.example.ibuprofen.API.MoviedbAPI;
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Category;
 import com.example.ibuprofen.model.Event;
-import com.example.ibuprofen.model.Restaurant;
-import com.parse.ParseException;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 
 public class MovieFilterFragment extends Fragment {
 
@@ -176,7 +158,7 @@ public class MovieFilterFragment extends Fragment {
     }
 
     public void queryOptions() {
-        MovieAPI test = new MovieAPI(getContext());
+        MoviedbAPI test = new MoviedbAPI(getContext());
         OkHttpClient client = OkSingleton.getInstance();
         //todo--finish the call
     }

@@ -3,7 +3,6 @@ package com.example.ibuprofen.Toolbar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,7 +30,6 @@ import com.example.ibuprofen.HomeActivity;
 import com.example.ibuprofen.PhotoCapture;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.model.Event;
-import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -61,7 +59,7 @@ public class ProfileFragment extends PhotoCapture {
     private ParseUser user;
     boolean currentUser; //todo--make this applicable to viewing other profiles
     private List<Event> eventsList;
-    private EventAdapter adapter;
+    private EventAdapter eventAdapter;
     private boolean show;
     TextView tvPendingLabel;
     FrameLayout flReviews;
@@ -98,10 +96,10 @@ public class ProfileFragment extends PhotoCapture {
         tvUsername.setText("@" + user.getUsername());
         tvName.setText(user.getString("name"));
 
-        // set up adapter
+        // set up chooseAdapter
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new EventAdapter(getContext(), eventsList, true);
-        rvFeed.setAdapter(adapter);
+        eventAdapter = new EventAdapter(getContext(), eventsList, true);
+        rvFeed.setAdapter(eventAdapter);
 
         // get past events by user
         queryUserEvents();
@@ -289,7 +287,7 @@ public class ProfileFragment extends PhotoCapture {
                     return;
                 }
                 eventsList.addAll(events);
-                adapter.notifyDataSetChanged();
+                eventAdapter.notifyDataSetChanged();
                 Log.d("ProfileFragment", "number of posts: " + eventsList.size());
             }
         });

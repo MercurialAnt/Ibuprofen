@@ -7,14 +7,14 @@ import okhttp3.Request;
 
 public class GuideboxAPI extends BaseAPI {
     Context context;
-    MoviedbAPI movieAPI;
+    MoviedbAPI moviedbAPI;
 
     private final String movie_base_url = "http://api-public.guidebox.com/v2/";
     private static final String GUIDE_BOX_API_KEY = "c816879da73e2d82733d7d52abc1a1a198d9234c";
 
     public GuideboxAPI(Context context) {
         this.context = context;
-        movieAPI = new MoviedbAPI(context);
+        moviedbAPI = new MoviedbAPI(context);
     }
 
     public Request getGenres() {

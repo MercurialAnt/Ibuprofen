@@ -31,7 +31,6 @@ public class EventNameFragment extends Fragment {
     String purple = "#794d7e";
     String white = "#ffffff";
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
