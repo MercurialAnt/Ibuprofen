@@ -3,4 +3,5 @@
     <dimen name="dots">8dp</dimen>
     <dimen name="rounded_button">8dp</dimen>
     <dimen name="card">32dp</dimen>
+    <dimen name="popup">48</dimen>
 </resources>

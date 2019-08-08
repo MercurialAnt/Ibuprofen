@@ -34,15 +34,16 @@ import java.util.List;
 
 import static com.example.ibuprofen.DetailsActivity.setHours;
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
+import static com.example.ibuprofen.RestaurantFlow.FilterFragment.getIntXml;
 
-public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder> implements ItemTouchHelperAdapter {
+public class ChooseRestaurantAdapter extends RecyclerView.Adapter<ChooseRestaurantAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private Context context;
     private FragmentManager manager;
     private List<Restaurant> choices;
     private RecyclerView rvChoices;
     private Event event;
 
-    public ChooseAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices, FragmentManager manager, Event event) {
+    public ChooseRestaurantAdapter(Context context, List<Restaurant> choices, RecyclerView rvChoices, FragmentManager manager, Event event) {
         this.context = context;
         this.choices = choices;
         this.rvChoices = rvChoices;
@@ -52,14 +53,14 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ChooseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ChooseRestaurantAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view;
         view = LayoutInflater.from(context).inflate(R.layout.item_rest_choose, parent, false);
-        return new ChooseAdapter.ViewHolder(view);
+        return new ChooseRestaurantAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChooseAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ChooseRestaurantAdapter.ViewHolder viewHolder, int position) {
         viewHolder.itemView.setBackgroundColor(Color.WHITE);
         Restaurant choice = choices.get(position);
         try {
@@ -164,7 +165,6 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
                 setHours(tvSaturdaydayHours, restaurant.getTime(), 5);
                 setHours(tvSundayHours, restaurant.getTime(), 6);
             }
-
         }
 
         public void addReviews(JSONArray list) {
@@ -188,12 +188,11 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ViewHolder
         }
     }
     public void nextChoice(int position) {
-        if (position + 1 < choices.size()) {
+        if (position + 1 != getIntXml(context, R.integer.result_limit)) {
             rvChoices.scrollToPosition(position + 1);
         } else {
             goToResults(event);
         }
-
     }
 
     public void clear() {

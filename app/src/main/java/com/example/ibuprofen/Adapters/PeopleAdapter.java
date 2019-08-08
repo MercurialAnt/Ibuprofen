@@ -71,6 +71,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
             if (file != null) {
                 url = file.getUrl();
             }
+            if (popup) {
+                ivProfile.requestLayout();
+                ivProfile.getLayoutParams().height = 150;
+                ivProfile.getLayoutParams().width = 150;
+            }
             Glide.with(context)
                     .load(url)
                     .apply(options)

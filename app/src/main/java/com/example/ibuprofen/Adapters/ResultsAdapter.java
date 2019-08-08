@@ -180,8 +180,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
             View popupView = inflater.inflate(R.layout.popup_results, null);
 
             // create the popup window
-            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int width = 900;
+            int height = 450;
+            //int height = LinearLayout.LayoutParams.MATCH_PARENT;
             boolean focusable = true; // lets taps outside the popup also dismiss it
             final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
@@ -192,17 +193,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
             tvPopName.setText(restaurant.getName());
             rvPopPeople = popupWindow.getContentView().findViewById(R.id.rvPopPeople);
             rvPopPeople.setAdapter(peopleAdapter);
-            rvPopPeople.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
+            rvPopPeople.setLayoutManager(new GridLayoutManager(context, 4, LinearLayoutManager.VERTICAL, false));
 
-
-            // dismiss the popup window when touched
-            popupView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popupWindow.dismiss();
-                    return true;
-                }
-            });
         }
     }
 

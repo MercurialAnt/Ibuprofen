@@ -80,6 +80,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         ImageView ivAccept;
         ImageView ivDecline;
         TextView tvFriends;
+        ImageView ivEventType;
         TextView tvDate;
 
 
@@ -95,8 +96,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             ivAccept = view.findViewById(R.id.ivAccept);
             ivDecline = view.findViewById(R.id.ivDecline);
             tvFriends = view.findViewById(R.id.tvFriends);
+            //Todo: set the image using type of event
+            ivEventType = view.findViewById(R.id.ivEventType);
             tvDate = view.findViewById(R.id.tvDate);
             tvDate.setVisibility(View.GONE);
+
 
             if (pastEvent) {
                 ivAccept.setVisibility(View.GONE);

@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.ibuprofen.Adapters.ChooseAdapter;
+import com.example.ibuprofen.Adapters.ChooseRestaurantAdapter;
 import com.example.ibuprofen.Controllers.SwipeController;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
@@ -50,7 +50,7 @@ public class ChooseFragment extends Fragment {
 
     private RecyclerView rvChoose;
     private Button btnDone;
-    protected ChooseAdapter adapter;
+    protected ChooseRestaurantAdapter adapter;
     protected List<Restaurant> mChoices;
     private Context context;
     private FragmentManager manager;
@@ -93,7 +93,7 @@ public class ChooseFragment extends Fragment {
 
         rvChoose = view.findViewById(R.id.rvChoose);
         btnDone = view.findViewById(R.id.btnDone);
-        adapter = new ChooseAdapter(context, mChoices, rvChoose, manager, event);
+        adapter = new ChooseRestaurantAdapter(context, mChoices, rvChoose, manager, event);
         rvChoose.setAdapter(adapter);
         rvChoose.setLayoutManager(new LinearLayoutManager(context) {
             @Override
@@ -185,12 +185,9 @@ public class ChooseFragment extends Fragment {
                     } catch (java.text.ParseException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         });
-
-
     }
 
     private void populateReviews(final Restaurant restaurant) {
@@ -230,7 +227,6 @@ public class ChooseFragment extends Fragment {
     }
 
     private void addRestaurant(Restaurant restaurant) {
-
         mChoices.add(restaurant);
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -238,8 +234,5 @@ public class ChooseFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
-
-
 }
