@@ -19,4 +19,8 @@ public class MovieAPI extends BaseAPI {
         HttpUrl url = HttpUrl.parse(movie_base_url + "genres");
         return getAuthRequest(url, GUIDE_BOX_API_KEY);
     }
+
+//    public Request getFilteredMovies() {
+//
+//    }
 }
