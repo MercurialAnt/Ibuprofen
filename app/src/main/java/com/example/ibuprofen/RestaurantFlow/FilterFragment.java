@@ -98,7 +98,7 @@ public class FilterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity)mActivity).getSupportActionBar().hide();
 
-        sbDistance = view.findViewById(R.id.sbLength);
+        sbDistance = view.findViewById(R.id.sbDistance);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnOne = view.findViewById(R.id.btnOne);
         btnTwo = view.findViewById(R.id.btnTwo);

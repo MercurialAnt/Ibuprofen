@@ -35,33 +35,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMovieFilter" />
 
-    <SeekBar
-        android:id="@+id/sbLength"
-        style="@style/Widget.AppCompat.SeekBar"
-        android:layout_width="187dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="12dp"
-        android:indeterminate="false"
-        android:max="5"
-        android:progressBackgroundTint="@color/purple"
-        android:progressTint="@color/purple"
-        android:secondaryProgressTint="@color/purple"
-        android:thumbTint="@color/purple"
-        app:layout_constraintBottom_toBottomOf="@+id/tvLength"
-        app:layout_constraintStart_toEndOf="@+id/tvLength"
-        app:layout_constraintTop_toTopOf="@+id/tvLength" />
-
     <TextView
         android:id="@+id/tvHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/text_body"
         android:text="0 Hours"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/sbLength"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMovieFilter" />
 
     <TextView
@@ -79,47 +63,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRating" />
-
-    <ImageView
-        android:id="@+id/ivHulu"
-        android:layout_width="69dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="16dp"
-        android:background="#00AD0D0D"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tcServices"
-        tools:src="@drawable/hulu" />
-
-    <ImageView
-        android:id="@+id/ivNetflix"
-        android:layout_width="69dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/ivHulu"
-        app:layout_constraintTop_toBottomOf="@+id/tcServices"
-        tools:src="@drawable/netflix" />
-
-    <ImageView
-        android:id="@+id/ivPrime"
-        android:layout_width="69dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/ivNetflix"
-        app:layout_constraintTop_toBottomOf="@+id/tcServices"
-        tools:src="@drawable/prime" />
-
-    <ImageView
-        android:id="@+id/ivYoutube"
-        android:layout_width="69dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/ivPrime"
-        app:layout_constraintTop_toBottomOf="@+id/tcServices"
-        tools:src="@drawable/youtube" />
 
     <TextView
         android:id="@+id/tvRating"
@@ -168,7 +111,7 @@
         app:layout_constraintTop_toTopOf="@+id/cbG" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/cbPG13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -191,16 +134,16 @@
         android:text="R"
         android:textColorHighlight="@color/purple"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox3"
-        app:layout_constraintStart_toEndOf="@+id/checkBox3"
-        app:layout_constraintTop_toTopOf="@+id/checkBox3" />
+        app:layout_constraintBottom_toBottomOf="@+id/cbPG13"
+        app:layout_constraintStart_toEndOf="@+id/cbPG13"
+        app:layout_constraintTop_toTopOf="@+id/cbPG13" />
 
     <TextView
         android:id="@+id/tvGenres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="175dp"
         android:fontFamily="@font/text_body"
         android:text="Genres"
@@ -208,30 +151,59 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivNetflix" />
+        app:layout_constraintTop_toBottomOf="@+id/rvServices" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvGenres"
-        android:layout_width="395dp"
-        android:layout_height="318dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGenres" />
 
-    <ImageView
-        android:id="@+id/ivHbo"
-        android:layout_width="69dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="17dp"
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/standard_button"
+        android:text="NEXT"
+        android:textColor="#FDFFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvServices"
+        android:layout_width="395dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvGenres"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivYoutube"
-        app:layout_constraintTop_toBottomOf="@+id/tcServices"
-        tools:src="@drawable/hbo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tcServices" />
+
+    <SeekBar
+        android:id="@+id/sbLength"
+        android:layout_width="197dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:max="5"
+        android:progressBackgroundTint="@color/purple"
+        android:progressTint="@color/purple"
+        android:progressTintMode="src_in"
+        app:layout_constraintEnd_toStartOf="@+id/tvHours"
+        app:layout_constraintStart_toEndOf="@+id/tvLength"
+        app:layout_constraintTop_toTopOf="@+id/tvLength"
+        app:tickMark="@color/purple"
+        app:tickMarkTint="@color/purple" />
 </android.support.constraint.ConstraintLayout>

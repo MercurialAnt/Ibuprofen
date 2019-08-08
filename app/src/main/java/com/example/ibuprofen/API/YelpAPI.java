@@ -82,8 +82,5 @@ public class YelpAPI extends BaseAPI {
         money = money.substring(0, money.length() - 2);
         Log.d("Price", money);
         builder.addQueryParameter("price", money);
-
     }
-
-
 }
