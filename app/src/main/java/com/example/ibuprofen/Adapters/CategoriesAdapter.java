@@ -79,7 +79,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             if (!choosen.contains(icon.getApi_name())) {
                 ivIcon.setBackgroundColor(Color.parseColor(WHITE_COLOR));
             } else {
-                ivIcon.setBackgroundColor(Color.parseColor(RED_COLOR));
+                ivIcon.setBackgroundColor(Color.parseColor("#794d7e"));
             }
             Glide.with(context).load(getImage(icon.getIconImg())).into(ivIcon);
         }

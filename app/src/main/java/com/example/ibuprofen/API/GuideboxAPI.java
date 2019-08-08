@@ -22,7 +22,12 @@ public class GuideboxAPI extends BaseAPI {
         return getAuthRequest(url, GUIDE_BOX_API_KEY);
     }
 
-//    public Request getFilteredMovies() {
-//
-//    }
+    public Request getFilteredMovies(int limit, String sources) {
+        HttpUrl url = HttpUrl.parse(movie_base_url + "movies")
+                .newBuilder()
+                .addQueryParameter("limit", limit + "")
+                .addQueryParameter("sources", sources)
+                .build();
+        return null;
+    }
 }
