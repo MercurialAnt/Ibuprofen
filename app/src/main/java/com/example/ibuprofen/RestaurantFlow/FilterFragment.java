@@ -194,8 +194,6 @@ public class FilterFragment extends Fragment {
                                         relation.add(restaurant);
                                         if (count.decrementAndGet() == 0) {
                                             saveEvent();
-                                        } else {
-                                            event.saveInBackground();
                                         }
                                     } else {
                                         e.printStackTrace();
