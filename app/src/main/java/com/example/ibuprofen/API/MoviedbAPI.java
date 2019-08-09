@@ -27,8 +27,6 @@ public class MoviedbAPI {
                 .url(url)
                 .build();
     }
-
-
 }
 
 

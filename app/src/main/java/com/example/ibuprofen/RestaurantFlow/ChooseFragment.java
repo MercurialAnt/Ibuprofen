@@ -19,6 +19,7 @@ import android.widget.Button;
 
 import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.Adapters.ChooseAdapter;
+import com.example.ibuprofen.Adapters.ChooseAdapter;
 import com.example.ibuprofen.Controllers.SwipeController;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
@@ -86,7 +87,7 @@ public class ChooseFragment extends Fragment {
         // set up list
         mChoices = new ArrayList<>();
 
-        // initialize vars and adapter
+        // initialize vars and friendAdapter
         event = getArguments().getParcelable("event");
         client = OkSingleton.getInstance();
         api = new YelpAPI(context);
@@ -185,9 +186,12 @@ public class ChooseFragment extends Fragment {
                     } catch (java.text.ParseException e) {
                         e.printStackTrace();
                     }
+
                 }
             }
         });
+
+
     }
 
     private void populateReviews(final Restaurant restaurant) {
@@ -227,6 +231,7 @@ public class ChooseFragment extends Fragment {
     }
 
     private void addRestaurant(Restaurant restaurant) {
+
         mChoices.add(restaurant);
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -234,5 +239,8 @@ public class ChooseFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
     }
+
+
 }
