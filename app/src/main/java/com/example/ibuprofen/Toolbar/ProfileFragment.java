@@ -98,7 +98,7 @@ public class ProfileFragment extends PhotoCapture {
 
         // set up chooseAdapter
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        eventAdapter = new EventAdapter(getContext(), eventsList, true);
+        eventAdapter = new EventAdapter(getContext(), eventsList, true, getActivity());
         rvFeed.setAdapter(eventAdapter);
 
         // get past events by user

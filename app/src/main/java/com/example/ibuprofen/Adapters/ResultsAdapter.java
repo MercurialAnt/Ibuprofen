@@ -139,11 +139,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
                         @Override
                         public void onClick(View v) {
                             if (clicked) {
-                                //rvPeople.setVisibility(View.VISIBLE);
                                 showPopupWindowClick(v, restaurant);
                                 clicked = false;
                             } else {
-//                                rvPeople.setVisibility(View.GONE);
                                 clicked = true;
                             }
                         }

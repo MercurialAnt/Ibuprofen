@@ -38,7 +38,7 @@ public class PendingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rvPending = view.findViewById(R.id.rvPending);
         mPending = new ArrayList<>();
-        eventAdapter = new EventAdapter(getContext(), mPending, false);
+        eventAdapter = new EventAdapter(getContext(), mPending, false, getActivity());
         rvPending.setAdapter(eventAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvPending.setLayoutManager(layoutManager);

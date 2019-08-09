@@ -1,19 +1,26 @@
 package com.example.ibuprofen.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +28,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.RestaurantFlow.RestaurantManager;
 import com.example.ibuprofen.model.Event;
+import com.example.ibuprofen.model.Restaurant;
 import com.parse.CountCallback;
+import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -33,6 +42,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 // chooseAdapter to show user's past events
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
@@ -40,12 +51,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
     private List<Event> events;
     private ParseUser user;
     public boolean pastEvent;
+    private Activity activity;
 
-    public EventAdapter(Context context, List<Event> events, boolean pastEvent) {
+    public EventAdapter(Context context, List<Event> events, boolean pastEvent, Activity activity) {
         this.context = context;
         this.events = events;
         this.user = ParseUser.getCurrentUser();
         this.pastEvent = pastEvent;
+        this.activity = activity;
     }
 
     @NonNull
@@ -82,6 +95,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
         TextView tvFriends;
         ImageView ivEventType;
         TextView tvDate;
+        //pop up vars
+        private TextView tvPopName;
+        private TextView tvPopInvited;
+        private TextView tvPopTime;
+        private TextView tvPopCreator;
+        private ImageView ivPopEvent;
 
 
         public ViewHolder(@NonNull View view) {
@@ -175,15 +194,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                 creatorImage.getDataInBackground(new GetDataCallback() {
                     public void done(byte[] data, ParseException e) {
                         if (e == null) {
-                            if (!pastEvent) {
-                                Glide.with(context)
-                                        .load(creatorImage.getUrl())
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .into(ivRestaurant);
-                            }
-                            else {
-                                Glide.with(context).load(creatorImage.getUrl()).into(ivRestaurant);
-                            }
+                            Glide.with(context)
+                                    .load(creatorImage.getUrl())
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(ivRestaurant);
                         } else {
                             Log.d("test", "Problem load image the data.");
                         }
@@ -211,7 +225,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             int position = getAdapterPosition();
             Event event = events.get(position);
             if (!pastEvent) {
-
+                showPopupWindowClick(v, event);
             } else {
                 bundle.putString("fragment", "ResultsFragment");
                 bundle.putParcelable("event", event);
@@ -235,6 +249,51 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             }
 
             return relativeDate;
+        }
+
+        public void showPopupWindowClick(View view, Event event) {
+            final String[] invited = {""};
+            // inflate the layout of the popup window
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup_event, null);
+
+            // create the popup window
+            int width = 800;
+            int height = 450;
+            boolean focusable = true; // lets taps outside the popup also dismiss it
+            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+            // show the popup window
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+            tvPopName = popupWindow.getContentView().findViewById(R.id.tvPopName);
+            tvPopName.setText(event.getName());
+            tvPopCreator = popupWindow.getContentView().findViewById(R.id.tvPopCreator);
+            tvPopCreator.setText(event.getCreator().getUsername() + " invited: ");
+            tvPopTime = popupWindow.getContentView().findViewById(R.id.tvPopTime);
+            tvPopTime.setText(getRelativeTimeAgo(event.getCreatedAt().toString()));
+            tvPopInvited = popupWindow.getContentView().findViewById(R.id.tvPopInvited);
+            tvPopInvited.setMovementMethod(new ScrollingMovementMethod());
+            //List friends
+            event.getMembers().getQuery().findInBackground(new FindCallback<ParseUser>() {
+                @Override
+                public void done(List<ParseUser> objects, ParseException e) {
+                    if (e == null) {
+                        for (int i = 1; i < objects.size(); i++) {
+                            invited[0] += (objects.get(i).getUsername()+ "\n");
+                        }
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvPopInvited.setText(invited[0]);
+                            }
+                        });
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         }
     }
 }
