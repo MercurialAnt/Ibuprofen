@@ -24,10 +24,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
 import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
-import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.model.Category;
 import com.example.ibuprofen.model.Event;
 import com.example.ibuprofen.model.Restaurant;
@@ -50,7 +50,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
-import static android.graphics.Color.*;
+import static android.graphics.Color.WHITE;
 
 public class FilterFragment extends Fragment {
 
@@ -124,26 +124,31 @@ public class FilterFragment extends Fragment {
 
         // set on click listener for submit
         btnSubmit.setOnClickListener(new View.OnClickListener() {
+            boolean clicked = true;
             @Override
             public void onClick(View v) {
-                // gets distance information
-                String enteredDistance = sbDistance.getProgress() + "";
-                if (!enteredDistance.equals("")) {
-                    dist = (int) (Double.parseDouble(enteredDistance) * meterToMile); // convert to miles
+                if (clicked) {
+                    clicked = false;
+                    // gets distance information
+                    String enteredDistance = sbDistance.getProgress() + "";
+                    if (!enteredDistance.equals("")) {
+                        dist = (int) (Double.parseDouble(enteredDistance) * meterToMile); // convert to miles
+                    }
+
+                    // create a new event
+                    event = new Event();
+
+                    // set creator for event
+                    event.setCreator(ParseUser.getCurrentUser());
+
+                    // add creator to attendee list
+                    event.getMembers().add(ParseUser.getCurrentUser());
+
+                    event.setName(getArguments().getString("eventName"));
+                    // query acceptable restaurants
+                    queryOptions();
                 }
 
-                // create a new event
-                event = new Event();
-
-                // set creator for event
-                event.setCreator(ParseUser.getCurrentUser());
-
-                // add creator to attendee list
-                event.getMembers().add(ParseUser.getCurrentUser());
-
-                event.setName(getArguments().getString("eventName"));
-                // query acceptable restaurants
-                queryOptions();
             }
         });
 

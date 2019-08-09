@@ -114,6 +114,10 @@ public class Restaurant extends ParseObject {
         return getInt("count");
     }
 
+    public void setCount(int count) {
+        put("count", 0);
+    }
+
     public static Restaurant fromJSON(JSONObject store) throws JSONException {
         Restaurant restaurant = new Restaurant();
         restaurant.setRating(store.getDouble(KEY_RATING));
@@ -123,6 +127,7 @@ public class Restaurant extends ParseObject {
         restaurant.setDistance(store.getDouble(KEY_DISTANCE) / 1609.0);
         restaurant.setCategories(categoryToString(store.getJSONArray(KEY_CATEGORIES)));
         restaurant.setImage(store.getString(KEY_IMAGE));
+        restaurant.setCount(0);
 
         return restaurant;
     }
