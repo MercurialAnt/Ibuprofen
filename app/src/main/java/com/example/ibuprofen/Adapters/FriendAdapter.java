@@ -35,6 +35,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     public boolean saved; // keeps track of whether or not something is currently saving
     ArrayList<String> addedToEvent; // arrayList of usernames of users that have been added to current event
     ParseUser current;
+    String PurpleColor = "#794d7e";
 
     public FriendAdapter(Context context, List<ParseUser> users, Event event, boolean addNewMembersFragment) {
         this.context = context;
@@ -77,8 +78,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         TextView tvUsername;
         TextView tvName;
         Button btnAdd;
-        TextView tvAdded;
-        TextView tvFriends;
+
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -88,78 +88,79 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             tvUsername = view.findViewById(R.id.tvUser);
             tvName = view.findViewById(R.id.tvN);
             btnAdd = view.findViewById(R.id.btnAddd);
-            tvAdded = view.findViewById(R.id.tvAdded);
-            tvFriends = view.findViewById(R.id.tvFriends);
-
-            // sets initial text to gone
-            tvAdded.setVisibility(View.GONE);
-            tvFriends.setVisibility(View.GONE);
 
             // sets on click listener for add button if in the AddMembers page
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    btnAdd.setVisibility(View.GONE);
+                    btnAdd.setVisibility(View.VISIBLE);
+                    ParseUser clicked = users.get(getAdapterPosition());
+
+                    saved = false;
 
                     // does additional actions depending on view
                     if (addNewMembersFragment) { // if this is the addNewMembers fragment
-                        // replaces button
-                        tvAdded.setVisibility(View.VISIBLE);
-                        tvFriends.setVisibility(View.GONE);
-
-                        // sets saved to false
-                        saved = false;
-                        // adds added user to attendees in event
-                        // find number of event attendees (list all of them in details page)
-                        ParseUser clicked = users.get(getAdapterPosition());
-                        addedToEvent.add(clicked.getUsername());
-                        members.add(clicked);
-                        event.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                saved = true;
-                            }
-                        });
+                        if (addedToEvent.contains(clicked.getUsername())) {
+                            btnAdd.setText("ADD");
+                            btnAdd.setBackgroundResource(R.drawable.friends_toggle_on);
+                            removeAttendee(clicked);
+                        }
+                        else {
+                            addedToEvent.add(clicked.getUsername());
+                            members.add(clicked);
+                            event.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    saved = true;
+                                }
+                            });
+                            btnAdd.setText("REMOVE");
+                            btnAdd.setBackgroundResource(R.drawable.friends_toggle_off);
+                        }
                     }
                     else { // if this is the friends fragment
                         // replaces button
-                        tvFriends.setVisibility(View.VISIBLE);
-                        tvAdded.setVisibility(View.GONE);
+                        try {
+                            if (isCurrentFriend(clicked)) {
+                                btnAdd.setText("ADD");
+                                btnAdd.setBackgroundResource(R.drawable.friends_toggle_on);
+                                removeFriend(clicked);
+                            }
+                            else {
+                                btnAdd.setText("REMOVE");
+                                btnAdd.setBackgroundResource(R.drawable.friends_toggle_off);
 
-                        // adds friend to current user's friend list
-                        ParseUser friend = users.get(getAdapterPosition());
-                        addFriends(friend);
+                                // adds friend to current user's friend list
+                                addFriends(clicked);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
         }
 
-        public void addFriends(ParseUser friend) {
-            // adds friend to current user and vice versa
-            ParseUser current = ParseUser.getCurrentUser();
-            current.getRelation("friends").add(friend);
-
-            // saves users in background
-            current.saveInBackground();
-        }
-
         public void bind(ParseUser user) throws ParseException {
             btnAdd.setVisibility(View.VISIBLE);
-            tvAdded.setVisibility((View.GONE));
-            tvFriends.setVisibility(View.GONE);
+            btnAdd.setText("ADD");
+//            btnAdd.setBackground(Drawable.createFromPath("friends_toggle_on"));
+            btnAdd.setBackgroundResource(R.drawable.friends_toggle_on);
 
             // replaces Add button for current friends
             if (!addNewMembersFragment) {
                 if (isCurrentFriend(user)) {
                     // replaces buttons
-                    btnAdd.setVisibility(View.GONE);
-                    tvFriends.setVisibility(View.VISIBLE);
+                    btnAdd.setVisibility(View.VISIBLE);
+                    btnAdd.setText("REMOVE");
+                    btnAdd.setBackgroundResource(R.drawable.friends_toggle_off);
                 }
             }
-            else { // replaces Add button for users that have already been added
+            else { // replaces Add button
                 if(addedToEvent.contains(user.getUsername())) { // checks if user has already been added to event
-                    btnAdd.setVisibility(View.GONE);
-                    tvAdded.setVisibility(View.VISIBLE);
+                    btnAdd.setVisibility(View.VISIBLE);
+                    btnAdd.setText("REMOVE");
+                    btnAdd.setBackgroundResource(R.drawable.friends_toggle_off);
                 }
             }
 
@@ -173,7 +174,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                         .apply(RequestOptions.circleCropTransform())
                         .into(ivProfile);
             }
-
             // username
             tvUsername.setText("@" + user.getString("username"));
             // name
@@ -192,6 +192,31 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                 return true;
             }
             return false;
+        }
+
+        public void addFriends(ParseUser friend) {
+            ParseUser current = ParseUser.getCurrentUser();
+            current.getRelation("friends").add(friend);
+
+            current.saveInBackground();
+        }
+
+        private void removeFriend(ParseUser user) {
+            ParseUser current = ParseUser.getCurrentUser();
+            current.getRelation("friends").remove(user);
+            // saves users in background
+            current.saveInBackground();
+        }
+
+        private void removeAttendee(ParseUser user) {
+            addedToEvent.remove(user.getUsername());
+            members.remove(user);
+            event.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    saved = true;
+                }
+            });
         }
     }
 }

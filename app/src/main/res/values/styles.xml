@@ -37,14 +37,26 @@
     <!--</style>-->
 
     <!-- Base application theme. -->
+
+
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- This is the styling for action bar -->
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
+        <item name="colorPrimary">@color/white</item>
     </style>
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@color/purple</item>
         <item name="titleTextStyle">@style/MyActionBarTitle</item>
+        <!--<item name="android:editTextColor">@android:color/white</item>-->
+    </style>
+
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:editTextColor">@color/white</item>
+        <item name = "android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:colorAccent">@color/white</item>
     </style>
 
     <style name="MyActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
