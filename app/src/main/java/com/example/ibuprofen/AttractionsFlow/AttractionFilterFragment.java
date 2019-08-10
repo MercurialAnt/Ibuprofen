@@ -2,25 +2,45 @@ package com.example.ibuprofen.AttractionsFlow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
+import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
+import com.example.ibuprofen.RestaurantFlow.AddMembersFragment;
 import com.example.ibuprofen.model.Category;
+import com.example.ibuprofen.model.Event;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+
+import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
 
 public class AttractionFilterFragment extends Fragment {
 
     List<Category> categories;
     CategoriesAdapter categoriesAdapter;
     private Activity mActivity;
+    private FragmentManager manager;
+    Event event;
+
+    Button btnSubmit;
 
     @Override
     public void onAttach(Context context) {
@@ -29,6 +49,7 @@ public class AttractionFilterFragment extends Fragment {
         if (context instanceof Activity) {
             mActivity = (Activity) context;
         }
+        manager = getFragmentManager();
     }
 
     @Nullable
@@ -39,7 +60,55 @@ public class AttractionFilterFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        btnSubmit = view.findViewById(R.id.btnSubmit);
 
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            boolean clicked = true;
+            @Override
+            public void onClick(View v) {
+                if (clicked) {
+                    clicked = false;
+
+                    // create a new event
+                    event = new Event();
+
+                    // set creator for event
+                    event.setCreator(ParseUser.getCurrentUser());
+
+                    // add creator to attendee list
+                    event.getMembers().add(ParseUser.getCurrentUser());
+
+                    event.setName(getArguments().getString("eventName"));
+                    // query acceptable restaurants
+                    queryOptions();
+                }
+            }
+        });
+    }
+
+    public void queryOptions() {
+        YelpAPI test = new YelpAPI(getContext());
+        Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
+        OkHttpClient client = OkSingleton.getInstance();
+
+    }
+
+    public void saveEvent() {
+        event.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("RESTACTIVITY", "save failure");
+                    e.printStackTrace();
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("event", event);
+
+                fragmentIntent(new AddMembersFragment(), bundle, manager, false);
+            }
+        });
     }
 
     public void fillCategories() {
