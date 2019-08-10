@@ -103,7 +103,7 @@
         android:background="#00673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivRestaurant"
-        app:srcCompat="@drawable/movieselection" />
+        app:srcCompat="@drawable/ic_movie_film_reel" />
 
     <ImageView
         android:id="@+id/ivAttractions"
