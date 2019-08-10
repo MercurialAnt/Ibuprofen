@@ -10,10 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ibuprofen.Adapters.CategoriesAdapter;
 import com.example.ibuprofen.R;
+import com.example.ibuprofen.model.Category;
+
+import java.util.List;
 
 public class AttractionFilterFragment extends Fragment {
 
+    List<Category> categories;
+    CategoriesAdapter categoriesAdapter;
     private Activity mActivity;
 
     @Override
@@ -34,6 +40,18 @@ public class AttractionFilterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+    }
+
+    public void fillCategories() {
+        categories.add(new Category("Amusement Park", "amusementparks", "ic_pizza"));
+        categories.add(new Category("Aquarium", "aquariums", "ic_ramen"));
+        categories.add(new Category("Beach", "beaches", "ic_burger"));
+        categories.add(new Category("Fitness", "fitness", "ic_shrimp"));
+        categories.add(new Category("Movie Theather", "movietheaters", "ic_taco"));
+        categories.add(new Category("Gallery", "galleries", "ic_ramen2"));
+        categories.add(new Category("Museums", "museums", "ic_spat"));
+        categories.add(new Category("Parks", "parks", "ic_spat"));
+        categories.add(new Category("Lakes", "lakes", "ic_spat"));
     }
 
 
