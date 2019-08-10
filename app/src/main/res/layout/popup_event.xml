@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="200dp"
-    android:background="@color/purple">
+    android:background="@drawable/popup">
 
     <TextView
         android:id="@+id/tvPopName"
