@@ -111,7 +111,7 @@ public class FilterFragment extends Fragment {
         price = new ArrayList<>();
         categories = new ArrayList<>();
         choosen = new ArrayList<>();
-        if (event.getEventType() == "restaurant") {
+        if (getArguments().getString("eventType").equals("restaurant")) {
             fillRestaurantCategoryList();
         } else {
             fillAttractionCategoryList();
@@ -273,7 +273,14 @@ public class FilterFragment extends Fragment {
     }
 
     public void fillAttractionCategoryList() {
-
+        categories.add(new Category("Amusement Park", "amusementparks", "ic_amusement_park"));
+        categories.add(new Category("Aquarium", "aquariums", "ic_ramen"));
+        categories.add(new Category("Beach", "beaches", "ic_burger"));
+        categories.add(new Category("Fitness", "fitness", "ic_fitness"));
+        categories.add(new Category("Movie Theather", "movietheaters", "ic_taco"));
+        categories.add(new Category("Museums", "museums", "ic_museum"));
+        categories.add(new Category("Parks", "parks", "ic_spat"));
+        categories.add(new Category("Lakes", "lakes", "ic_spat"));
     }
 
     class MoneyListen implements CompoundButton.OnCheckedChangeListener {

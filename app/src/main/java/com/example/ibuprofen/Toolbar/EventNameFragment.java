@@ -96,23 +96,26 @@ public class EventNameFragment extends Fragment {
             public void onClick(View v) {
                 name[0] = etEventName.getText().toString();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("eventName", name[0]);
-                bundle.putString("fragment", "normal");
-                bundle.putString("eventType", value);
+                if (!name[0].equals("")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("eventName", name[0]);
+                    bundle.putString("fragment", "normal");
+                    bundle.putString("eventType", value);
 
-                if (restaurant[0]) {
-                    Intent i = new Intent(getContext(), RestaurantManager.class);
-                    i.putExtra("bundle", bundle);
-                    startActivity(i);
-                }
-                else if (movie[0]) {
-                    Intent i = new Intent(getContext(), MovieManager.class);
-                    i.putExtra("bundle", bundle);
-                    startActivity(i);
+                    if (restaurant[0]) {
+                        Intent i = new Intent(getContext(), RestaurantManager.class);
+                        i.putExtra("bundle", bundle);
+                        startActivity(i);
+                    } else if (movie[0]) {
+                        Intent i = new Intent(getContext(), MovieManager.class);
+                        i.putExtra("bundle", bundle);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(getContext(), "select event type", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
-                    Toast.makeText(getContext(), "select event type", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "name event", Toast.LENGTH_LONG).show();
                 }
             }
         });
