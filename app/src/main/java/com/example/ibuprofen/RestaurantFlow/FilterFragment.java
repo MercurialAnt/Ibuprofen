@@ -255,7 +255,7 @@ public class FilterFragment extends Fragment {
 
     public void fillRestaurantCategoryList() {
         categories.add(new Category("American", "tradamerican", "ic_bread"));
-        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_egg"));
+        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_breakfast"));
         categories.add(new Category("Burgers", "burgers", "ic_burger"));
         categories.add(new Category("Chinese", "chinese", "ic_ramen"));
         categories.add(new Category("Italian", "italian", "ic_spat"));
