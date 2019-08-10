@@ -24,67 +24,74 @@
         android:id="@+id/tvEventName"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/title_font"
         android:text="EVENT NAME "
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/purple"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/clEnterName"
-        android:layout_width="235dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="32dp"
-        android:background="#6B88389E"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="271dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="#6B88389E"
+        app:cardCornerRadius="30dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEventName"
-        tools:visibility="visible">
+        app:layout_constraintTop_toBottomOf="@+id/tvEventName">
 
         <EditText
             android:id="@+id/etEventName"
-            android:layout_width="225dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#FFFFFF"
+            android:layout_width="241dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
             android:ems="10"
             android:fontFamily="@font/text_body"
-            android:gravity="center_horizontal"
-            android:hint="Enter your event name"
+            android:hint="ENTER NAME"
             android:inputType="textPersonName"
-            android:textAllCaps="false"
-            android:textColor="@android:color/black"
-            android:textColorHint="#686565"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="#FCF6F6"
+            android:textColorHint="@color/white" />
+
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/title_font"
         android:text="SELECT EVENT TYPE"
         android:textColor="@color/purple"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clEnterName" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <ImageView
         android:id="@+id/ivRestaurant"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="42dp"
         android:background="#006D0909"
+        android:contentDescription="TODO"
         app:layout_constraintEnd_toStartOf="@+id/ivMovie"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:srcCompat="@drawable/restauranticon" />
 
@@ -92,10 +99,23 @@
         android:id="@+id/ivMovie"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="48dp"
         android:background="#00673AB7"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/ivRestaurant"
         app:srcCompat="@drawable/movieselection" />
+
+    <ImageView
+        android:id="@+id/ivAttractions"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="@+id/ivMovie"
+        app:layout_constraintStart_toStartOf="@+id/ivRestaurant"
+        app:layout_constraintTop_toBottomOf="@+id/ivMovie"
+        app:srcCompat="@drawable/attractions" />
 
 </android.support.constraint.ConstraintLayout>

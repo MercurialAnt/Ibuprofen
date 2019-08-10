@@ -28,6 +28,7 @@ public class EventNameFragment extends Fragment {
     private EditText etEventName;
     ImageView ivRestaurant;
     ImageView ivMovie;
+    ImageView ivAttractions;
     String purple = "#794d7e";
     String white = "#ffffff";
 
@@ -43,9 +44,11 @@ public class EventNameFragment extends Fragment {
         etEventName = view.findViewById(R.id.etEventName);
         ivRestaurant = view.findViewById(R.id.ivRestaurant);
         ivMovie = view.findViewById(R.id.ivMovie);
+        ivAttractions = view.findViewById(R.id.ivAttractions);
 
         final boolean[] restaurant = new boolean[1];
         final boolean[] movie = new boolean[1];
+        final boolean[] attraction = new boolean[1];
 
         ivRestaurant.setOnClickListener(new View.OnClickListener() {
             // onClick bring it to restaurants filter fragment
@@ -63,6 +66,10 @@ public class EventNameFragment extends Fragment {
                     // sets movie to false
                     movie[0] = false;
                     ivMovie.setBackgroundColor(Color.parseColor(white));
+
+                    // sets attractions to false
+                    attraction[0] = false;
+                    ivAttractions.setBackgroundColor(Color.parseColor(white));
                 }
             }
         });
@@ -83,6 +90,33 @@ public class EventNameFragment extends Fragment {
                     // sets restaurant to false
                     restaurant[0] = false;
                     ivRestaurant.setBackgroundColor(Color.parseColor(white));
+
+                    // sets attractions to false
+                    attraction[0] = false;
+                    ivAttractions.setBackgroundColor(Color.parseColor(white));
+                }
+            }
+        });
+
+        ivAttractions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (attraction[0]) {
+                    attraction[0] = false;
+                    v.setBackgroundColor(Color.parseColor(white));
+                }
+                else {
+                    // sets attraction to true
+                    attraction[0] = true;
+                    v.setBackgroundColor(Color.parseColor(purple));
+
+                    // sets restaurant to false
+                    restaurant[0] = false;
+                    ivRestaurant.setBackgroundColor(Color.parseColor(white));
+
+                    // sets movie to false
+                    movie[0] = false;
+                    ivMovie.setBackgroundColor(Color.parseColor(white));
                 }
             }
         });
@@ -106,7 +140,12 @@ public class EventNameFragment extends Fragment {
                         Intent i = new Intent(getContext(), MovieManager.class);
                         i.putExtra("bundle", bundle);
                         startActivity(i);
-                    } else {
+                    } else if (attraction[0]) {
+                        Intent i = new Intent(getContext(), RestaurantManager.class);
+                        i.putExtra("bundle", bundle);
+                        startActivity(i);
+                    }
+                    else {
                         Toast.makeText(getContext(), "select event type", Toast.LENGTH_LONG).show();
                     }
                 }
