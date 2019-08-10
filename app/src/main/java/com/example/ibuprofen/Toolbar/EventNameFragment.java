@@ -59,7 +59,6 @@ public class EventNameFragment extends Fragment {
                     // sets restaurant to true
                     restaurant[0] = true;
                     v.setBackground(getResources().getDrawable(R.drawable.event_icon));
-                    v.setBackgroundColor(Color.parseColor(purple));
                     value = "restaurant";
 
                     // sets movie to false
@@ -109,7 +108,6 @@ public class EventNameFragment extends Fragment {
                     // sets attraction to true
                     attraction[0] = true;
                     v.setBackground(getResources().getDrawable(R.drawable.event_icon));
-                    v.setBackgroundColor(Color.parseColor(purple));
                     value = "attraction";
 
                     // sets restaurant to false
