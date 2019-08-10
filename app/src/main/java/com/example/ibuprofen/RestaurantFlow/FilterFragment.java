@@ -248,15 +248,15 @@ public class FilterFragment extends Fragment {
 
     public void fillCategoryList() {
         categories.add(new Category("Pizza", "pizza", "ic_pizza"));
-        categories.add(new Category("Chinese", "chinese", "ic_ramen"));
+        categories.add(new Category("Chinese", "chinese", "ic_china"));
         categories.add(new Category("Burgers", "burgers", "ic_burger"));
-        categories.add(new Category("Seafood", "seafood", "ic_shrimp"));
+        categories.add(new Category("Seafood", "seafood", "ic_seafood"));
         categories.add(new Category("Mexican", "mexican", "ic_taco"));
-        categories.add(new Category("Thai", "thai", "ic_ramen2"));
-        categories.add(new Category("Italian", "italian", "ic_spat"));
+        categories.add(new Category("Thai", "thai", "ic_thai"));
+        categories.add(new Category("Italian", "italian", "ic_italian"));
         categories.add(new Category("Steakhouses", "steak", "ic_strak"));
-        categories.add(new Category("Korean", "korean", "ic_spat2"));
-        categories.add(new Category("Japanese", "japanese", "ic_fan"));
+        categories.add(new Category("Korean", "korean", "ic_korean"));
+        categories.add(new Category("Japanese", "japanese", "ic_japan"));
         categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwhich"));
         categories.add(new Category("Breakfast", "breakfast_brunch", "ic_egg"));
         categories.add(new Category("Vietnamese", "vietnamese", "ic_frying_pan"));
