@@ -2,6 +2,8 @@ package com.example.ibuprofen.AttractionsFlow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.ibuprofen.API.YelpAPI;
 import com.example.ibuprofen.Adapters.CategoriesAdapter;
+import com.example.ibuprofen.OkSingleton;
 import com.example.ibuprofen.R;
 import com.example.ibuprofen.RestaurantFlow.AddMembersFragment;
 import com.example.ibuprofen.model.Category;
@@ -23,6 +27,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 import static com.example.ibuprofen.RestaurantFlow.FilterFragment.fragmentIntent;
 
@@ -82,6 +88,9 @@ public class AttractionFilterFragment extends Fragment {
     }
 
     public void queryOptions() {
+        YelpAPI test = new YelpAPI(getContext());
+        Location gpsLocation = test.getLocationByProvider(LocationManager.GPS_PROVIDER);
+        OkHttpClient client = OkSingleton.getInstance();
 
     }
 
