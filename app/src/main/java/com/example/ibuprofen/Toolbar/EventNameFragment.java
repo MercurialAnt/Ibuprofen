@@ -27,6 +27,7 @@ public class EventNameFragment extends Fragment {
     ImageView ivAttractions;
     String purple = "#794d7e";
     String white = "#ffffff";
+    public String value;
 
     @Nullable
     @Override
@@ -58,6 +59,8 @@ public class EventNameFragment extends Fragment {
                     // sets restaurant to true
                     restaurant[0] = true;
                     v.setBackground(getResources().getDrawable(R.drawable.event_icon));
+                    v.setBackgroundColor(Color.parseColor(purple));
+                    value = "restaurant";
 
                     // sets movie to false
                     movie[0] = false;
@@ -82,6 +85,7 @@ public class EventNameFragment extends Fragment {
                     // sets movie to true
                     movie[0] = true;
                     v.setBackground(getResources().getDrawable(R.drawable.event_icon));
+                    value = "movie";
 
                     // sets restaurant to false
                     restaurant[0] = false;
@@ -105,6 +109,8 @@ public class EventNameFragment extends Fragment {
                     // sets attraction to true
                     attraction[0] = true;
                     v.setBackground(getResources().getDrawable(R.drawable.event_icon));
+                    v.setBackgroundColor(Color.parseColor(purple));
+                    value = "attraction";
 
                     // sets restaurant to false
                     restaurant[0] = false;
@@ -127,6 +133,7 @@ public class EventNameFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("eventName", name[0]);
                     bundle.putString("fragment", "normal");
+                    bundle.putString("eventType", value);
 
                     if (restaurant[0]) {
                         Intent i = new Intent(getContext(), RestaurantManager.class);

@@ -279,7 +279,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                 @Override
                 public void done(List<ParseUser> objects, ParseException e) {
                     if (e == null) {
-                        for (int i = 1; i < objects.size(); i++) {
+                        for (int i = 0; i < objects.size(); i++) {
                             invited[0] += (objects.get(i).getUsername()+ "\n");
                         }
                         activity.runOnUiThread(new Runnable() {
@@ -293,7 +293,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
                     }
                 }
             });
-
+            ivPopEvent = popupWindow.getContentView().findViewById(R.id.ivPopEvent);
+            if (event.getEventType() == "restaurant") {
+                Glide.with(context)
+                        .load("@drawable/restauranticonwhite")
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(ivPopEvent);
+            }
+//            else if (event.getEventType() == 1) {
+//
+//            }
         }
     }
 }
