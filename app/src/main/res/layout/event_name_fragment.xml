@@ -38,6 +38,7 @@
         android:id="@+id/clEnterName"
         android:layout_width="235dp"
         android:layout_height="63dp"
+        android:layout_marginTop="32dp"
         android:background="#6B88389E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
