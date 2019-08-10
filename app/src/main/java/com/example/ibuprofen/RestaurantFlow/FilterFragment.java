@@ -111,7 +111,11 @@ public class FilterFragment extends Fragment {
         price = new ArrayList<>();
         categories = new ArrayList<>();
         choosen = new ArrayList<>();
-        fillCategoryList();
+        if (event.getEventType() == "restaurant") {
+            fillRestaurantCategoryList();
+        } else {
+            fillAttractionCategoryList();
+        }
         categoriesAdapter = new CategoriesAdapter(getContext(), categories, choosen);
 
         rvCuisine.setAdapter(categoriesAdapter);
@@ -143,6 +147,9 @@ public class FilterFragment extends Fragment {
 
                     // add creator to attendee list
                     event.getMembers().add(ParseUser.getCurrentUser());
+
+                    // set event type
+                    event.setEventType(getArguments().getString("eventType"));
 
                     event.setName(getArguments().getString("eventName"));
                     // query acceptable restaurants
@@ -246,7 +253,7 @@ public class FilterFragment extends Fragment {
         transaction.commit();
     }
 
-    public void fillCategoryList() {
+    public void fillRestaurantCategoryList() {
         categories.add(new Category("Pizza", "pizza", "ic_pizza"));
         categories.add(new Category("Chinese", "chinese", "ic_ramen"));
         categories.add(new Category("Burgers", "burgers", "ic_burger"));
@@ -263,6 +270,10 @@ public class FilterFragment extends Fragment {
         categories.add(new Category("Vegetarian", "vegetarian", "ic_leaf"));
         categories.add(new Category("Sushi Bars", "sushi", "ic_sushi"));
         categories.add(new Category("American", "tradamerican", "ic_bread"));
+    }
+
+    public void fillAttractionCategoryList() {
+
     }
 
     class MoneyListen implements CompoundButton.OnCheckedChangeListener {

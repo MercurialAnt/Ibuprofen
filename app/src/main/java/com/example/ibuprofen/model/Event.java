@@ -16,6 +16,7 @@ public class Event extends ParseObject {
     public static final String KEY_CREATOR = "creator";
     public static final String KEY_VOTED = "hasVoted";
     public static final String KEY_NAME = "name";
+    public static final String KEY_TYPE = "eventType";
 
     public Event() {
     }
@@ -66,5 +67,13 @@ public class Event extends ParseObject {
 
     public void setName(String name) {
         put(KEY_NAME, name);
+    }
+
+    public String getEventType() {
+        return getString(KEY_TYPE);
+    }
+
+    public void setEventType(String type) {
+        put(KEY_TYPE, type);
     }
 }
