@@ -108,6 +108,7 @@ public class EventNameFragment extends Fragment {
                 else {
                     // sets attraction to true
                     attraction[0] = true;
+                    v.setBackground(getResources().getDrawable(R.drawable.event_icon));
                     v.setBackgroundColor(Color.parseColor(purple));
                     value = "attraction";
 

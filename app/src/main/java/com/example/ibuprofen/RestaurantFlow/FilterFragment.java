@@ -254,33 +254,33 @@ public class FilterFragment extends Fragment {
     }
 
     public void fillRestaurantCategoryList() {
-        categories.add(new Category("Pizza", "pizza", "ic_pizza"));
-        categories.add(new Category("Chinese", "chinese", "ic_ramen"));
-        categories.add(new Category("Burgers", "burgers", "ic_burger"));
-        categories.add(new Category("Seafood", "seafood", "ic_shrimp"));
-        categories.add(new Category("Mexican", "mexican", "ic_taco"));
-        categories.add(new Category("Thai", "thai", "ic_ramen2"));
-        categories.add(new Category("Italian", "italian", "ic_spat"));
-        categories.add(new Category("Steakhouses", "steak", "ic_strak"));
-        categories.add(new Category("Korean", "korean", "ic_spat2"));
-        categories.add(new Category("Japanese", "japanese", "ic_fan"));
-        categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwhich"));
-        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_egg"));
-        categories.add(new Category("Vietnamese", "vietnamese", "ic_frying_pan"));
-        categories.add(new Category("Vegetarian", "vegetarian", "ic_leaf"));
-        categories.add(new Category("Sushi Bars", "sushi", "ic_sushi"));
         categories.add(new Category("American", "tradamerican", "ic_bread"));
+        categories.add(new Category("Breakfast", "breakfast_brunch", "ic_egg"));
+        categories.add(new Category("Burgers", "burgers", "ic_burger"));
+        categories.add(new Category("Chinese", "chinese", "ic_ramen"));
+        categories.add(new Category("Italian", "italian", "ic_spat"));
+        categories.add(new Category("Japanese", "japanese", "ic_fan"));
+        categories.add(new Category("Korean", "korean", "ic_spat2"));
+        categories.add(new Category("Mexican", "mexican", "ic_taco"));
+        categories.add(new Category("Pizza", "pizza", "ic_pizza"));
+        categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwhich"));
+        categories.add(new Category("Seafood", "seafood", "ic_shrimp"));
+        categories.add(new Category("Steakhouses", "steak", "ic_strak"));
+        categories.add(new Category("Sushi Bars", "sushi", "ic_sushi"));
+        categories.add(new Category("Thai", "thai", "ic_ramen2"));
+        categories.add(new Category("Vegetarian", "vegetarian", "ic_leaf"));
+        categories.add(new Category("Vietnamese", "vietnamese", "ic_frying_pan"));
     }
 
     public void fillAttractionCategoryList() {
         categories.add(new Category("Amusement Park", "amusementparks", "ic_amusement_park"));
-        categories.add(new Category("Aquarium", "aquariums", "ic_ramen"));
-        categories.add(new Category("Beach", "beaches", "ic_burger"));
+        categories.add(new Category("Aquarium", "aquariums", "ic_aquarium"));
+        categories.add(new Category("Beach", "beaches", "ic_beach"));
         categories.add(new Category("Fitness", "fitness", "ic_fitness"));
-        categories.add(new Category("Movie Theather", "movietheaters", "ic_taco"));
+        categories.add(new Category("Lakes", "lakes", "ic_lake"));
+        categories.add(new Category("Movie Theather", "movietheaters", "ic_concert_ticket"));
         categories.add(new Category("Museums", "museums", "ic_museum"));
-        categories.add(new Category("Parks", "parks", "ic_spat"));
-        categories.add(new Category("Lakes", "lakes", "ic_spat"));
+        categories.add(new Category("Parks", "parks", "ic_park"));
     }
 
     class MoneyListen implements CompoundButton.OnCheckedChangeListener {
