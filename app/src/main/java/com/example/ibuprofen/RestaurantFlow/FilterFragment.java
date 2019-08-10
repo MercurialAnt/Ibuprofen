@@ -263,9 +263,9 @@ public class FilterFragment extends Fragment {
         categories.add(new Category("Korean", "korean", "ic_korean"));
         categories.add(new Category("Mexican", "mexican", "ic_taco"));
         categories.add(new Category("Pizza", "pizza", "ic_pizza"));
-        categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwhich"));
+        categories.add(new Category("Sandwiches", "sandwiches", "ic_sandwich"));
         categories.add(new Category("Seafood", "seafood", "ic_seafood"));
-        categories.add(new Category("Steakhouses", "steak", "ic_strak"));
+        categories.add(new Category("Steakhouses", "steak", "ic_chop"));
         categories.add(new Category("Sushi Bars", "sushi", "ic_sushi"));
         categories.add(new Category("Thai", "thai", "ic_thai"));
         categories.add(new Category("Vegetarian", "vegetarian", "ic_leaf"));
