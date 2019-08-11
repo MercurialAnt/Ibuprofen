@@ -8,13 +8,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.example.ibuprofen.Toolbar.EventNameFragment;
 import com.example.ibuprofen.Toolbar.FeedFragment;
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().hasExtra("results")) {
             bottomNavigationView.setSelectedItemId(R.id.action_profile);
         } else {
-            bottomNavigationView.setSelectedItemId(R.id.action_feed);
+            bottomNavigationView.setSelectedItemId(R.id.action_event);
         }
     }
 
